@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/bacjeu1">
 
     <Button
         android:id="@+id/button"
-        android:layout_width="290dp"
-        android:layout_height="84dp"
+        android:layout_width="1155dp"
+        android:layout_height="81dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="259dp"
-        android:layout_marginTop="91dp"
-        android:layout_marginEnd="251dp"
-        android:text="Button" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="454dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="128dp"
+        android:text="Valider" />
 </RelativeLayout>
