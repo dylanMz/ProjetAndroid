@@ -33,7 +33,7 @@ public class AccueilActivity extends AppCompatActivity implements View.OnClickLi
         //Intent unIntent = new Intent(this, MainActivity.class   );
         //lePrenom = editTextPrenom.getText().toString();
         //unIntent.putExtra("Joueur", lePrenom);
-        //this.startActivity(unIntent);
+        //this.startActivity(unIntent);//
 
 
     }
