@@ -3,9 +3,11 @@ package com.example.dmendez.projet_android_dylan_julian;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class AccueilActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,7 +35,15 @@ public class AccueilActivity extends AppCompatActivity implements View.OnClickLi
         Intent unIntent = new Intent(this, MainActivity.class   );
         lePrenom = editTextPrenom.getText().toString();
         unIntent.putExtra("Joueur", lePrenom);
-        this.startActivity(unIntent);//////////////
+
+        if(lePrenom.isEmpty()){
+            Toast toast =  Toast.makeText(this, "Manque le prénom !", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.TOP|Gravity.LEFT, 1100, 500);
+            toast.show();
+        }
+        else {
+            this.startActivity(unIntent);
+        }
 
 
     }
