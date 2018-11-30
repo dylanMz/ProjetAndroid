@@ -12,16 +12,28 @@ public class collectionPersonnage {
     public void insertion_personnage(Context un_context) {
         base_qcm = new gestionBdd(un_context);
 
-        //ensPersonnage = base_qcm.getLesQuestions();
+        ensPersonnage = base_qcm.getLesPersonnages();
 
         if (ensPersonnage.isEmpty()) {
             base_qcm.ajoutPersonnage(new Personnage(1, "Asterix", "@drawable/asterix"));
             base_qcm.ajoutPersonnage(new Personnage(2, "Lukyluke", "@drawable/luckyluke"));
             base_qcm.ajoutPersonnage(new Personnage(3, "titeuf", "@drawable/titeuf"));
-            //
+            base_qcm.ajoutPersonnage(new Personnage(4, "shtroumpf", "@drawable/shtroumpf"));
+
+            ensPersonnage = base_qcm.getLesPersonnages();
+
         }
+
     }
 
-    //public String getPersonnage(String nomPersonnage){return ensPersonnage.get(nomPersonnage).getNomPersonnage();}
+    //Retourne le nombre de personnage
+    public int nb_perso(){ return ensPersonnage.size();}
+
+    public String getNomP(int nomP){return ensPersonnage.get(nomP).getNomPersonnage();}
+
+    public String getCheminP(int cheminP){return ensPersonnage.get(cheminP).getCheminPersonnage();}
+
 
 }
+
+

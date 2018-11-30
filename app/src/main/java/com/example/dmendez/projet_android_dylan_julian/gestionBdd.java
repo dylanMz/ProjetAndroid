@@ -14,6 +14,10 @@ public class gestionBdd extends SQLiteOpenHelper {
     // défini des constantes de classe
     private static final int VERSION_BDD = 1;
     private static final String NOM_BDD = "uneBdd";
+    private static final String nom = "nom";
+    private static final String chemin = "chemin";
+    private static final String id = "id";
+
 
     // constructeur
     public gestionBdd(Context context){
@@ -46,7 +50,7 @@ public class gestionBdd extends SQLiteOpenHelper {
     }
 
 
-/*    public ArrayList<Personnage> getLesPersonnages(){
+    public ArrayList<Personnage> getLesPersonnages(){
         ArrayList<Personnage> ensPersonnage = new ArrayList<Personnage>();
         String reqSelect = " SELECT * FROM personnageBD ";
 
@@ -55,16 +59,16 @@ public class gestionBdd extends SQLiteOpenHelper {
         if(unCurseur.moveToFirst()){
             do{
                 Personnage un_personnage = new Personnage();
-                un_personnage.setIdPersonnage(unCurseur.getInt(unCurseur.getColumnIndex()));
-                un_personnage.setNomPersonnage(unCurseur.getString(unCurseur.getColumnIndex(intitule)));
-                un_personnage.setCheminPersonnage(unCurseur.getString(unCurseur.getColumnIndex(solution)));
+                un_personnage.setIdPersonnage(unCurseur.getInt(unCurseur.getColumnIndex(id)));
+                un_personnage.setNomPersonnage(unCurseur.getString(unCurseur.getColumnIndex(nom)));
+                un_personnage.setCheminPersonnage(unCurseur.getString(unCurseur.getColumnIndex(chemin)));
 
                 ensPersonnage.add(un_personnage);
             }while (unCurseur.moveToNext());
-            Collections.shuffle(un_personnage);
+            Collections.shuffle(ensPersonnage);
         }
 
         return ensPersonnage;
     }
-*/
+
 }

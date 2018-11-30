@@ -8,8 +8,13 @@ public class Personnage {
     //Constructeur
     public Personnage (int wid, String wnomPersonnage, String wcheminPersonnage)
     {
+        idPersonnage=wid;
         nomPersonnage = wnomPersonnage;
         cheminPersonnage = wcheminPersonnage;
+    }
+
+    public Personnage() {
+
     }
 
     //Accesseurs
