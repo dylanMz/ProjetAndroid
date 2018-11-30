@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -17,6 +18,7 @@ public class MainActivity extends Activity {
     private String lePrenom;
     private TextView txtTimer;
     private int uneSeconde;
+    private ImageView imgAtrouver;
 
 
     @Override
@@ -30,6 +32,7 @@ public class MainActivity extends Activity {
         btnNiveau2 = (Button) this.findViewById(R.id.button_niveau2);
         btnNiveau3 = (Button) this.findViewById(R.id.button_niveau3);
         txtTimer = (TextView) this.findViewById(R.id.textView_timer);
+        imgAtrouver = (ImageView) this.findViewById(R.id.imageView_persoChercher);
 
 
         //Affiche le prénom du joueur
@@ -71,6 +74,11 @@ public class MainActivity extends Activity {
 
             public void onTick(long millisUntilFinished) {
                 txtTimer.setText("Temps restant : " + millisUntilFinished / 1000);
+                //imgAtrouver.
+
+
+
+
             }
 
             public void onFinish() {

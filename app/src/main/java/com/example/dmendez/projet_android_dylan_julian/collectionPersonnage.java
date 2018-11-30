@@ -18,6 +18,7 @@ public class collectionPersonnage {
             base_qcm.ajoutPersonnage(new Personnage(1, "Asterix", "@drawable/asterix"));
             base_qcm.ajoutPersonnage(new Personnage(2, "Lukyluke", "@drawable/luckyluke"));
             base_qcm.ajoutPersonnage(new Personnage(3, "titeuf", "@drawable/titeuf"));
+            //
         }
     }
 
