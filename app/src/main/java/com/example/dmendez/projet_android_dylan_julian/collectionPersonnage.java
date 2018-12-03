@@ -20,7 +20,7 @@ public class collectionPersonnage {
             base_qcm.ajoutPersonnage(new Personnage(3, "shtroumph"));
             base_qcm.ajoutPersonnage(new Personnage(4, "manu"));
 
-            ensPersonnage = base_qcm.getLesPersonnages();
+            //ensPersonnage = base_qcm.getLesPersonnages();
 
         }
 

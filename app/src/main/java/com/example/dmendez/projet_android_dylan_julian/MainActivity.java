@@ -103,7 +103,7 @@ public class MainActivity extends Activity {
     {
         //Aléatoire
         //Random rand = new Random();
-        int nbMax = liste_personnage.nb_perso() + 5;
+        int nbMax = liste_personnage.ensPersonnage.size();
         //int n = rand.nextInt(nbMax); // Gives n such that 0 <= n < 20
         //txtTest.setText(String.valueOf(n));
 
