@@ -16,6 +16,8 @@ public class AccueilActivity extends AppCompatActivity implements View.OnClickLi
     private EditText editTextPrenom;
     private String lePrenom;
 
+    private collectionPersonnage liste_personnage = new collectionPersonnage();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
