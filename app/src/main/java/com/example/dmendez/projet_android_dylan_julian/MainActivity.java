@@ -17,6 +17,7 @@ public class MainActivity extends Activity {
     private Button btnNiveau1;
     private Button btnNiveau2;
     private Button btnNiveau3;
+    private Button btnRecommencer;
     private TextView txtAccueilMsg;
     private TextView txtTest;
     private String lePrenom;
@@ -24,6 +25,7 @@ public class MainActivity extends Activity {
     private ImageView imgAtrouver;
 
     private int uneSeconde;
+
     private collectionPersonnage liste_personnage = new collectionPersonnage();
 
 
@@ -41,6 +43,7 @@ public class MainActivity extends Activity {
         txtTimer = (TextView) this.findViewById(R.id.textView_timer);
         imgAtrouver = (ImageView) this.findViewById(R.id.imageView_persoChercher);
         txtTest = (TextView) this.findViewById(R.id.textView_test);
+        btnRecommencer = (Button) this.findViewById(R.id.button_recommencer) ;
 
         //Affiche le prénom du joueur
         lePrenom = this.getIntent().getExtras().getString("Joueur");
@@ -75,9 +78,22 @@ public class MainActivity extends Activity {
         {
             public void onClick(View v)
             {
-                uneSeconde = 60;
+                uneSeconde = 2;
                 launchNiveau(uneSeconde);
                 initImage();
+            }
+        });
+
+        btnRecommencer.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                btnNiveau1.setEnabled(true);
+                btnNiveau2.setEnabled(true);
+                btnNiveau3.setEnabled(true);
+                btnRecommencer.setVisibility(View.INVISIBLE);
+                imgAtrouver.setImageResource(R.drawable.pointinterogation);
+
             }
         });
 
@@ -101,8 +117,10 @@ public class MainActivity extends Activity {
 
     public void launchNiveau(int wSeconde)
     {
+
         //Instancie un timer
         final CountDownTimer countDownTimer = new CountDownTimer(wSeconde * 1000, 1000) {
+
 
             public void onTick(long millisUntilFinished) {
                 txtTimer.setText("Temps restant : " + millisUntilFinished / 1000);
@@ -110,9 +128,18 @@ public class MainActivity extends Activity {
 
             public void onFinish() {
                 txtTimer.setText("Fin");
+                btnRecommencer.setVisibility(View.VISIBLE);
+
+                txtTimer.setText("");
+
             }
 
         };
+
+        btnNiveau1.setEnabled(false);
+        btnNiveau2.setEnabled(false);
+        btnNiveau3.setEnabled(false);
+
 
         countDownTimer.start();
     }
