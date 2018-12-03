@@ -27,7 +27,7 @@ public class gestionBdd extends SQLiteOpenHelper {
     //surcharge de la méthode onCreate
     @Override
     public void onCreate(SQLiteDatabase objbdd){
-        String maReq = "CREATE TABLE personnageBD ( id INTEGER PRIMARY KEY AUTOINCREMENT, nomPersonnage TEXT, cheminImage TEXT) ;";
+        String maReq = "CREATE TABLE personnageBD ( id INTEGER PRIMARY KEY AUTOINCREMENT, nomPersonnage TEXT) ;";
         objbdd.execSQL(maReq);
     }
 
@@ -43,7 +43,6 @@ public class gestionBdd extends SQLiteOpenHelper {
 
         values.put("idPersonnage",unPersonnage.getIdPersonnage());
         values.put("nomPersonnage",unPersonnage.getNomPersonnage());
-        values.put("cheminPersonnage",unPersonnage.getCheminPersonnage());
 
         long insertion = db.insert("PersonnageBD", null, values);
         return insertion;
@@ -61,7 +60,6 @@ public class gestionBdd extends SQLiteOpenHelper {
                 Personnage un_personnage = new Personnage();
                 un_personnage.setIdPersonnage(unCurseur.getInt(unCurseur.getColumnIndex(id)));
                 un_personnage.setNomPersonnage(unCurseur.getString(unCurseur.getColumnIndex(nom)));
-                un_personnage.setCheminPersonnage(unCurseur.getString(unCurseur.getColumnIndex(chemin)));
 
                 ensPersonnage.add(un_personnage);
             }while (unCurseur.moveToNext());

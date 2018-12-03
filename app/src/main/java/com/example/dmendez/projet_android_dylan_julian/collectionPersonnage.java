@@ -15,10 +15,10 @@ public class collectionPersonnage {
         ensPersonnage = base_qcm.getLesPersonnages();
 
         if (ensPersonnage.isEmpty()) {
-            base_qcm.ajoutPersonnage(new Personnage(1, "Asterix", "@drawable/asterix"));
-            base_qcm.ajoutPersonnage(new Personnage(2, "Lukyluke", "@drawable/luckyluke"));
-            base_qcm.ajoutPersonnage(new Personnage(3, "titeuf", "@drawable/titeuf"));
-            base_qcm.ajoutPersonnage(new Personnage(4, "shtroumpf", "@drawable/shtroumpf"));
+            base_qcm.ajoutPersonnage(new Personnage(1 , "asterix"));
+            base_qcm.ajoutPersonnage(new Personnage(2, "titeuf"));
+            base_qcm.ajoutPersonnage(new Personnage(3, "shtroumph"));
+            base_qcm.ajoutPersonnage(new Personnage(4, "manu"));
 
             ensPersonnage = base_qcm.getLesPersonnages();
 
@@ -26,12 +26,11 @@ public class collectionPersonnage {
 
     }
 
-    //Retourne le nombre de personnage
+    //Retourne le nombre de personnage présent dans la collection.
     public int nb_perso(){ return ensPersonnage.size();}
 
     public String getNomP(int nomP){return ensPersonnage.get(nomP).getNomPersonnage();}
 
-    public String getCheminP(int cheminP){return ensPersonnage.get(cheminP).getCheminPersonnage();}
 
 
 }

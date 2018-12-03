@@ -3,14 +3,12 @@ package com.example.dmendez.projet_android_dylan_julian;
 public class Personnage {
     int idPersonnage;
     String nomPersonnage;
-    String cheminPersonnage;
 
     //Constructeur
-    public Personnage (int wid, String wnomPersonnage, String wcheminPersonnage)
+    public Personnage (int wid, String wnomPersonnage)
     {
         idPersonnage=wid;
         nomPersonnage = wnomPersonnage;
-        cheminPersonnage = wcheminPersonnage;
     }
 
     public Personnage() {
@@ -26,10 +24,6 @@ public class Personnage {
         return nomPersonnage;
     }
 
-    public String getCheminPersonnage() {
-        return cheminPersonnage;
-    }
-
     public void setIdPersonnage(int idPersonnage) {
         this.idPersonnage = idPersonnage;
     }
@@ -38,7 +32,4 @@ public class Personnage {
         this.nomPersonnage = nomPersonnage;
     }
 
-    public void setCheminPersonnage(String cheminPersonnage) {
-        this.cheminPersonnage = cheminPersonnage;
-    }
 }
