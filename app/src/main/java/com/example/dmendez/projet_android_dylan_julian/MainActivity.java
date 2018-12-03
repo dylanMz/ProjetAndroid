@@ -95,8 +95,6 @@ public class MainActivity extends Activity {
         txtTest.setText(String.valueOf(nbMax));
         //txtTest.setText(String.valueOf(liste_personnage));
 
-
-
         imgAtrouver.setImageResource(R.drawable.asterix);
     }
 

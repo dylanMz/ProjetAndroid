@@ -13,7 +13,7 @@ public class gestionBdd extends SQLiteOpenHelper {
 
     // défini des constantes de classe
     private static final int VERSION_BDD = 1;
-    private static final String NOM_BDD = "uneBdd";
+    private static final String NOM_BDD = "personnageBD";
     private static final String nom = "nom";
     private static final String chemin = "chemin";
     private static final String id = "id";
@@ -27,13 +27,15 @@ public class gestionBdd extends SQLiteOpenHelper {
     //surcharge de la méthode onCreate
     @Override
     public void onCreate(SQLiteDatabase objbdd){
-        String maReq = "CREATE TABLE personnageBD ( id INTEGER PRIMARY KEY AUTOINCREMENT, nomPersonnage TEXT) ;";
+        String maReq = "CREATE TABLE " + NOM_BDD + "( id INTEGER PRIMARY KEY AUTOINCREMENT, nomPersonnage TEXT) ;";
         objbdd.execSQL(maReq);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        String reqSuppP = "DROP TABLE IF EXISTS " + NOM_BDD.isEmpty();
+        sqLiteDatabase.execSQL(reqSuppP);
+        onCreate(sqLiteDatabase);
     }
 
     public long ajoutPersonnage(Personnage unPersonnage){
@@ -51,7 +53,7 @@ public class gestionBdd extends SQLiteOpenHelper {
 
     public ArrayList<Personnage> getLesPersonnages(){
         ArrayList<Personnage> ensPersonnage = new ArrayList<Personnage>();
-        String reqSelect = " SELECT * FROM personnageBD ";
+        String reqSelect = " SELECT * FROM " + NOM_BDD;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor unCurseur = db.rawQuery(reqSelect, null);
