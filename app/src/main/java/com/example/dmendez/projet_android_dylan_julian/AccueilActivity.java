@@ -26,13 +26,12 @@ public class AccueilActivity extends AppCompatActivity implements View.OnClickLi
         editTextPrenom = (EditText) this.findViewById(R.id.editText_prenom);
 
         imageJeu1.setOnClickListener(this);
-
-
+        imageJeu2.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        Intent unIntent = new Intent(this, MainActivity.class   );
+        Intent unIntent = new Intent(this, MainActivity.class);
         lePrenom = editTextPrenom.getText().toString();
         unIntent.putExtra("Joueur", lePrenom);
 
@@ -44,7 +43,5 @@ public class AccueilActivity extends AppCompatActivity implements View.OnClickLi
         else {
             this.startActivity(unIntent);
         }
-
-
     }
 }

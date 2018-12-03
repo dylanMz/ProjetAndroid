@@ -17,12 +17,13 @@ public class MainActivity extends Activity {
     private Button btnNiveau1;
     private Button btnNiveau2;
     private Button btnNiveau3;
-    private Button btnRecommencer;
+    private Button btnAbandonner;
     private TextView txtAccueilMsg;
     private TextView txtTest;
     private String lePrenom;
     private TextView txtTimer;
     private ImageView imgAtrouver;
+    private TextView txtMessageFin;
 
     private int uneSeconde;
 
@@ -43,7 +44,9 @@ public class MainActivity extends Activity {
         txtTimer = (TextView) this.findViewById(R.id.textView_timer);
         imgAtrouver = (ImageView) this.findViewById(R.id.imageView_persoChercher);
         txtTest = (TextView) this.findViewById(R.id.textView_test);
-        btnRecommencer = (Button) this.findViewById(R.id.button_recommencer) ;
+        btnAbandonner = (Button) this.findViewById(R.id.button_abandonner);
+        txtMessageFin = (TextView) this.findViewById(R.id.textView_messageFin);
+
 
         //Affiche le prénom du joueur
         lePrenom = this.getIntent().getExtras().getString("Joueur");
@@ -78,21 +81,24 @@ public class MainActivity extends Activity {
         {
             public void onClick(View v)
             {
-                uneSeconde = 2;
+                uneSeconde = 3;
                 launchNiveau(uneSeconde);
                 initImage();
             }
         });
 
-        btnRecommencer.setOnClickListener(new View.OnClickListener()
+        btnAbandonner.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 btnNiveau1.setEnabled(true);
                 btnNiveau2.setEnabled(true);
                 btnNiveau3.setEnabled(true);
-                btnRecommencer.setVisibility(View.INVISIBLE);
                 imgAtrouver.setImageResource(R.drawable.pointinterogation);
+                btnAbandonner.setVisibility(View.INVISIBLE);
+                txtTimer.setText("");
+
+                txtMessageFin.setText("Tu as abandonné... mais c'est pas grave ! tu peux recommencer ! Clique sur un des niveaux !");
 
             }
         });
@@ -117,6 +123,11 @@ public class MainActivity extends Activity {
 
     public void launchNiveau(int wSeconde)
     {
+        //Le bouton abandonner apparait
+        btnAbandonner.setVisibility(View.VISIBLE);
+
+        //Reinitilise le message de fin
+        //txtMessageFin.setText("");
 
         //Instancie un timer
         final CountDownTimer countDownTimer = new CountDownTimer(wSeconde * 1000, 1000) {
@@ -126,11 +137,11 @@ public class MainActivity extends Activity {
                 txtTimer.setText("Temps restant : " + millisUntilFinished / 1000);
             }
 
+            //Lorsque le timer est à 0, affiche Fin et le bouton recommencer apparait
             public void onFinish() {
                 txtTimer.setText("Fin");
-                btnRecommencer.setVisibility(View.VISIBLE);
-
-                txtTimer.setText("");
+                btnAbandonner.setVisibility(View.INVISIBLE);
+                imgAtrouver.setImageResource(R.drawable.pointinterogation);
 
             }
 
