@@ -116,8 +116,10 @@ public class MainActivity extends Activity {
 
         txtTest.setText(String.valueOf(nbMax));
         //txtTest.setText(String.valueOf(liste_personnage));
+        String test = liste_personnage.getNomP(1);
+        int identifier= getResources().getIdentifier(test, "drawable", getPackageName());
 
-        imgAtrouver.setImageResource(R.drawable.asterix);
+        imgAtrouver.setImageResource(identifier);
     }
 
 
