@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.transition.Fade;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,35 +19,38 @@ import java.util.Random;
 import java.util.*;
 
 public class MainActivity extends Activity {
+    private String NomPerso;
+    private String lePrenom;
 
     private Button btnNiveau1;
     private Button btnNiveau2;
     private Button btnNiveau3;
     private Button btnAbandonner;
+
     private TextView txtAccueilMsg;
     private TextView txtTest;
-    private String lePrenom;
     private TextView txtTimer;
-    private ImageView imgAtrouver;
     private TextView txtMessageFin;
+    private TextView txtTrouveLe;
+    private TextView txtScore;
+
+    private ImageView imgAtrouver;
     private ImageView imgChrono;
     private ImageView imageperso;
-    private  ImageView imageperso1;
+    private ImageView imageperso1;
     private ImageView imageperso2;
     private ImageView imageperso3;
     private ImageView imageperso4;
     private ImageView imageperso5;
     private ImageView imageperso6;
-    private String NomPerso;
-    private int identifier;
 
+    private int identifier;
     private int uneSeconde;
     private int nbRandom;
+
     private CountDownTimer countDownTimer;
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,8 @@ public class MainActivity extends Activity {
         imageperso4 = (ImageView) this.findViewById(R.id.imageView_perso4);
         imageperso5 = (ImageView) this.findViewById(R.id.imageView_perso5);
         imageperso5 = (ImageView) this.findViewById(R.id.imageView_perso6);
+        txtTrouveLe = (TextView) this.findViewById(R.id.textView_msg);
+        txtScore = (TextView) this.findViewById(R.id.textView_score);
 
 
         //Affiche le prénom du joueur
@@ -81,6 +88,14 @@ public class MainActivity extends Activity {
         liste_personnage.insertion_personnage(getApplicationContext());
         imgAtrouver.setImageResource(R.drawable.pointinterogation);
 
+
+        txtTrouveLe.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+
+            }
+        });
 
         btnNiveau1.setOnClickListener(new View.OnClickListener()
         {
