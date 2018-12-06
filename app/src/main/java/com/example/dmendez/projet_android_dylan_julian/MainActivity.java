@@ -28,10 +28,9 @@ public class MainActivity extends Activity {
 
     private int uneSeconde;
     private int nbRandom;
+    private CountDownTimer countDownTimer;
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +84,7 @@ public class MainActivity extends Activity {
         {
             public void onClick(View v)
             {
-                uneSeconde = 5;
+                uneSeconde = 30;
                 launchNiveau(uneSeconde);
                 initImage();
             }
@@ -109,16 +108,21 @@ public class MainActivity extends Activity {
                 imgChrono.setVisibility(View.INVISIBLE);
                 txtTest.setText("");
 
+                countDownTimer.cancel();
+
             }
         });
 
     }
 
+    //Méthode affichant les images aléatoirement
     private void initImage()
     {
 
+        //Récupère le nombre de personnage présent dans la collection
         int nbMax = liste_personnage.ensPersonnage.size();
 
+        //Génère un nombre aléatoire avec pour maximum le nombre de personnage présent dans la collection
         Random unNombreR = new Random();
         nbRandom = unNombreR.nextInt(nbMax);
         String test = liste_personnage.getNomP(nbRandom);
@@ -130,6 +134,7 @@ public class MainActivity extends Activity {
 
 
     public void launchNiveau(int wSeconde) {
+
         //L'image du chronomètre apparait
         imgChrono.setVisibility(View.VISIBLE);
 
@@ -139,14 +144,31 @@ public class MainActivity extends Activity {
         //Le message de fin est invisible
         txtMessageFin.setVisibility(View.INVISIBLE);
 
-        //Instancie un timer
-        final CountDownTimer countDownTimer = new CountDownTimer(wSeconde * 1000, 1000) {
-
+        //Instancie le timer
+        countDownTimer = new CountDownTimer(wSeconde * 1000, 1000) {
 
             //Evènement qui se passe pendant que le timer est en cours
+            /*
             public void onTick(long millisUntilFinished) {
-
                 txtTimer.setText(" " + millisUntilFinished / 1000);
+
+            }
+*/
+            //Evènement qui se passe pendant que le timer est en cours
+            public void onTick(long millisUntilFinished) {
+                int minutes = (int) millisUntilFinished / 60000;
+                int seconds = (int) millisUntilFinished % 60000 / 1000;
+
+                String timeLeftText;
+
+                timeLeftText = "" +minutes;
+                timeLeftText += ":";
+                if (seconds<10) timeLeftText += "0";
+                timeLeftText += seconds;
+
+
+                //txtTimer.setText(" " + millisUntilFinished / 1000);
+                txtTimer.setText(timeLeftText);
 
             }
 
