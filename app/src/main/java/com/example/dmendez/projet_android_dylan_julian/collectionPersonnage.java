@@ -15,13 +15,13 @@ public class collectionPersonnage {
         ensPersonnage = base_qcm.getLesPersonnages();
 
         if (ensPersonnage.isEmpty()) {
-            base_qcm.ajoutPersonnage(new Personnage(1 , "Asterix"));
-            base_qcm.ajoutPersonnage(new Personnage(2, "Titeuf"));
-            base_qcm.ajoutPersonnage(new Personnage(3, "Schtroumpf"));
-            base_qcm.ajoutPersonnage(new Personnage(4, "Manu"));
-            base_qcm.ajoutPersonnage(new Personnage(5, "Bille"));
-            base_qcm.ajoutPersonnage(new Personnage(6, "Boule"));
-            base_qcm.ajoutPersonnage(new Personnage(7, "Luckyluke"));
+            base_qcm.ajoutPersonnage(new Personnage(1 , "asterix"));
+            base_qcm.ajoutPersonnage(new Personnage(2, "titeuf"));
+            base_qcm.ajoutPersonnage(new Personnage(3, "schtroumpf"));
+            base_qcm.ajoutPersonnage(new Personnage(4, "manu"));
+            base_qcm.ajoutPersonnage(new Personnage(5, "bille"));
+            base_qcm.ajoutPersonnage(new Personnage(6, "boule"));
+            base_qcm.ajoutPersonnage(new Personnage(7, "luckyluke"));
 
             //ensPersonnage = base_qcm.getLesPersonnages();
 
