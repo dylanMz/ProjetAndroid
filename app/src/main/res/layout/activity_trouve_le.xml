@@ -5,6 +5,15 @@
     android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/backjeu2"
     android:id="@+id/relativeLayout2">
 
+    <ImageView
+        android:id="@+id/imageView_perso6"
+        android:layout_width="100dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="556dp"
+        android:layout_marginTop="408dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/button_abandonner"
         android:layout_width="162dp"
@@ -28,6 +37,69 @@
         android:layout_marginTop="7dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_msg" />
+
+    <ImageView
+        android:id="@+id/imageView_perso1"
+        android:layout_width="100dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="336dp"
+        android:layout_marginTop="180dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_perso"
+        android:layout_width="100dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="468dp"
+        android:layout_marginTop="84dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_perso2"
+        android:layout_width="100dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="628dp"
+        android:layout_marginTop="160dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_perso3"
+        android:layout_width="100dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="780dp"
+        android:layout_marginTop="228dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_perso4"
+        android:layout_width="100dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="508dp"
+        android:layout_marginTop="264dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_perso7"
+        android:layout_width="100dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="828dp"
+        android:layout_marginTop="384dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_perso5"
+        android:layout_width="100dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="352dp"
+        android:layout_marginTop="352dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_msg"
@@ -92,7 +164,7 @@
         android:layout_height="89dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/chrono"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
