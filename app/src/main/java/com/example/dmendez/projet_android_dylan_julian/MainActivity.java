@@ -166,30 +166,39 @@ public class MainActivity extends Activity {
                 if(unNombre.add(RandNum)) break;
                 else RandNum = NumRend.nextInt(7);
             }
-            //if(RandNum < liste_personnage.ensPersonnage.size()){
+            //if(i <= liste_personnage.ensPersonnage.size()){
                 NomPerso = liste_personnage.getNomP(RandNum);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
+            //}else {
+              //  break;
             //}
 
             switch (i){
                 case 1: imageperso.setImageResource(identifier);
+                    System.out.println(RandNum + " " + NomPerso);
                         break;
                 case 2: imageperso1.setImageResource(identifier);
+                    System.out.println(RandNum + " " + NomPerso);
                         break;
                 case 3: imageperso2.setImageResource(identifier);
+                    System.out.println(RandNum + " " + NomPerso);
                         break;
                 case 4: imageperso3.setImageResource(identifier);
+                    System.out.println(RandNum + " " + NomPerso);
                         break;
                 case 5: imageperso4.setImageResource(identifier);
+                    System.out.println(RandNum + " " + NomPerso);
                         break;
                 case 6: imageperso5.setImageResource(identifier);
+                    System.out.println(RandNum + " " + NomPerso);
                         break;
                 case 7: imageperso6.setImageResource(identifier);
+                    System.out.println(RandNum + " " + NomPerso);
                         break;
 
             }
 
-            System.out.println(RandNum);
+
         }
 
         /*
