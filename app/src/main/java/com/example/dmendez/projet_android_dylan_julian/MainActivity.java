@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.Random;
+import java.util.*;
 
 public class MainActivity extends Activity {
 
@@ -25,6 +29,15 @@ public class MainActivity extends Activity {
     private ImageView imgAtrouver;
     private TextView txtMessageFin;
     private ImageView imgChrono;
+    private ImageView imageperso;
+    private  ImageView imageperso1;
+    private ImageView imageperso2;
+    private ImageView imageperso3;
+    private ImageView imageperso4;
+    private ImageView imageperso5;
+    private ImageView imageperso6;
+    private String NomPerso;
+    private int identifier;
 
     private int uneSeconde;
     private int nbRandom;
@@ -49,12 +62,18 @@ public class MainActivity extends Activity {
         btnAbandonner = (Button) this.findViewById(R.id.button_abandonner);
         txtMessageFin = (TextView) this.findViewById(R.id.textView_messageFin);
         imgChrono = (ImageView) this.findViewById(R.id.imageView_chrono);
+        imageperso = (ImageView) this.findViewById(R.id.imageView_perso);
+        imageperso1 = (ImageView) this.findViewById(R.id.imageView_perso1);
+        imageperso2 = (ImageView) this.findViewById(R.id.imageView_perso2);
+        imageperso3 = (ImageView) this.findViewById(R.id.imageView_perso3);
+        imageperso4 = (ImageView) this.findViewById(R.id.imageView_perso4);
+        imageperso5 = (ImageView) this.findViewById(R.id.imageView_perso5);
+        imageperso5 = (ImageView) this.findViewById(R.id.imageView_perso6);
 
 
         //Affiche le prénom du joueur
         lePrenom = this.getIntent().getExtras().getString("Joueur");
         txtAccueilMsg.setText("Bonne chance " + lePrenom + ", choisi un niveau !");
-
 
 
         liste_personnage.insertion_personnage(getApplicationContext());
@@ -65,7 +84,7 @@ public class MainActivity extends Activity {
         {
             public void onClick(View v)
             {
-                uneSeconde = 120;
+                uneSeconde = 180;
                 launchNiveau(uneSeconde);
                 initImage();
             }
@@ -75,7 +94,7 @@ public class MainActivity extends Activity {
         {
             public void onClick(View v)
             {
-                uneSeconde = 60;
+                uneSeconde = 120;
                 launchNiveau(uneSeconde);
                 initImage();
             }
@@ -85,7 +104,7 @@ public class MainActivity extends Activity {
         {
             public void onClick(View v)
             {
-                uneSeconde = 5;
+                uneSeconde = 3;
                 launchNiveau(uneSeconde);
                 initImage();
             }
@@ -116,9 +135,15 @@ public class MainActivity extends Activity {
 
     private void initImage()
     {
-
+        //Aléatoire
+        //Random rand = new Random();
         int nbMax = liste_personnage.ensPersonnage.size();
+        //int n = rand.nextInt(nbMax); // Gives n such that 0 <= n < 20
+        //txtTest.setText(String.valueOf(n));
 
+
+
+        //txtTest.setText(String.valueOf(liste_personnage));
         Random unNombreR = new Random();
         nbRandom = unNombreR.nextInt(nbMax);
         String test = liste_personnage.getNomP(nbRandom);
@@ -129,7 +154,55 @@ public class MainActivity extends Activity {
     }
 
 
-    public void launchNiveau(int wSeconde) {
+    public void launchNiveau(int wSeconde)
+    {
+        TreeSet unNombre = new TreeSet();
+        Random NumRend = new Random();
+        for(int i = 0; i<7; i++){
+            int RandNum = NumRend.nextInt(7);
+            for(;;){
+                if(unNombre.add(RandNum)) break;
+                else RandNum = NumRend.nextInt(7);
+            }
+            //if(RandNum < liste_personnage.ensPersonnage.size()){
+                NomPerso = liste_personnage.getNomP(RandNum);
+                identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
+            //}
+
+            switch (i){
+                case 1: imageperso.setImageResource(identifier);
+                        break;
+                case 2: imageperso1.setImageResource(identifier);
+                        break;
+                case 3: imageperso2.setImageResource(identifier);
+                        break;
+                case 4: imageperso3.setImageResource(identifier);
+                        break;
+                case 5: imageperso4.setImageResource(identifier);
+                        break;
+                case 6: imageperso5.setImageResource(identifier);
+                        break;
+                case 7: imageperso6.setImageResource(identifier);
+                        break;
+
+            }
+
+            System.out.println(RandNum);
+        }
+
+        /*
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        long randomposition = (long) (Math.random() * metrics.widthPixels * (Math.random() > 0.5 ? 1 : -1));
+        long randomposition2 = (long) (Math.random() * metrics.heightPixels * (Math.random() > 0.5 ? 1 : -1));
+        Animation animation = new TranslateAnimation(0, randomposition, 0,randomposition2);
+        animation.setDuration(1000);
+        animation.setFillAfter(true);
+        imageperso.startAnimation(animation);*/
+
+
+
+
         //L'image du chronomètre apparait
         imgChrono.setVisibility(View.VISIBLE);
 
@@ -142,12 +215,9 @@ public class MainActivity extends Activity {
         //Instancie un timer
         final CountDownTimer countDownTimer = new CountDownTimer(wSeconde * 1000, 1000) {
 
-
             //Evènement qui se passe pendant que le timer est en cours
             public void onTick(long millisUntilFinished) {
-
                 txtTimer.setText(" " + millisUntilFinished / 1000);
-
             }
 
             //Lorsque le timer est à 0
@@ -157,7 +227,7 @@ public class MainActivity extends Activity {
                 txtTimer.setText("Fin");
                 btnAbandonner.setVisibility(View.INVISIBLE);
 
-                //L'image a trouver devient un point d'intégoration, et le texte correspondant a l'image est reinistialisé
+                //L'image a trouver devient un point d'intégoration
                 imgAtrouver.setImageResource(R.drawable.pointinterogation);
                 txtTest.setText("");
 
@@ -178,8 +248,5 @@ public class MainActivity extends Activity {
 
         countDownTimer.start();
     }
-
-
-
 
 }
