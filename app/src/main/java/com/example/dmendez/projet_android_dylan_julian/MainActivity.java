@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
     private ImageView imgChrono;
 
     private int uneSeconde;
+    private int nbRandom;
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
 
@@ -119,9 +120,12 @@ public class MainActivity extends Activity {
         //txtTest.setText(String.valueOf(n));
 
 
-        txtTest.setText(String.valueOf(nbMax));
+
         //txtTest.setText(String.valueOf(liste_personnage));
-        String test = liste_personnage.getNomP(1);
+        Random unNombreR = new Random();
+        nbRandom = unNombreR.nextInt(nbMax);
+        String test = liste_personnage.getNomP(nbRandom);
+        txtTest.setText(String.valueOf(test));
         int identifier= getResources().getIdentifier(test, "drawable", getPackageName());
 
         imgAtrouver.setImageResource(identifier);
