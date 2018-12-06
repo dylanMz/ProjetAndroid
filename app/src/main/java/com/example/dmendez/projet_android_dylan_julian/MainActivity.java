@@ -24,6 +24,7 @@ public class MainActivity extends Activity {
     private TextView txtTimer;
     private ImageView imgAtrouver;
     private TextView txtMessageFin;
+    private ImageView imgChrono;
 
     private int uneSeconde;
 
@@ -46,6 +47,7 @@ public class MainActivity extends Activity {
         txtTest = (TextView) this.findViewById(R.id.textView_test);
         btnAbandonner = (Button) this.findViewById(R.id.button_abandonner);
         txtMessageFin = (TextView) this.findViewById(R.id.textView_messageFin);
+        imgChrono = (ImageView) this.findViewById(R.id.imageView_chrono);
 
 
         //Affiche le prénom du joueur
@@ -98,7 +100,10 @@ public class MainActivity extends Activity {
                 btnAbandonner.setVisibility(View.INVISIBLE);
                 txtTimer.setText("");
 
+                txtMessageFin.setVisibility(View.VISIBLE);
                 txtMessageFin.setText("Tu as abandonné... mais c'est pas grave ! tu peux recommencer ! Clique sur un des niveaux !");
+
+
 
             }
         });
@@ -125,30 +130,41 @@ public class MainActivity extends Activity {
 
     public void launchNiveau(int wSeconde)
     {
+        //L'image du chronomètre apparait
+        imgChrono.setVisibility(View.VISIBLE);
+
         //Le bouton abandonner apparait
         btnAbandonner.setVisibility(View.VISIBLE);
 
-        //Reinitilise le message de fin
-        //txtMessageFin.setText("");
+        //Le message de fin est invisible
+        txtMessageFin.setVisibility(View.INVISIBLE);
 
         //Instancie un timer
         final CountDownTimer countDownTimer = new CountDownTimer(wSeconde * 1000, 1000) {
 
-
+            //Evènement qui se passe pendant que le timer est en cours
             public void onTick(long millisUntilFinished) {
-                txtTimer.setText("Temps restant : " + millisUntilFinished / 1000);
+                txtTimer.setText(" " + millisUntilFinished / 1000);
             }
 
-            //Lorsque le timer est à 0, affiche Fin et le bouton recommencer apparait
+            //Lorsque le timer est à 0
             public void onFinish() {
                 txtTimer.setText("Fin");
                 btnAbandonner.setVisibility(View.INVISIBLE);
+
+                //L'image a trouver devient un point d'intégoration
                 imgAtrouver.setImageResource(R.drawable.pointinterogation);
+
+                //Les boutons de niveaux sont de nouveau clicquable
+                btnNiveau1.setEnabled(true);
+                btnNiveau2.setEnabled(true);
+                btnNiveau3.setEnabled(true);
 
             }
 
         };
 
+        //Les boutons de niveaux sont désactivé au lancement d'un niveau
         btnNiveau1.setEnabled(false);
         btnNiveau2.setEnabled(false);
         btnNiveau3.setEnabled(false);
