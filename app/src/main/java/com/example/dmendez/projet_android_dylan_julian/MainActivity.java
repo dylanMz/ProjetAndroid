@@ -163,16 +163,12 @@ public class MainActivity extends Activity {
 
         Random unNombreR = new Random();
         nbRandom = unNombreR.nextInt(nbMax);
-        String test = liste_personnage.getNomP(nbRandom);
+        String test = liste_personnage.getNomP(2);
         txtTest.setText(String.valueOf(test));
         int identifier= getResources().getIdentifier(test, "drawable", getPackageName());
 
         imgAtrouver.setImageResource(identifier);
-    }
 
-
-    public void launchNiveau(int wSeconde)
-    {
         TreeSet unNombre = new TreeSet();
         Random NumRend = new Random();
         for(int i = 0; i<7; i++){
@@ -181,40 +177,47 @@ public class MainActivity extends Activity {
                 if(unNombre.add(RandNum)) break;
                 else RandNum = NumRend.nextInt(7);
             }
-            //if(i <= liste_personnage.ensPersonnage.size()){
+            if(i > liste_personnage.ensPersonnage.size()){
+                break;
+            }else{
                 NomPerso = liste_personnage.getNomP(RandNum);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
-            //}else {
-              //  break;
-            //}
+                //  break;
+            }
 
             switch (i){
                 case 1: imageperso.setImageResource(identifier);
                     System.out.println(RandNum + " " + NomPerso);
-                        break;
+                    break;
                 case 2: imageperso1.setImageResource(identifier);
                     System.out.println(RandNum + " " + NomPerso);
-                        break;
+                    break;
                 case 3: imageperso2.setImageResource(identifier);
                     System.out.println(RandNum + " " + NomPerso);
-                        break;
+                    break;
                 case 4: imageperso3.setImageResource(identifier);
                     System.out.println(RandNum + " " + NomPerso);
-                        break;
+                    break;
                 case 5: imageperso4.setImageResource(identifier);
                     System.out.println(RandNum + " " + NomPerso);
-                        break;
+                    break;
                 case 6: imageperso5.setImageResource(identifier);
                     System.out.println(RandNum + " " + NomPerso);
-                        break;
+                    break;
                 case 7: imageperso6.setImageResource(identifier);
                     System.out.println(RandNum + " " + NomPerso);
-                        break;
+                    break;
 
             }
 
 
         }
+    }
+
+
+    public void launchNiveau(int wSeconde)
+    {
+
 
         /*
         DisplayMetrics metrics = new DisplayMetrics();
