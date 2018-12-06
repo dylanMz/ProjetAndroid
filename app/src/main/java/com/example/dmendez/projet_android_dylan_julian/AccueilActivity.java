@@ -38,7 +38,7 @@ public class AccueilActivity extends AppCompatActivity implements View.OnClickLi
         unIntent.putExtra("Joueur", lePrenom);
 
         if(lePrenom.isEmpty()){
-            Toast toast =  Toast.makeText(this, "Manque le prénom !", Toast.LENGTH_SHORT);
+            Toast toast =  Toast.makeText(this, "Il manque le prénom !", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP|Gravity.LEFT, 1100, 500);
             toast.show();
         }
