@@ -41,6 +41,7 @@ public class MainActivity extends Activity {
 
     private int uneSeconde;
     private int nbRandom;
+    private CountDownTimer countDownTimer;
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
 
@@ -76,21 +77,12 @@ public class MainActivity extends Activity {
         txtAccueilMsg.setText("Bonne chance " + lePrenom + ", choisi un niveau !");
 
 
+
         liste_personnage.insertion_personnage(getApplicationContext());
         imgAtrouver.setImageResource(R.drawable.pointinterogation);
 
 
         btnNiveau1.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                uneSeconde = 180;
-                launchNiveau(uneSeconde);
-                initImage();
-            }
-        });
-
-        btnNiveau2.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
@@ -100,11 +92,21 @@ public class MainActivity extends Activity {
             }
         });
 
+        btnNiveau2.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                uneSeconde = 60;
+                launchNiveau(uneSeconde);
+                initImage();
+            }
+        });
+
         btnNiveau3.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-                uneSeconde = 3;
+                uneSeconde = 30;
                 launchNiveau(uneSeconde);
                 initImage();
             }
@@ -128,22 +130,22 @@ public class MainActivity extends Activity {
                 imgChrono.setVisibility(View.INVISIBLE);
                 txtTest.setText("");
 
+                countDownTimer.cancel();
+
             }
         });
 
     }
 
+    //Méthode affichant les images aléatoirement
     private void initImage()
     {
-        //Aléatoire
-        //Random rand = new Random();
+
         int nbMax = liste_personnage.ensPersonnage.size();
         //int n = rand.nextInt(nbMax); // Gives n such that 0 <= n < 20
         //txtTest.setText(String.valueOf(n));
 
 
-
-        //txtTest.setText(String.valueOf(liste_personnage));
         Random unNombreR = new Random();
         nbRandom = unNombreR.nextInt(nbMax);
         String test = liste_personnage.getNomP(nbRandom);
@@ -212,12 +214,33 @@ public class MainActivity extends Activity {
         //Le message de fin est invisible
         txtMessageFin.setVisibility(View.INVISIBLE);
 
-        //Instancie un timer
-        final CountDownTimer countDownTimer = new CountDownTimer(wSeconde * 1000, 1000) {
+        //Instancie le timer
+        countDownTimer = new CountDownTimer(wSeconde * 1000, 1000) {
 
             //Evènement qui se passe pendant que le timer est en cours
+            /*
             public void onTick(long millisUntilFinished) {
+
                 txtTimer.setText(" " + millisUntilFinished / 1000);
+
+            }
+*/
+            //Evènement qui se passe pendant que le timer est en cours
+            public void onTick(long millisUntilFinished) {
+                int minutes = (int) millisUntilFinished / 60000;
+                int seconds = (int) millisUntilFinished % 60000 / 1000;
+
+                String timeLeftText;
+
+                timeLeftText = "" +minutes;
+                timeLeftText += ":";
+                if (seconds<10) timeLeftText += "0";
+                timeLeftText += seconds;
+
+
+                //txtTimer.setText(" " + millisUntilFinished / 1000);
+                txtTimer.setText(timeLeftText);
+
             }
 
             //Lorsque le timer est à 0
@@ -227,7 +250,7 @@ public class MainActivity extends Activity {
                 txtTimer.setText("Fin");
                 btnAbandonner.setVisibility(View.INVISIBLE);
 
-                //L'image a trouver devient un point d'intégoration
+                //L'image a trouver devient un point d'intégoration, et le texte correspondant a l'image est reinistialisé
                 imgAtrouver.setImageResource(R.drawable.pointinterogation);
                 txtTest.setText("");
 
@@ -248,5 +271,8 @@ public class MainActivity extends Activity {
 
         countDownTimer.start();
     }
+
+
+
 
 }
