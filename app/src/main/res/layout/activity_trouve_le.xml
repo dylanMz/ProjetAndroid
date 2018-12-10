@@ -115,7 +115,7 @@
         android:textColor="@android:color/background_light"
         android:textColorHighlight="@color/colorPrimaryDark"
         android:textColorLink="@color/colorPrimaryDark"
-        android:textSize="22sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
