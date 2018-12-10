@@ -101,7 +101,11 @@ public class MainActivity extends Activity {
         {
             public void onClick(View v)
             {
+                //Affecte la valeur 120 a une seconde.
                 uneSeconde = 120;
+
+                btnNiveau1.animate().translationX(400).withLayer();
+
                 launchNiveau(uneSeconde);
                 initImage();
             }
@@ -111,7 +115,11 @@ public class MainActivity extends Activity {
         {
             public void onClick(View v)
             {
+                //Affecte la valeur 60 a une seconde.
                 uneSeconde = 60;
+
+                btnNiveau2.animate().translationX(400).withLayer();
+
                 launchNiveau(uneSeconde);
                 initImage();
             }
@@ -121,7 +129,11 @@ public class MainActivity extends Activity {
         {
             public void onClick(View v)
             {
+                //Affecte la valeur 30 a une seconde.
                 uneSeconde = 30;
+
+                btnNiveau3.animate().translationX(400).withLayer();
+
                 launchNiveau(uneSeconde);
                 initImage();
             }
@@ -141,9 +153,15 @@ public class MainActivity extends Activity {
                 txtMessageFin.setVisibility(View.VISIBLE);
                 txtMessageFin.setText("Tu as abandonné... mais c'est pas grave ! tu peux recommencer ! Clique sur un des niveaux !");
 
-
+                imgAtrouver.setVisibility(View.INVISIBLE);
+                txtTest.setVisibility(View.INVISIBLE);
                 imgChrono.setVisibility(View.INVISIBLE);
                 txtTest.setText("");
+
+                btnNiveau1.animate().translationX(0).withLayer();
+                btnNiveau2.animate().translationX(0).withLayer();
+                btnNiveau3.animate().translationX(0).withLayer();
+
 
                 countDownTimer.cancel();
 
@@ -168,6 +186,8 @@ public class MainActivity extends Activity {
         int identifier= getResources().getIdentifier(test, "drawable", getPackageName());
 
         imgAtrouver.setImageResource(identifier);
+        imgAtrouver.setVisibility(View.VISIBLE);
+        txtTest.setVisibility(View.VISIBLE);
 
         TreeSet unNombre = new TreeSet();
         Random NumRend = new Random();
@@ -217,8 +237,6 @@ public class MainActivity extends Activity {
 
     public void launchNiveau(int wSeconde)
     {
-
-
         /*
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -228,8 +246,6 @@ public class MainActivity extends Activity {
         animation.setDuration(1000);
         animation.setFillAfter(true);
         imageperso.startAnimation(animation);*/
-
-
 
 
         //L'image du chronomètre apparait
@@ -265,7 +281,6 @@ public class MainActivity extends Activity {
                 timeLeftText += seconds;
 
 
-                //txtTimer.setText(" " + millisUntilFinished / 1000);
                 txtTimer.setText(timeLeftText);
 
             }
