@@ -6,6 +6,17 @@
     android:id="@+id/relativeLayout2">
 
     <ImageView
+        android:id="@+id/imageView_bandeau"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimaryDark"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/imageView_perso6"
         android:layout_width="100dp"
         android:layout_height="104dp"
@@ -35,7 +46,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="14dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_msg" />
 
@@ -106,8 +117,8 @@
         android:id="@+id/textView_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="13dp"
         android:fontFamily="sans-serif-smallcaps"
         android:shadowColor="@color/colorPrimaryDark"
         android:shadowDx="5"
@@ -124,7 +135,7 @@
         android:id="@+id/textView_timer"
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="19dp"
         android:fontFamily="sans-serif-smallcaps"
         android:textColor="@android:color/background_light"
@@ -162,7 +173,8 @@
     <ImageView
         android:id="@+id/imageView_chrono"
         android:layout_width="42dp"
-        android:layout_height="89dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/chrono"
         android:visibility="invisible"
@@ -185,5 +197,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>
