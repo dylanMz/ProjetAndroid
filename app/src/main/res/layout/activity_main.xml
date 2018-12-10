@@ -16,7 +16,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.439" />
+        app:layout_constraintVertical_bias="0.439"
+        tools:layout="@layout/activity_menu" />
 
     <fragment
         android:id="@+id/trouve_le_fragment"
@@ -28,5 +29,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/menu_fragment"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.513" />
+        app:layout_constraintVertical_bias="0.513"
+        tools:layout="@layout/activity_trouve_le" />
 </android.support.constraint.ConstraintLayout>

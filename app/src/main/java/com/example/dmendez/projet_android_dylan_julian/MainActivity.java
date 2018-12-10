@@ -181,7 +181,7 @@ public class MainActivity extends Activity {
 
         Random unNombreR = new Random();
         nbRandom = unNombreR.nextInt(nbMax);
-        String test = liste_personnage.getNomP(2);
+        String test = liste_personnage.getNomPerso(nbRandom);
         txtTest.setText(String.valueOf(test));
         int identifier= getResources().getIdentifier(test, "drawable", getPackageName());
 
@@ -197,13 +197,9 @@ public class MainActivity extends Activity {
                 if(unNombre.add(RandNum)) break;
                 else RandNum = NumRend.nextInt(7);
             }
-            if(i > liste_personnage.ensPersonnage.size()){
-                break;
-            }else{
-                NomPerso = liste_personnage.getNomP(RandNum);
+                NomPerso = liste_personnage.getNomPerso(RandNum);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
                 //  break;
-            }
 
             switch (i){
                 case 1: imageperso.setImageResource(identifier);

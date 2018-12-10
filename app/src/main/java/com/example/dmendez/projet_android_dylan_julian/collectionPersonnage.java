@@ -9,6 +9,22 @@ public class collectionPersonnage {
     ArrayList<Personnage> ensPersonnage = new ArrayList<>();
     gestionBdd base_qcm;
 
+    public String getNomPerso(int numPerso){
+        numPerso++;
+
+        Personnage findedPersonnage = new Personnage();
+
+        for(int i = 0; i< ensPersonnage.size(); i++){
+
+            if(ensPersonnage.get(i).getIdPersonnage() == numPerso ){
+                findedPersonnage = ensPersonnage.get(i);
+            }
+
+        }
+        return findedPersonnage.getNomPersonnage();
+    }
+
+
     public void insertion_personnage(Context un_context) {
         base_qcm = new gestionBdd(un_context);
 
