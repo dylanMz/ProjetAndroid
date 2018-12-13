@@ -3,9 +3,12 @@ package com.example.dmendez.projet_android_dylan_julian;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.constraint.Group;
 import android.transition.Fade;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -13,12 +16,18 @@ import android.view.animation.Animation;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import java.util.Random;
 import java.util.*;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener {
     private String NomPerso;
     private String lePrenom;
 
@@ -43,6 +52,7 @@ public class MainActivity extends Activity {
     private ImageView imageperso4;
     private ImageView imageperso5;
     private ImageView imageperso6;
+
 
     private int identifier;
     private int uneSeconde;
@@ -74,9 +84,17 @@ public class MainActivity extends Activity {
         imageperso3 = (ImageView) this.findViewById(R.id.imageView_perso3);
         imageperso4 = (ImageView) this.findViewById(R.id.imageView_perso4);
         imageperso5 = (ImageView) this.findViewById(R.id.imageView_perso5);
-        imageperso5 = (ImageView) this.findViewById(R.id.imageView_perso6);
+        imageperso6 = (ImageView) this.findViewById(R.id.imageView_perso6);
         txtTrouveLe = (TextView) this.findViewById(R.id.textView_msg);
         txtScore = (TextView) this.findViewById(R.id.textView_score);
+
+        imageperso1.setOnClickListener(this);
+        imageperso2.setOnClickListener(this);
+        imageperso.setOnClickListener(this);
+        imageperso3.setOnClickListener(this);
+        imageperso4.setOnClickListener(this);
+        imageperso5.setOnClickListener(this);
+        imageperso6.setOnClickListener(this);
 
 
         //Affiche le prénom du joueur
@@ -139,6 +157,7 @@ public class MainActivity extends Activity {
             }
         });
 
+
         btnAbandonner.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -186,41 +205,70 @@ public class MainActivity extends Activity {
         int identifier= getResources().getIdentifier(test, "drawable", getPackageName());
 
         imgAtrouver.setImageResource(identifier);
+        imgAtrouver.setTag(identifier);
         imgAtrouver.setVisibility(View.VISIBLE);
         txtTest.setVisibility(View.VISIBLE);
 
         TreeSet unNombre = new TreeSet();
         Random NumRend = new Random();
-        for(int i = 0; i<7; i++){
-            int RandNum = NumRend.nextInt(7);
+        for(int i = 0; i<liste_personnage.ensPersonnage.size(); i++){
+            int RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
             for(;;){
                 if(unNombre.add(RandNum)) break;
-                else RandNum = NumRend.nextInt(7);
+                else RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
             }
+
+
                 NomPerso = liste_personnage.getNomPerso(RandNum);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
+                /* Bitmap bmp;
+                 bmp=BitmapFactory.decodeResource(getResources(),identifier);
+                bmp=Bitmap.createScaledBitmap(bmp, 150,150, true);
+                final RelativeLayout rl = (RelativeLayout) findViewById(R.id.Relative_layout);
+                ImageView iv = new ImageView(MainActivity.this);
+                iv.setImageBitmap(bmp);
+                iv.setId(i);
+                //iv.setImageResource(identifier);
+
+                //iv.setLayoutParams(lp);
+
+                rl.addView(iv);
+
+
+               // iv.
+                //iv.setMaxWidth(150);
+               // iv.setMaxHeight(150);
+
+                */
                 //  break;
 
             switch (i){
                 case 1: imageperso.setImageResource(identifier);
+                    imageperso.setTag(identifier);
                     System.out.println(RandNum + " " + NomPerso);
                     break;
                 case 2: imageperso1.setImageResource(identifier);
+                    imageperso1.setTag(identifier);
                     System.out.println(RandNum + " " + NomPerso);
                     break;
                 case 3: imageperso2.setImageResource(identifier);
+                    imageperso2.setTag(identifier);
                     System.out.println(RandNum + " " + NomPerso);
                     break;
                 case 4: imageperso3.setImageResource(identifier);
+                    imageperso3.setTag(identifier);
                     System.out.println(RandNum + " " + NomPerso);
                     break;
                 case 5: imageperso4.setImageResource(identifier);
+                    imageperso4.setTag(identifier);
                     System.out.println(RandNum + " " + NomPerso);
                     break;
                 case 6: imageperso5.setImageResource(identifier);
+                    imageperso5.setTag(identifier);
                     System.out.println(RandNum + " " + NomPerso);
                     break;
-                case 7: imageperso6.setImageResource(identifier);
+                case 0: imageperso6.setImageResource(identifier);
+                    imageperso6.setTag(identifier);
                     System.out.println(RandNum + " " + NomPerso);
                     break;
 
@@ -229,6 +277,8 @@ public class MainActivity extends Activity {
 
         }
     }
+
+
 
 
     public void launchNiveau(int wSeconde)
@@ -311,6 +361,19 @@ public class MainActivity extends Activity {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        System.out.println("okoko");
+        Object nameImg = view.getTag();
+        Object ImgaTrouver = imgAtrouver.getTag();
+        System.out.println("okoko" + nameImg + " " + ImgaTrouver);
+        if(nameImg.equals(ImgaTrouver)){
+            txtMessageFin.setVisibility(View.VISIBLE);
+            txtMessageFin.setText("Bravo");
+        }else{
+            txtMessageFin.setVisibility(View.VISIBLE);
+            txtMessageFin.setText("NON");
+        }
 
-
+    }
 }
