@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Group;
 import android.transition.Fade;
 import android.util.DisplayMetrics;
@@ -28,8 +29,13 @@ import java.util.Random;
 import java.util.*;
 
 public class MainActivity extends Activity implements View.OnClickListener {
+    private ConstraintLayout frmImages;
+
     private String NomPerso;
     private String lePrenom;
+    private String timeLeftText;
+
+
 
     private Button btnNiveau1;
     private Button btnNiveau2;
@@ -87,6 +93,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imageperso6 = (ImageView) this.findViewById(R.id.imageView_perso6);
         txtTrouveLe = (TextView) this.findViewById(R.id.textView_msg);
         txtScore = (TextView) this.findViewById(R.id.textView_score);
+        frmImages = (ConstraintLayout) this.findViewById(R.id.constraintLayout_images);
 
         imageperso1.setOnClickListener(this);
         imageperso2.setOnClickListener(this);
@@ -162,28 +169,50 @@ public class MainActivity extends Activity implements View.OnClickListener {
         {
             public void onClick(View v)
             {
+
+                //Les boutons de niveau sont de nouveaux cliquable
                 btnNiveau1.setEnabled(true);
                 btnNiveau2.setEnabled(true);
                 btnNiveau3.setEnabled(true);
-                imgAtrouver.setImageResource(R.drawable.pointinterogation);
+
+                //Le personnage à retrouver devient un point d'intégoration et les images sont cachées
+                frmImages.setVisibility(View.INVISIBLE);
+
+                //Le bouton abandonner disparait et le timer et remis à zero
                 btnAbandonner.setVisibility(View.INVISIBLE);
                 txtTimer.setText("");
 
                 txtMessageFin.setVisibility(View.VISIBLE);
                 txtMessageFin.setText("Tu as abandonné... mais c'est pas grave ! tu peux recommencer ! Clique sur un des niveaux !");
 
+                //Cache les composants
                 imgAtrouver.setVisibility(View.INVISIBLE);
                 txtTest.setVisibility(View.INVISIBLE);
                 imgChrono.setVisibility(View.INVISIBLE);
+                txtScore.setVisibility(View.INVISIBLE);
                 txtTest.setText("");
 
+                //Animation lors du clique sur l'un des boutons de niveaux.
                 btnNiveau1.animate().translationX(0).withLayer();
                 btnNiveau2.animate().translationX(0).withLayer();
                 btnNiveau3.animate().translationX(0).withLayer();
 
 
-                countDownTimer.cancel();
+                Animation animation = new TranslateAnimation(0, 0, 0,0);
+                animation.setDuration(0);
+                animation.setFillAfter(true);
 
+                imageperso.startAnimation(animation);
+                imageperso1.startAnimation(animation);
+                imageperso2.startAnimation(animation);
+                imageperso3.startAnimation(animation);
+                imageperso4.startAnimation(animation);
+                imageperso5.startAnimation(animation);
+                imageperso6.startAnimation(animation);
+
+
+                //Stop le timer
+                countDownTimer.cancel();
             }
         });
 
@@ -271,15 +300,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     imageperso6.setTag(identifier);
                     System.out.println(RandNum + " " + NomPerso);
                     break;
-
             }
-
-
         }
     }
-
-
-
 
     public void launchNiveau(int wSeconde)
     {
@@ -291,8 +314,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Animation animation = new TranslateAnimation(0, randomposition, 0,randomposition2);
         animation.setDuration(1000);
         animation.setFillAfter(true);
-        imageperso.startAnimation(animation);*/
+        imageperso.startAnimation(animation);
+        */
 
+        //Les images apparaissent
+        frmImages.setVisibility(View.VISIBLE);
 
         //L'image du chronomètre apparait
         imgChrono.setVisibility(View.VISIBLE);
@@ -307,25 +333,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         countDownTimer = new CountDownTimer(wSeconde * 1000, 1000) {
 
             //Evènement qui se passe pendant que le timer est en cours
-            /*
-            public void onTick(long millisUntilFinished) {
-
-                txtTimer.setText(" " + millisUntilFinished / 1000);
-
-            }
-*/
-            //Evènement qui se passe pendant que le timer est en cours
             public void onTick(long millisUntilFinished) {
                 int minutes = (int) millisUntilFinished / 60000;
                 int seconds = (int) millisUntilFinished % 60000 / 1000;
-
-                String timeLeftText;
 
                 timeLeftText = "" +minutes;
                 timeLeftText += ":";
                 if (seconds<10) timeLeftText += "0";
                 timeLeftText += seconds;
-
 
                 txtTimer.setText(timeLeftText);
 
@@ -347,8 +362,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 btnNiveau2.setEnabled(true);
                 btnNiveau3.setEnabled(true);
 
-            }
+                //les boutons reprennent leurs position initial.
+                btnNiveau1.animate().translationX(0).withLayer();
+                btnNiveau2.animate().translationX(0).withLayer();
+                btnNiveau3.animate().translationX(0).withLayer();
 
+                //caches les images
+                frmImages.setVisibility(View.INVISIBLE);
+            }
         };
 
         //Les boutons de niveaux sont désactivé au lancement d'un niveau
@@ -356,10 +377,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau2.setEnabled(false);
         btnNiveau3.setEnabled(false);
 
-
         countDownTimer.start();
     }
-
 
     @Override
     public void onClick(View view) {
@@ -374,14 +393,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
             long randomposition = (long) (Math.random() * metrics.widthPixels * (Math.random() > 0.5 ? 1 : -1));
             long randomposition2 = (long) (Math.random() * metrics.heightPixels * (Math.random() > 0.5 ? 1 : -1));
+
             Animation animation = new TranslateAnimation(0, randomposition, 0,randomposition2);
             animation.setDuration(1000);
             animation.setFillAfter(true);
             view.startAnimation(animation);
-        }else{
-            txtMessageFin.setVisibility(View.VISIBLE);
-            txtMessageFin.setText("NON");
-        }
 
+        }else{
+            txtScore.setVisibility(View.VISIBLE);
+            txtMessageFin.setVisibility(View.VISIBLE);
+            txtMessageFin.setText("Tu t'es trompé !");
+        }
     }
 }
