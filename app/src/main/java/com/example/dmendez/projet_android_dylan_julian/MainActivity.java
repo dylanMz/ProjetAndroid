@@ -370,6 +370,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if(nameImg.equals(ImgaTrouver)){
             txtMessageFin.setVisibility(View.VISIBLE);
             txtMessageFin.setText("Bravo");
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            long randomposition = (long) (Math.random() * metrics.widthPixels * (Math.random() > 0.5 ? 1 : -1));
+            long randomposition2 = (long) (Math.random() * metrics.heightPixels * (Math.random() > 0.5 ? 1 : -1));
+            Animation animation = new TranslateAnimation(0, randomposition, 0,randomposition2);
+            animation.setDuration(1000);
+            animation.setFillAfter(true);
+            view.startAnimation(animation);
         }else{
             txtMessageFin.setVisibility(View.VISIBLE);
             txtMessageFin.setText("NON");
