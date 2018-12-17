@@ -1,6 +1,7 @@
 package com.example.dmendez.projet_android_dylan_julian;
 
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -29,6 +30,8 @@ public class AccueilActivity extends AppCompatActivity implements View.OnClickLi
 
         imageJeu1.setOnClickListener(this);
         imageJeu2.setOnClickListener(this);
+
+
     }
 
     @Override

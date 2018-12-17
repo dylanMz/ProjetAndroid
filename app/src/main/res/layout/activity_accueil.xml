@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="160dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif-smallcaps"
         android:shadowColor="@color/colorPrimaryDark"
@@ -57,7 +57,7 @@
 
     <ImageView
         android:id="@+id/imageView_Jeu2"
-        android:layout_width="180dp"
+        android:layout_width="183dp"
         android:layout_height="180dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="260dp"
@@ -83,4 +83,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_prenom" />
+
 </android.support.constraint.ConstraintLayout>
