@@ -35,7 +35,7 @@ public class collectionPersonnage {
             base_qcm.ajoutPersonnage(new Personnage(2, "titeuf"));
             base_qcm.ajoutPersonnage(new Personnage(3, "schtroumpf"));
             base_qcm.ajoutPersonnage(new Personnage(4, "manu"));
-            base_qcm.ajoutPersonnage(new Personnage(5, "bille"));
+            base_qcm.ajoutPersonnage(new Personnage(5, "bill"));
             base_qcm.ajoutPersonnage(new Personnage(6, "boule"));
             base_qcm.ajoutPersonnage(new Personnage(7, "luckyluke"));
 
