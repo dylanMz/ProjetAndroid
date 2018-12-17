@@ -63,7 +63,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int identifier;
     private int uneSeconde;
     private int nbRandom;
-    private int NUMimageatrouver;
+    private int maxTab[];
+    private int NUMimageatrouver = 0;
 
     private CountDownTimer countDownTimer;
 
@@ -213,6 +214,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 //Stop le timer
                 countDownTimer.cancel();
+
+                //remet à 0 l'image à trouver
+                NUMimageatrouver = 0;
             }
         });
 
@@ -221,7 +225,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //Méthode affichant les images aléatoirement
     private void initImage()
     {
-
+        maxTab = randomize(liste_personnage.ensPersonnage.size(), liste_personnage.ensPersonnage.size() + 1);
         int nbMax = liste_personnage.ensPersonnage.size();
         //int n = rand.nextInt(nbMax); // Gives n such that 0 <= n < 20
         //txtTest.setText(String.valueOf(n));
@@ -306,11 +310,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }
     }
-
+    //Permet de modifier l'image à trouver pendant le déroulement de la partie
     private void ImageaTrouver(){
-        int max[] = randomize(liste_personnage.ensPersonnage.size());
-        NUMimageatrouver = 0;
-        String test = liste_personnage.getNomPerso(max[NUMimageatrouver]);
+
+        System.out.println(maxTab[NUMimageatrouver] + " dd "+ NUMimageatrouver);
+        String test = liste_personnage.getNomPerso(maxTab[NUMimageatrouver]);
         txtTest.setText(String.valueOf(test));
         int identifier= getResources().getIdentifier(test, "drawable", getPackageName());
 
@@ -318,7 +322,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imgAtrouver.setTag(identifier);
         imgAtrouver.setVisibility(View.VISIBLE);
         txtTest.setVisibility(View.VISIBLE);
-        NUMimageatrouver++;
+        NUMimageatrouver = NUMimageatrouver + 1;
     }
     /**
      * Cette méthode génére une séquence de nombre aléatoires deux à deux distincts.
@@ -333,10 +337,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
      * @param n - Nombre total des éléments de la séquence à générer.
      * @ return - Retourne la séquence des nombres aléatoires générée.
      */
-    public static int[] randomize(int n) {
+    public static int[] randomize(int n, int max) {
         int[] returnArray = null;
         if (n > 0) {
-            returnArray = new int[n];
+            returnArray = new int[max];
             for (int index = 0; index < n; ++index) {
                 returnArray[index] = index;
             }
