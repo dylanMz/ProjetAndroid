@@ -38,6 +38,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="35dp"
         android:layout_marginTop="4dp"
+        android:background="@drawable/backgroundimage"
         android:src="@drawable/pointinterogation"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
@@ -227,6 +228,7 @@
             android:layout_marginTop="368dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 
 

@@ -65,6 +65,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int nbRandom;
 
     private CountDownTimer countDownTimer;
+    private CountDownTimer countDownTimerErreur;
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
 
@@ -339,6 +340,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 int minutes = (int) millisUntilFinished / 60000;
                 int seconds = (int) millisUntilFinished % 60000 / 1000;
 
+
                 timeLeftText = "" +minutes;
                 timeLeftText += ":";
                 if (seconds<10) timeLeftText += "0";
@@ -402,9 +404,32 @@ public class MainActivity extends Activity implements View.OnClickListener {
             view.startAnimation(animation);
 
         }else{
-            txtScore.setVisibility(View.VISIBLE);
+
+            //Instancie le timer
+            countDownTimerErreur = new CountDownTimer(2 * 1000, 1000) {
+
+                //Evènement qui se passe pendant que le timer est en cours
+                public void onTick(long millisUntilFinished) {
+
+                    txtScore.setVisibility(View.VISIBLE);
+
+
+                }
+
+                //Lorsque le timer est à 0
+                public void onFinish() {
+
+                    txtScore.setVisibility(View.INVISIBLE);
+
+                }
+            };
+
+            countDownTimerErreur.start();
+
+
             txtMessageFin.setVisibility(View.VISIBLE);
             txtMessageFin.setText("Tu t'es trompé !");
+
         }
     }
 }
