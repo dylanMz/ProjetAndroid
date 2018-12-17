@@ -63,6 +63,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int identifier;
     private int uneSeconde;
     private int nbRandom;
+    private int maxTab[];
+    private int NUMimageatrouver = 0;
 
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimerErreur;
@@ -211,9 +213,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 imageperso5.startAnimation(animation);
                 imageperso6.startAnimation(animation);
 
-
                 //Stop le timer
                 countDownTimer.cancel();
+
+                //remet à 0 l'image à trouver
+                NUMimageatrouver = 0;
             }
         });
 
@@ -222,13 +226,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //Méthode affichant les images aléatoirement
     private void initImage()
     {
-
+        maxTab = randomize(liste_personnage.ensPersonnage.size(), liste_personnage.ensPersonnage.size() + 1);
         int nbMax = liste_personnage.ensPersonnage.size();
         //int n = rand.nextInt(nbMax); // Gives n such that 0 <= n < 20
         //txtTest.setText(String.valueOf(n));
 
         //Création d'un nombre aléatoire
-        Random unNombreR = new Random();
+      /*  Random unNombreR = new Random();
         nbRandom = unNombreR.nextInt(nbMax);
         //permet de récuperer un nom de personnage aléatoirement et l'affecter à une ImageView
         String test = liste_personnage.getNomPerso(nbRandom);
@@ -238,7 +242,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imgAtrouver.setImageResource(identifier);
         imgAtrouver.setTag(identifier);
         imgAtrouver.setVisibility(View.VISIBLE);
-        txtTest.setVisibility(View.VISIBLE);
+        txtTest.setVisibility(View.VISIBLE);*/
+        ImageaTrouver();
 
         //Nombre aléatoire sans doublon pour disposer les images aléatoirement sur l'écran
         TreeSet unNombre = new TreeSet();
@@ -306,6 +311,52 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }
     }
+    //Permet de modifier l'image à trouver pendant le déroulement de la partie
+    private void ImageaTrouver(){
+
+        System.out.println(maxTab[NUMimageatrouver] + " dd "+ NUMimageatrouver);
+        String test = liste_personnage.getNomPerso(maxTab[NUMimageatrouver]);
+        txtTest.setText(String.valueOf(test));
+        int identifier= getResources().getIdentifier(test, "drawable", getPackageName());
+
+        imgAtrouver.setImageResource(identifier);
+        imgAtrouver.setTag(identifier);
+        imgAtrouver.setVisibility(View.VISIBLE);
+        txtTest.setVisibility(View.VISIBLE);
+        NUMimageatrouver = NUMimageatrouver + 1;
+    }
+    /**
+     * Cette méthode génére une séquence de nombre aléatoires deux à deux distincts.
+     * L'avantage de cette méthode utilitaire est le fait qu'elle génére des nombres
+     * aléatoires distincts deux à deux d'une façon déterministe.
+     * Elle évite le besoin de faire des boucles imbriquées pour teste si un tel entier
+     * existe déja dans la séquence.
+     *
+     * Supposons qu'on fournit la valeur 5 comme paramètre à cette méthode,
+     * alors celle-ci peut générée la séquence: [0, 4, 3, 1, 2].
+     *
+     * @param n - Nombre total des éléments de la séquence à générer.
+     * @ return - Retourne la séquence des nombres aléatoires générée.
+     */
+    public static int[] randomize(int n, int max) {
+        int[] returnArray = null;
+        if (n > 0) {
+            returnArray = new int[max];
+            for (int index = 0; index < n; ++index) {
+                returnArray[index] = index;
+            }
+            Random random = new Random(System.currentTimeMillis());
+            for (int index = 0; index < n; ++index) {
+                int j = (int) (random.nextDouble() * (n - index) + index);
+                int tmp = returnArray[index];
+                returnArray[index] = returnArray[j];
+                returnArray[j] = tmp;
+            }
+        }
+        return returnArray;
+    }
+
+
 
     public void launchNiveau(int wSeconde)
     {
@@ -402,6 +453,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             animation.setDuration(1000);
             animation.setFillAfter(true);
             view.startAnimation(animation);
+            ImageaTrouver();
+
+
 
         }else{
 
