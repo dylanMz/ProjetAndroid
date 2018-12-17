@@ -197,9 +197,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //int n = rand.nextInt(nbMax); // Gives n such that 0 <= n < 20
         //txtTest.setText(String.valueOf(n));
 
-
+        //Création d'un nombre aléatoire
         Random unNombreR = new Random();
         nbRandom = unNombreR.nextInt(nbMax);
+        //permet de récuperer un nom de personnage aléatoirement et l'affecter à une ImageView
         String test = liste_personnage.getNomPerso(nbRandom);
         txtTest.setText(String.valueOf(test));
         int identifier= getResources().getIdentifier(test, "drawable", getPackageName());
@@ -209,6 +210,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imgAtrouver.setVisibility(View.VISIBLE);
         txtTest.setVisibility(View.VISIBLE);
 
+        //Nombre aléatoire sans doublon pour disposer les images aléatoirement sur l'écran
         TreeSet unNombre = new TreeSet();
         Random NumRend = new Random();
         for(int i = 0; i<liste_personnage.ensPersonnage.size(); i++){
