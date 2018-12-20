@@ -356,25 +356,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             //Lorsque le timer est à 0
             public void onFinish() {
                 int PersoTrouve = NUMimageatrouver - 1;
-                seconds = seconds -1;
                 //Si le temps est arrivé à 0
-                if(seconds == 0 & minutes == 0){
                     EndGames("Fin de partie tu as pas terminé tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages !");
-                }else {
-                    //Indique que le temps est imparti, et cache le bouton abandonner
-                    long totaltemps = (minutes*60)+seconds;
 
-                    long tempsfin = uneSeconde - totaltemps;
-                    System.out.println(totaltemps + " " + tempsfin);
-                    minutes = (int) tempsfin / 60;
-                    seconds = (int) tempsfin % 60;
-                    if (minutes == 0){
-                        EndGames("Fin de partie tu as terminé en " + seconds + " secondes");
-                    }else{
-                        EndGames("Fin de partie tu as terminé en " + minutes + ":" + seconds + " minutes");
-                    }
-
-                }
 
                 txtTimer.setText("Fin");
 
@@ -434,6 +418,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
             //Detecte si la partie est fini ou non!
             if(NUMimageatrouver == liste_personnage.ensPersonnage.size()){
                 countDownTimer.onFinish();
+                seconds = seconds -1;
+                //Indique que le temps est imparti, et cache le bouton abandonner
+                long totaltemps = (minutes*60)+seconds;
+
+                long tempsfin = uneSeconde - totaltemps;
+                System.out.println(totaltemps + " " + tempsfin);
+                minutes = (int) tempsfin / 60;
+                seconds = (int) tempsfin % 60;
+                if (minutes == 0){
+                    EndGames("Fin de partie tu as terminé en " + seconds + " secondes");
+                }else{
+                    EndGames("Fin de partie tu as terminé en " + minutes + ":" + seconds + " minutes");
+                }
             }else{
                 ImageaTrouver();
             }
@@ -502,16 +499,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 public void onFinish() {
 
                     int PersoTrouve = NUMimageatrouver - 1;
-
-                    if(timeLeftText.equals("0:01")){
-                        EndGames("Fin de partie tu as pas terminé tu as trouvé "+ PersoTrouve + " personnages !");
-                    }else {
-                        //Indique que le temps est imparti, et cache le bouton abandonner
-                        long tempsfin = uneSeconde - TempsTimer;
-                        minutes = (int) tempsfin / 60000;
-                        seconds = (int) tempsfin % 60000 / 1000;
-                        EndGames("Fin de partie tu as terminé en " + minutes + ":" + seconds);
-                    }
+                    //Si le temps est arrivé à 0
+                    System.out.println(seconds + "dddd " + minutes);
+                        EndGames("Fin de partie tu as pas terminé tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages !");
 
                     txtTimer.setText("Fin");
 
