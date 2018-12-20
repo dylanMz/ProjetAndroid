@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -29,13 +30,13 @@ import java.util.Random;
 import java.util.*;
 
 public class MainActivity extends Activity implements View.OnClickListener {
+    private ProgressBar progressBarJeu1;
+
     private ConstraintLayout frmImages;
 
     private String NomPerso;
     private String lePrenom;
     private String timeLeftText;
-
-
 
     private Button btnNiveau1;
     private Button btnNiveau2;
@@ -59,12 +60,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ImageView imageperso5;
     private ImageView imageperso6;
 
-
     private int identifier;
     private int uneSeconde;
     private int nbRandom;
     private int maxTab[];
     private int NUMimageatrouver = 0;
+    private int nbPerso;
 
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimerErreur;
@@ -97,6 +98,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         txtTrouveLe = (TextView) this.findViewById(R.id.textView_msg);
         txtScore = (TextView) this.findViewById(R.id.textView_score);
         frmImages = (ConstraintLayout) this.findViewById(R.id.constraintLayout_images);
+        progressBarJeu1 = (ProgressBar) this.findViewById(R.id.progressBar_score);
 
         imageperso1.setOnClickListener(this);
         imageperso2.setOnClickListener(this);
@@ -212,6 +214,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 imageperso4.startAnimation(animation);
                 imageperso5.startAnimation(animation);
                 imageperso6.startAnimation(animation);
+
+                //Reinistialise la barre de progression
+                progressBarJeu1.setProgress(0);
 
                 //Stop le timer
                 countDownTimer.cancel();
@@ -409,6 +414,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Object nameImg = view.getTag();
         Object ImgaTrouver = imgAtrouver.getTag();
         System.out.println("okoko" + nameImg + " " + ImgaTrouver);
+
         if(nameImg.equals(ImgaTrouver)){
             txtMessageFin.setVisibility(View.VISIBLE);
             txtMessageFin.setText("Bravo");
@@ -424,6 +430,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
             ImageaTrouver();
 
 
+            nbPerso = liste_personnage.ensPersonnage.size();
+
+            int progressNum= 100/nbPerso;
+            int progressActuel = progressBarJeu1.getProgress();
+
+            if(progressBarJeu1.getProgress() < 100){
+
+                progressNum = progressNum+progressActuel;
+                progressBarJeu1.setProgress(progressNum);
+
+            }
+
+
+
+
+
 
         }else{
 
@@ -434,15 +456,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 public void onTick(long millisUntilFinished) {
 
                     txtScore.setVisibility(View.VISIBLE);
-
-
                 }
 
                 //Lorsque le timer est à 0
                 public void onFinish() {
 
                     txtScore.setVisibility(View.INVISIBLE);
-
                 }
             };
 

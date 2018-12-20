@@ -31,7 +31,7 @@ public class collectionPersonnage {
         ensPersonnage = base_qcm.getLesPersonnages();
 
         if (ensPersonnage.isEmpty()) {
-            base_qcm.ajoutPersonnage(new Personnage(1 , "asterix"));
+            base_qcm.ajoutPersonnage(new Personnage(1, "asterix"));
             base_qcm.ajoutPersonnage(new Personnage(2, "titeuf"));
             base_qcm.ajoutPersonnage(new Personnage(3, "schtroumpf"));
             base_qcm.ajoutPersonnage(new Personnage(4, "manu"));
