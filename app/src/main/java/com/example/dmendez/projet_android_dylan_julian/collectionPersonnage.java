@@ -61,6 +61,10 @@ public class collectionPersonnage {
             base_qcm.ajoutPersonnage(new Personnage(13, "Obélix", "obelix"));
             base_qcm.ajoutPersonnage(new Personnage(14, "Idéfix", "idefix"));
             base_qcm.ajoutPersonnage(new Personnage(15, "Abraracourcix", "abraracourcix"));
+            base_qcm.ajoutPersonnage(new Personnage(16, "Capitaine-Haddock", "capitainehaddock"));
+            base_qcm.ajoutPersonnage(new Personnage(17, "Joe Dalton", "joedalton"));
+            base_qcm.ajoutPersonnage(new Personnage(18, "Kid Paddle", "kidpaddle"));
+            base_qcm.ajoutPersonnage(new Personnage(19, "Calimero", "calimero"));
             //base_qcm.ajoutPersonnage(new Personnage(8, "gaston"));
 
 
