@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Group;
 import android.transition.Fade;
@@ -109,6 +110,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imageperso5.setOnClickListener(this);
         imageperso6.setOnClickListener(this);
 
+        final ImageView[] pieces = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6};
+
+
+
 
         //Affiche le prénom du joueur
         lePrenom = this.getIntent().getExtras().getString("Joueur");
@@ -194,6 +199,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //Nombre aléatoire sans doublon pour disposer les images aléatoirement sur l'écran
         TreeSet unNombre = new TreeSet();
         Random NumRend = new Random();
+
+        final ImageView[] pieces = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6};
+
         for(int i = 0; i<liste_personnage.ensPersonnage.size(); i++){
             int RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
             for(;;){
@@ -204,8 +212,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 NomPerso = liste_personnage.getNomPerso(RandNum);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
+                pieces[i].setImageResource(identifier);
+                pieces[i].setTag(identifier);
 
 
+            /*
             switch (i){
                 case 1: imageperso.setImageResource(identifier);
                     imageperso.setTag(identifier);
@@ -228,7 +239,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 case 0: imageperso6.setImageResource(identifier);
                     imageperso6.setTag(identifier);
                     break;
-            }
+            }*/
         }
     }
     //Permet de modifier l'image à trouver pendant le déroulement de la partie
