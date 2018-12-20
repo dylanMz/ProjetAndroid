@@ -339,7 +339,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        System.out.println("okoko");
         Object nameImg = view.getTag();
         Object ImgaTrouver = imgAtrouver.getTag();
         System.out.println("okoko" + nameImg + " " + ImgaTrouver);
