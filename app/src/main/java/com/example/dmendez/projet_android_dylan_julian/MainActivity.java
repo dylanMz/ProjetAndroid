@@ -99,6 +99,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         txtTrouveLe = (TextView) this.findViewById(R.id.textView_msg);
         txtScore = (TextView) this.findViewById(R.id.textView_score);
         frmImages = (ConstraintLayout) this.findViewById(R.id.constraintLayout_images);
+        progressBarJeu1 = (ProgressBar) this.findViewById(R.id.progressBar_score);
 
         imageperso1.setOnClickListener(this);
         imageperso2.setOnClickListener(this);
@@ -369,7 +370,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             view.startAnimation(animation);
             ImageaTrouver();
 
-
             nbPerso = liste_personnage.ensPersonnage.size();
 
             int progressNum= 100/nbPerso;
@@ -381,11 +381,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 progressBarJeu1.setProgress(progressNum);
 
             }
-
-
-
-
-
 
         }else{
 
