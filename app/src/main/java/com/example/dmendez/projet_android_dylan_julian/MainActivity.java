@@ -303,6 +303,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
      * alors celle-ci peut générée la séquence: [0, 4, 3, 1, 2].
      *
      * @param n - Nombre total des éléments de la séquence à générer.
+     * @param max - Nombre .
      * @ return - Retourne la séquence des nombres aléatoires générée.
      */
     public static int[] randomize(int n, int max) {
