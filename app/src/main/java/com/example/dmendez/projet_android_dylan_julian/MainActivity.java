@@ -325,8 +325,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }else {
                     //Indique que le temps est imparti, et cache le bouton abandonner
                     long tempsfin = uneSeconde - TempsTimer;
-                    minutes = (int) TempsTimer / 60000;
-                    seconds = (int) TempsTimer % 60000 / 1000;
+                    minutes = (int) tempsfin / 60000;
+                    seconds = (int) tempsfin % 60000 / 1000;
                     EndGames("Fin de partie tu as terminé en " + minutes + ":" + seconds);
                 }
 
