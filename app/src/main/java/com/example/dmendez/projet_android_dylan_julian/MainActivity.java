@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -98,7 +99,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         txtTrouveLe = (TextView) this.findViewById(R.id.textView_msg);
         txtScore = (TextView) this.findViewById(R.id.textView_score);
         frmImages = (ConstraintLayout) this.findViewById(R.id.constraintLayout_images);
-        progressBarJeu1 = (ProgressBar) this.findViewById(R.id.progressBar_score);
 
         imageperso1.setOnClickListener(this);
         imageperso2.setOnClickListener(this);
@@ -174,55 +174,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         {
             public void onClick(View v)
             {
+                EndGames("Tu as abandonné... mais c'est pas grave ! tu peux recommencer ! Clique sur un des niveaux !");
 
-                //Les boutons de niveau sont de nouveaux cliquable
-                btnNiveau1.setEnabled(true);
-                btnNiveau2.setEnabled(true);
-                btnNiveau3.setEnabled(true);
-
-                //Le personnage à retrouver devient un point d'intégoration et les images sont cachées
-                frmImages.setVisibility(View.INVISIBLE);
-
-                //Le bouton abandonner disparait et le timer et remis à zero
-                btnAbandonner.setVisibility(View.INVISIBLE);
-                txtTimer.setText("");
-
-                txtMessageFin.setVisibility(View.VISIBLE);
-                txtMessageFin.setText("Tu as abandonné... mais c'est pas grave ! tu peux recommencer ! Clique sur un des niveaux !");
-
-                //Cache les composants
-                imgAtrouver.setVisibility(View.INVISIBLE);
-                txtTest.setVisibility(View.INVISIBLE);
-                imgChrono.setVisibility(View.INVISIBLE);
-                txtScore.setVisibility(View.INVISIBLE);
-                txtTest.setText("");
-
-                //Animation lors du clique sur l'un des boutons de niveaux.
-                btnNiveau1.animate().translationX(0).withLayer();
-                btnNiveau2.animate().translationX(0).withLayer();
-                btnNiveau3.animate().translationX(0).withLayer();
-
-
-                Animation animation = new TranslateAnimation(0, 0, 0,0);
-                animation.setDuration(0);
-                animation.setFillAfter(true);
-
-                imageperso.startAnimation(animation);
-                imageperso1.startAnimation(animation);
-                imageperso2.startAnimation(animation);
-                imageperso3.startAnimation(animation);
-                imageperso4.startAnimation(animation);
-                imageperso5.startAnimation(animation);
-                imageperso6.startAnimation(animation);
-
-                //Reinistialise la barre de progression
-                progressBarJeu1.setProgress(0);
-
-                //Stop le timer
-                countDownTimer.cancel();
-
-                //remet à 0 l'image à trouver
-                NUMimageatrouver = 0;
             }
         });
 
@@ -295,7 +248,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imgAtrouver.setTag(identifier);
         imgAtrouver.setVisibility(View.VISIBLE);
         txtTest.setVisibility(View.VISIBLE);
-        NUMimageatrouver = NUMimageatrouver + 1;
+        NUMimageatrouver++;
+        if(NUMimageatrouver > liste_personnage.ensPersonnage.size()){
+            countDownTimer.onFinish();
+        }
     }
     /**
      * Cette méthode génére une séquence de nombre aléatoires deux à deux distincts.
@@ -308,7 +264,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
      * alors celle-ci peut générée la séquence: [0, 4, 3, 1, 2].
      *
      * @param n - Nombre total des éléments de la séquence à générer.
-     * @param max - Nombre .
+     * @param max - Interval du nombre aléatoire Exemple 0-8.
      * @ return - Retourne la séquence des nombres aléatoires générée.
      */
     public static int[] randomize(int n, int max) {
@@ -378,25 +334,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onFinish() {
 
                 //Indique que le temps est imparti, et cache le bouton abandonner
+                EndGames("Fin de partie tu as terminé en " + timeLeftText);
                 txtTimer.setText("Fin");
-                btnAbandonner.setVisibility(View.INVISIBLE);
 
-                //L'image a trouver devient un point d'intégoration, et le texte correspondant a l'image est reinistialisé
-                imgAtrouver.setImageResource(R.drawable.pointinterogation);
-                txtTest.setText("");
-
-                //Les boutons de niveaux sont de nouveau clicquable
-                btnNiveau1.setEnabled(true);
-                btnNiveau2.setEnabled(true);
-                btnNiveau3.setEnabled(true);
-
-                //les boutons reprennent leurs position initial.
-                btnNiveau1.animate().translationX(0).withLayer();
-                btnNiveau2.animate().translationX(0).withLayer();
-                btnNiveau3.animate().translationX(0).withLayer();
-
-                //caches les images
-                frmImages.setVisibility(View.INVISIBLE);
             }
         };
 
@@ -472,5 +412,59 @@ public class MainActivity extends Activity implements View.OnClickListener {
             txtMessageFin.setText("Tu t'es trompé !");
 
         }
+    }
+
+    //Methode pour la remise à zero de la partie!
+    public void EndGames(String MessageFin){
+
+
+        //Les boutons de niveau sont de nouveaux cliquable
+        btnNiveau1.setEnabled(true);
+        btnNiveau2.setEnabled(true);
+        btnNiveau3.setEnabled(true);
+
+        //Le personnage à retrouver devient un point d'intégoration et les images sont cachées
+        frmImages.setVisibility(View.INVISIBLE);
+
+        txtMessageFin.setVisibility(View.VISIBLE);
+        txtMessageFin.setBackgroundColor(getColor(R.color.colorPrimaryDark));
+        txtMessageFin.setText(MessageFin);
+
+        //Le bouton abandonner disparait et le timer et remis à zero
+        btnAbandonner.setVisibility(View.INVISIBLE);
+        txtTimer.setText("");
+
+
+
+        //Cache les composants
+        imgAtrouver.setVisibility(View.INVISIBLE);
+        txtTest.setVisibility(View.INVISIBLE);
+        imgChrono.setVisibility(View.INVISIBLE);
+        txtScore.setVisibility(View.INVISIBLE);
+        txtTest.setText("");
+
+        //Animation lors du clique sur l'un des boutons de niveaux.
+        btnNiveau1.animate().translationX(0).withLayer();
+        btnNiveau2.animate().translationX(0).withLayer();
+        btnNiveau3.animate().translationX(0).withLayer();
+
+
+        Animation animation = new TranslateAnimation(0, 0, 0,0);
+        animation.setDuration(0);
+        animation.setFillAfter(true);
+
+        imageperso.startAnimation(animation);
+        imageperso1.startAnimation(animation);
+        imageperso2.startAnimation(animation);
+        imageperso3.startAnimation(animation);
+        imageperso4.startAnimation(animation);
+        imageperso5.startAnimation(animation);
+        imageperso6.startAnimation(animation);
+
+        //Stop le timer
+        countDownTimer.cancel();
+
+        //remet à 0 l'image à trouver
+        NUMimageatrouver = 0;
     }
 }
