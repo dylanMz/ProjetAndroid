@@ -62,6 +62,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ImageView imageperso4;
     private ImageView imageperso5;
     private ImageView imageperso6;
+    private ImageView imageperso7;
+    private ImageView imageperso8;
+    private ImageView imageperso9;
+    private ImageView imageperso10;
+    private ImageView imageperso11;
+    private ImageView imageperso12;
+    private ImageView imageperso13;
+    private ImageView imageperso14;
+
 
     private int identifier;
     private int uneSeconde;
@@ -76,6 +85,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimerErreur;
     private CountDownTimer countDownTimerTick;
+
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
 
@@ -102,21 +112,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imageperso4 = (ImageView) this.findViewById(R.id.imageView_perso4);
         imageperso5 = (ImageView) this.findViewById(R.id.imageView_perso5);
         imageperso6 = (ImageView) this.findViewById(R.id.imageView_perso6);
+        imageperso7 = (ImageView) this.findViewById(R.id.imageView_perso7);
+        imageperso8 = (ImageView) this.findViewById(R.id.imageView_perso8);
+        imageperso9 = (ImageView) this.findViewById(R.id.imageView_perso9);
+        imageperso10 = (ImageView) this.findViewById(R.id.imageView_perso10);
+        imageperso11 = (ImageView) this.findViewById(R.id.imageView_perso11);
+        imageperso12 = (ImageView) this.findViewById(R.id.imageView_perso12);
+        imageperso13 = (ImageView) this.findViewById(R.id.imageView_perso13);
+        imageperso14 = (ImageView) this.findViewById(R.id.imageView_perso14);
         txtTrouveLe = (TextView) this.findViewById(R.id.textView_msg);
         txtScore = (TextView) this.findViewById(R.id.textView_score);
         frmImages = (ConstraintLayout) this.findViewById(R.id.constraintLayout_images);
         progressBarJeu1 = (ProgressBar) this.findViewById(R.id.progressBar_score);
         imgTick = (ImageView) this.findViewById(R.id.imageView_tick);
 
-        imageperso1.setOnClickListener(this);
-        imageperso2.setOnClickListener(this);
-        imageperso.setOnClickListener(this);
-        imageperso3.setOnClickListener(this);
-        imageperso4.setOnClickListener(this);
-        imageperso5.setOnClickListener(this);
-        imageperso6.setOnClickListener(this);
-
-        final ImageView[] pieces = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6};
+        final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14};
+        for(int i = 0; i<imagePersoList.length;i++){
+            imagePersoList[i].setOnClickListener(this);
+        }
 
 
 
@@ -206,9 +219,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         TreeSet unNombre = new TreeSet();
         Random NumRend = new Random();
 
-        //Liste d'imageView
 
-        final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6};
 
         for(int i = 0; i<liste_personnage.ensPersonnage.size(); i++){
             int RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
@@ -217,8 +228,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 else RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
             }
 
-
-                NomPerso = liste_personnage.getNomPerso(RandNum);
+            final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14};
+                NomPerso = liste_personnage.getNomImage(RandNum);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
             imagePersoList[i].setImageResource(identifier);
             imagePersoList[i].setTag(identifier);
@@ -229,9 +240,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private void ImageaTrouver(){
 
         System.out.println(maxTab[NUMimageatrouver] + " dd "+ NUMimageatrouver);
-        String test = liste_personnage.getNomPerso(maxTab[NUMimageatrouver]);
-        txtTest.setText(String.valueOf(test));
-        int identifier= getResources().getIdentifier(test, "drawable", getPackageName());
+        int numatrouver = maxTab[NUMimageatrouver];
+        String nomimage = liste_personnage.getNomImage(numatrouver);
+        String nomPerso = liste_personnage.getNomPerso(numatrouver);
+        txtTest.setText(String.valueOf(nomPerso));
+        int identifier= getResources().getIdentifier(nomimage, "drawable", getPackageName());
 
         imgAtrouver.setImageResource(identifier);
         imgAtrouver.setTag(identifier);
@@ -310,24 +323,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 timeLeftText += ":";
                 if (seconds<10) timeLeftText += "0";
                 timeLeftText += seconds;
-
-                txtTimer.setText(timeLeftText);
-                System.out.println(millisUntilFinished);
                 TempsTimer = millisUntilFinished;
+                txtTimer.setText(timeLeftText);
             }
 
             //Lorsque le timer est à 0
             public void onFinish() {
                 int PersoTrouve = NUMimageatrouver - 1;
-
-                if(timeLeftText.equals("0:01")){
-                    EndGames("Fin de partie tu as pas terminé tu as trouvé "+ PersoTrouve + " personnages !");
+                seconds = seconds -1;
+                //Si le temps est arrivé à 0
+                if(seconds == 0 & minutes == 0){
+                    EndGames("Fin de partie tu as pas terminé tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages !");
                 }else {
                     //Indique que le temps est imparti, et cache le bouton abandonner
-                    long tempsfin = uneSeconde - TempsTimer;
-                    minutes = (int) tempsfin / 60000;
-                    seconds = (int) tempsfin % 60000 / 1000;
-                    EndGames("Fin de partie tu as terminé en " + minutes + ":" + seconds);
+                    long totaltemps = (minutes*60)+seconds;
+
+                    long tempsfin = uneSeconde - totaltemps;
+                    System.out.println(totaltemps + " " + tempsfin);
+                    minutes = (int) tempsfin / 60;
+                    seconds = (int) tempsfin % 60;
+                    if (minutes == 0){
+                        EndGames("Fin de partie tu as terminé en " + seconds + " secondes");
+                    }else{
+                        EndGames("Fin de partie tu as terminé en " + minutes + ":" + seconds + " minutes");
+                    }
+
                 }
 
                 txtTimer.setText("Fin");
@@ -470,13 +490,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         animation.setDuration(0);
         animation.setFillAfter(true);
 
-        imageperso.startAnimation(animation);
-        imageperso1.startAnimation(animation);
-        imageperso2.startAnimation(animation);
-        imageperso3.startAnimation(animation);
-        imageperso4.startAnimation(animation);
-        imageperso5.startAnimation(animation);
-        imageperso6.startAnimation(animation);
+        //Permet de re positionner les images à leurs position d'origine
+        final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14};
+        for(int i = 0; i<imagePersoList.length;i++){
+            imagePersoList[i].startAnimation(animation);
+        }
 
         //Stop le timer
         countDownTimer.cancel();
