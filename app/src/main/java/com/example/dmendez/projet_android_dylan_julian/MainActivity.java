@@ -527,6 +527,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 public void onTick(long millisUntilFinished) {
 
                     txtScore.setVisibility(View.VISIBLE);
+
+                    //testpourpush
+
                 }
 
                 //Lorsque le timer est à 0
