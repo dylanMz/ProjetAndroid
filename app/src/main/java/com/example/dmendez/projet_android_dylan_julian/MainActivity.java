@@ -324,7 +324,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             //Lorsque le timer est à 0
             public void onFinish() {
-                int PersoTrouve = NUMimageatrouver;
+                int PersoTrouve = NUMimageatrouver - 1;
 
                 if(timeLeftText.equals("0:01")){
                     EndGames("Fin de partie tu as pas terminé tu as trouvé "+ PersoTrouve + " personnages !");
