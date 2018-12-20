@@ -346,6 +346,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau2.setEnabled(false);
         btnNiveau3.setEnabled(false);
 
+        progressBarJeu1.setProgress(0);
+
         countDownTimer.start();
     }
 
@@ -370,17 +372,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
             view.startAnimation(animation);
             ImageaTrouver();
 
+            //Récupère le nombre de personnage
             nbPerso = liste_personnage.ensPersonnage.size();
+            progressBarJeu1.setMax(nbPerso);
 
-            int progressNum= 100/nbPerso;
             int progressActuel = progressBarJeu1.getProgress();
 
-            if(progressBarJeu1.getProgress() < 100){
+            if(progressBarJeu1.getProgress() < nbPerso){
 
-                progressNum = progressNum+progressActuel;
-                progressBarJeu1.setProgress(progressNum);
+                progressActuel = progressActuel+1;
+                progressBarJeu1.setProgress(progressActuel);
 
             }
+
 
         }else{
 
@@ -429,8 +433,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnAbandonner.setVisibility(View.INVISIBLE);
         txtTimer.setText("");
 
-
-
         //Cache les composants
         imgAtrouver.setVisibility(View.INVISIBLE);
         txtTest.setVisibility(View.INVISIBLE);
@@ -458,6 +460,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         //Stop le timer
         countDownTimer.cancel();
+
+        //Reinistialise la progress bar
+        progressBarJeu1.setProgress(0);
 
         //remet à 0 l'image à trouver
         NUMimageatrouver = 0;
