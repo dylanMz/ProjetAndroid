@@ -52,6 +52,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private TextView txtTrouveLe;
     private TextView txtScore;
 
+    private ImageView imgTick;
     private ImageView imgAtrouver;
     private ImageView imgChrono;
     private ImageView imageperso;
@@ -74,6 +75,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimerErreur;
+    private CountDownTimer countDownTimerTick;
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
 
@@ -104,6 +106,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         txtScore = (TextView) this.findViewById(R.id.textView_score);
         frmImages = (ConstraintLayout) this.findViewById(R.id.constraintLayout_images);
         progressBarJeu1 = (ProgressBar) this.findViewById(R.id.progressBar_score);
+        imgTick = (ImageView) this.findViewById(R.id.imageView_tick);
 
         imageperso1.setOnClickListener(this);
         imageperso2.setOnClickListener(this);
@@ -204,7 +207,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Random NumRend = new Random();
 
         //Liste d'imageView
-        final ImageView[] pieces = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6};
+
+        final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6};
 
         for(int i = 0; i<liste_personnage.ensPersonnage.size(); i++){
             int RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
@@ -216,34 +220,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 NomPerso = liste_personnage.getNomPerso(RandNum);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
-                pieces[i].setImageResource(identifier);
-                pieces[i].setTag(identifier);
+            imagePersoList[i].setImageResource(identifier);
+            imagePersoList[i].setTag(identifier);
 
-
-            /*
-            switch (i){
-                case 1: imageperso.setImageResource(identifier);
-                    imageperso.setTag(identifier);
-                    break;
-                case 2: imageperso1.setImageResource(identifier);
-                    imageperso1.setTag(identifier);
-                    break;
-                case 3: imageperso2.setImageResource(identifier);
-                    imageperso2.setTag(identifier);
-                    break;
-                case 4: imageperso3.setImageResource(identifier);
-                    imageperso3.setTag(identifier);
-                    break;
-                case 5: imageperso4.setImageResource(identifier);
-                    imageperso4.setTag(identifier);
-                    break;
-                case 6: imageperso5.setImageResource(identifier);
-                    imageperso5.setTag(identifier);
-                    break;
-                case 0: imageperso6.setImageResource(identifier);
-                    imageperso6.setTag(identifier);
-                    break;
-            }*/
         }
     }
     //Permet de modifier l'image à trouver pendant le déroulement de la partie
@@ -374,8 +353,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         System.out.println("okoko" + nameImg + " " + ImgaTrouver);
 
         if(nameImg.equals(ImgaTrouver)){
-            txtMessageFin.setVisibility(View.VISIBLE);
-            txtMessageFin.setText("Bravo");
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
             long randomposition = (long) (Math.random() * metrics.widthPixels * (Math.random() > 0.5 ? 1 : -1));
@@ -386,6 +363,29 @@ public class MainActivity extends Activity implements View.OnClickListener {
             animation.setFillAfter(true);
             view.startAnimation(animation);
 
+            //Affiche le tick vert pour montrer que l'utilisateur a choisi le bon personnage.
+            imgTick.setVisibility(View.VISIBLE);
+
+            //Instancie le timer
+            countDownTimerTick = new CountDownTimer(1 * 1000, 1000) {
+
+                //Evènement qui se passe pendant que le timer est en cours
+                public void onTick(long millisUntilFinished) {
+
+                    imgTick.setVisibility(View.VISIBLE);
+                }
+
+                //Lorsque le timer est à 0
+                public void onFinish() {
+
+                    imgTick.setVisibility(View.INVISIBLE);
+                }
+            };
+
+            countDownTimerTick.start();
+
+
+
             //Detecte si la partie est fini ou non!
             if(NUMimageatrouver == liste_personnage.ensPersonnage.size()){
                 countDownTimer.onFinish();
@@ -395,6 +395,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             //Récupère le nombre de personnage
             nbPerso = liste_personnage.ensPersonnage.size();
+
+            //Le maxixum de la barre de progression devient le nombre de personnage
             progressBarJeu1.setMax(nbPerso);
 
             int progressActuel = progressBarJeu1.getProgress();
@@ -410,7 +412,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }else{
 
             //Instancie le timer
-            countDownTimerErreur = new CountDownTimer(2 * 1000, 1000) {
+            countDownTimerErreur = new CountDownTimer(1 * 1000, 1000) {
 
                 //Evènement qui se passe pendant que le timer est en cours
                 public void onTick(long millisUntilFinished) {
@@ -428,15 +430,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
             countDownTimerErreur.start();
 
 
-            txtMessageFin.setVisibility(View.VISIBLE);
-            txtMessageFin.setText("Tu t'es trompé !");
-
         }
     }
 
     //Methode pour la remise à zero de la partie!
     public void EndGames(String MessageFin){
-
 
         //Les boutons de niveau sont de nouveaux cliquable
         btnNiveau1.setEnabled(true);
@@ -460,12 +458,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imgChrono.setVisibility(View.INVISIBLE);
         txtScore.setVisibility(View.INVISIBLE);
         txtTest.setText("");
+        imgTick.setVisibility(View.INVISIBLE);
 
         //Animation lors du clique sur l'un des boutons de niveaux.
         btnNiveau1.animate().translationX(0).withLayer();
         btnNiveau2.animate().translationX(0).withLayer();
         btnNiveau3.animate().translationX(0).withLayer();
-
 
         Animation animation = new TranslateAnimation(0, 0, 0,0);
         animation.setDuration(0);
