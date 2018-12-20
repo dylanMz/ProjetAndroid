@@ -185,6 +185,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //Méthode affichant les images aléatoirement
     private void initImage()
     {
+        txtMessageFin.setBackgroundColor(0);
         maxTab = randomize(liste_personnage.ensPersonnage.size(), liste_personnage.ensPersonnage.size() + 1);
         int nbMax = liste_personnage.ensPersonnage.size();
 
@@ -208,31 +209,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
             switch (i){
                 case 1: imageperso.setImageResource(identifier);
                     imageperso.setTag(identifier);
-                    System.out.println(RandNum + " " + NomPerso);
                     break;
                 case 2: imageperso1.setImageResource(identifier);
                     imageperso1.setTag(identifier);
-                    System.out.println(RandNum + " " + NomPerso);
                     break;
                 case 3: imageperso2.setImageResource(identifier);
                     imageperso2.setTag(identifier);
-                    System.out.println(RandNum + " " + NomPerso);
                     break;
                 case 4: imageperso3.setImageResource(identifier);
                     imageperso3.setTag(identifier);
-                    System.out.println(RandNum + " " + NomPerso);
                     break;
                 case 5: imageperso4.setImageResource(identifier);
                     imageperso4.setTag(identifier);
-                    System.out.println(RandNum + " " + NomPerso);
                     break;
                 case 6: imageperso5.setImageResource(identifier);
                     imageperso5.setTag(identifier);
-                    System.out.println(RandNum + " " + NomPerso);
                     break;
                 case 0: imageperso6.setImageResource(identifier);
                     imageperso6.setTag(identifier);
-                    System.out.println(RandNum + " " + NomPerso);
                     break;
             }
         }
@@ -250,9 +244,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imgAtrouver.setVisibility(View.VISIBLE);
         txtTest.setVisibility(View.VISIBLE);
         NUMimageatrouver++;
-        if(NUMimageatrouver > liste_personnage.ensPersonnage.size()){
-            countDownTimer.onFinish();
-        }
     }
     /**
      * Cette méthode génére une séquence de nombre aléatoires deux à deux distincts.
@@ -333,9 +324,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             //Lorsque le timer est à 0
             public void onFinish() {
+                int PersoTrouve = NUMimageatrouver - 1;
 
-                //Indique que le temps est imparti, et cache le bouton abandonner
-                EndGames("Fin de partie tu as terminé en " + timeLeftText);
+                if(timeLeftText.equals("0:01")){
+                    EndGames("Fin de partie tu as pas terminé tu as trouvé "+ PersoTrouve + " personnages !");
+                }else {
+                    //Indique que le temps est imparti, et cache le bouton abandonner
+                    EndGames("Fin de partie tu as terminé en " + timeLeftText);
+                }
+
                 txtTimer.setText("Fin");
 
             }
@@ -370,7 +367,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
             animation.setDuration(1000);
             animation.setFillAfter(true);
             view.startAnimation(animation);
-            ImageaTrouver();
+
+            //Detecte si la partie est fini ou non!
+            if(NUMimageatrouver == liste_personnage.ensPersonnage.size()){
+                countDownTimer.onFinish();
+            }else{
+                ImageaTrouver();
+            }
 
             //Récupère le nombre de personnage
             nbPerso = liste_personnage.ensPersonnage.size();
