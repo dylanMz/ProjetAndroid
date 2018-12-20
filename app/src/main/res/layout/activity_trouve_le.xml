@@ -173,8 +173,8 @@
             android:id="@+id/imageView_perso26"
             android:layout_width="100dp"
             android:layout_height="104dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="476dp"
+            android:layout_marginStart="144dp"
+            android:layout_marginTop="504dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
