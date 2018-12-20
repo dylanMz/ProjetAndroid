@@ -65,6 +65,14 @@ public class collectionPersonnage {
             base_qcm.ajoutPersonnage(new Personnage(17, "Joe Dalton", "joedalton"));
             base_qcm.ajoutPersonnage(new Personnage(18, "Kid Paddle", "kidpaddle"));
             base_qcm.ajoutPersonnage(new Personnage(19, "Calimero", "calimero"));
+            base_qcm.ajoutPersonnage(new Personnage(20, "Panoramix", "panoramix"));
+            base_qcm.ajoutPersonnage(new Personnage(21, "Jules Cesar", "julescesar"));
+            base_qcm.ajoutPersonnage(new Personnage(22, "Grand Schtroumpf", "grandschtroumpf"));
+            base_qcm.ajoutPersonnage(new Personnage(23, "Gargamel", "gargamel"));
+            base_qcm.ajoutPersonnage(new Personnage(24, "Homer Simpson", "homersimpson"));
+            base_qcm.ajoutPersonnage(new Personnage(25, "Marge Simpson", "margesimpson"));
+            base_qcm.ajoutPersonnage(new Personnage(26, "Bart Simpson", "bartsimpson"));
+            base_qcm.ajoutPersonnage(new Personnage(27, "Flanders", "flanders"));
             //base_qcm.ajoutPersonnage(new Personnage(8, "gaston"));
 
 
