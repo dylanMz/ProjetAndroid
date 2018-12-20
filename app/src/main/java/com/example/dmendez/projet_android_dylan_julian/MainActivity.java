@@ -228,21 +228,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     {
         maxTab = randomize(liste_personnage.ensPersonnage.size(), liste_personnage.ensPersonnage.size() + 1);
         int nbMax = liste_personnage.ensPersonnage.size();
-        //int n = rand.nextInt(nbMax); // Gives n such that 0 <= n < 20
-        //txtTest.setText(String.valueOf(n));
 
-        //Création d'un nombre aléatoire
-      /*  Random unNombreR = new Random();
-        nbRandom = unNombreR.nextInt(nbMax);
-        //permet de récuperer un nom de personnage aléatoirement et l'affecter à une ImageView
-        String test = liste_personnage.getNomPerso(nbRandom);
-        txtTest.setText(String.valueOf(test));
-        int identifier= getResources().getIdentifier(test, "drawable", getPackageName());
-
-        imgAtrouver.setImageResource(identifier);
-        imgAtrouver.setTag(identifier);
-        imgAtrouver.setVisibility(View.VISIBLE);
-        txtTest.setVisibility(View.VISIBLE);*/
         ImageaTrouver();
 
         //Nombre aléatoire sans doublon pour disposer les images aléatoirement sur l'écran
@@ -258,26 +244,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 NomPerso = liste_personnage.getNomPerso(RandNum);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
-                /* Bitmap bmp;
-                 bmp=BitmapFactory.decodeResource(getResources(),identifier);
-                bmp=Bitmap.createScaledBitmap(bmp, 150,150, true);
-                final RelativeLayout rl = (RelativeLayout) findViewById(R.id.Relative_layout);
-                ImageView iv = new ImageView(MainActivity.this);
-                iv.setImageBitmap(bmp);
-                iv.setId(i);
-                //iv.setImageResource(identifier);
 
-                //iv.setLayoutParams(lp);
-
-                rl.addView(iv);
-
-
-               // iv.
-                //iv.setMaxWidth(150);
-               // iv.setMaxHeight(150);
-
-                */
-                //  break;
 
             switch (i){
                 case 1: imageperso.setImageResource(identifier);

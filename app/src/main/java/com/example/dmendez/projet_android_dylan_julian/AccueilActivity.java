@@ -34,6 +34,8 @@ public class AccueilActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+
+
     @Override
     public void onClick(View view) {
         Intent unIntent = new Intent(this, MainActivity.class);

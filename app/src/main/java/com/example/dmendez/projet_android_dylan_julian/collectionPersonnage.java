@@ -37,7 +37,7 @@ public class collectionPersonnage {
             base_qcm.ajoutPersonnage(new Personnage(4, "manu"));
             base_qcm.ajoutPersonnage(new Personnage(5, "bill"));
             base_qcm.ajoutPersonnage(new Personnage(6, "boule"));
-            base_qcm.ajoutPersonnage(new Personnage(7, "lucky-luke"));
+            base_qcm.ajoutPersonnage(new Personnage(7, "luckyluke"));
 
             //ensPersonnage = base_qcm.getLesPersonnages();
 
