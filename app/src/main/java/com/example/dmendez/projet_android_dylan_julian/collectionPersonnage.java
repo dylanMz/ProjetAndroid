@@ -38,6 +38,8 @@ public class collectionPersonnage {
             base_qcm.ajoutPersonnage(new Personnage(5, "bill"));
             base_qcm.ajoutPersonnage(new Personnage(6, "boule"));
             base_qcm.ajoutPersonnage(new Personnage(7, "luckyluke"));
+            //base_qcm.ajoutPersonnage(new Personnage(8, "gaston"));
+
 
             //ensPersonnage = base_qcm.getLesPersonnages();
 
