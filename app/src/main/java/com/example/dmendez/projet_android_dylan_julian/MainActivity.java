@@ -74,6 +74,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ImageView imageperso16;
     private ImageView imageperso17;
     private ImageView imageperso18;
+    private ImageView imageperso19;
+    private ImageView imageperso20;
+    private ImageView imageperso21;
+    private ImageView imageperso22;
+    private ImageView imageperso23;
+    private ImageView imageperso24;
+    private ImageView imageperso25;
+    private ImageView imageperso26;
 
 
     private int identifier;
@@ -128,13 +136,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imageperso16 = (ImageView) this.findViewById(R.id.imageView_perso16);
         imageperso17 = (ImageView) this.findViewById(R.id.imageView_perso17);
         imageperso18 = (ImageView) this.findViewById(R.id.imageView_perso18);
+        imageperso19 = (ImageView) this.findViewById(R.id.imageView_perso19);
+        imageperso20 = (ImageView) this.findViewById(R.id.imageView_perso20);
+        imageperso21 = (ImageView) this.findViewById(R.id.imageView_perso21);
+        imageperso22 = (ImageView) this.findViewById(R.id.imageView_perso22);
+        imageperso23 = (ImageView) this.findViewById(R.id.imageView_perso23);
+        imageperso24 = (ImageView) this.findViewById(R.id.imageView_perso24);
+        imageperso25 = (ImageView) this.findViewById(R.id.imageView_perso25);
+        imageperso26 = (ImageView) this.findViewById(R.id.imageView_perso26);
         txtTrouveLe = (TextView) this.findViewById(R.id.textView_msg);
         txtScore = (TextView) this.findViewById(R.id.textView_score);
         frmImages = (ConstraintLayout) this.findViewById(R.id.constraintLayout_images);
         progressBarJeu1 = (ProgressBar) this.findViewById(R.id.progressBar_score);
         imgTick = (ImageView) this.findViewById(R.id.imageView_tick);
 
-        final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18};
+        final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26};
         for(int i = 0; i<imagePersoList.length;i++){
             imagePersoList[i].setOnClickListener(this);
         }
@@ -236,7 +252,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 else RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
             }
 
-            final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18};
+            final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26};
                 NomPerso = liste_personnage.getNomImage(RandNum);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
             imagePersoList[i].setImageResource(identifier);
@@ -499,7 +515,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         animation.setFillAfter(true);
 
         //Permet de re positionner les images à leurs position d'origine
-        final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18};
+        final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26};
         for(int i = 0; i<imagePersoList.length;i++){
             imagePersoList[i].startAnimation(animation);
         }
