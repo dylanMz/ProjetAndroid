@@ -68,6 +68,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int maxTab[];
     private int NUMimageatrouver = 0;
     private int nbPerso;
+    private int minutes;
+    private int seconds;
+    private long TempsTimer;
 
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimerErreur;
@@ -200,6 +203,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         TreeSet unNombre = new TreeSet();
         Random NumRend = new Random();
 
+        //Liste d'imageView
         final ImageView[] pieces = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6};
 
         for(int i = 0; i<liste_personnage.ensPersonnage.size(); i++){
@@ -320,9 +324,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             //Evènement qui se passe pendant que le timer est en cours
             public void onTick(long millisUntilFinished) {
-                int minutes = (int) millisUntilFinished / 60000;
-                int seconds = (int) millisUntilFinished % 60000 / 1000;
-
+                 minutes = (int) millisUntilFinished / 60000;
+                 seconds = (int) millisUntilFinished % 60000 / 1000;
 
                 timeLeftText = "" +minutes;
                 timeLeftText += ":";
@@ -330,7 +333,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 timeLeftText += seconds;
 
                 txtTimer.setText(timeLeftText);
-
+                System.out.println(millisUntilFinished);
+                TempsTimer = millisUntilFinished;
             }
 
             //Lorsque le timer est à 0
@@ -341,7 +345,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     EndGames("Fin de partie tu as pas terminé tu as trouvé "+ PersoTrouve + " personnages !");
                 }else {
                     //Indique que le temps est imparti, et cache le bouton abandonner
-                    EndGames("Fin de partie tu as terminé en " + timeLeftText);
+                    long tempsfin = uneSeconde - TempsTimer;
+                    minutes = (int) TempsTimer / 60000;
+                    seconds = (int) TempsTimer % 60000 / 1000;
+                    EndGames("Fin de partie tu as terminé en " + minutes + ":" + seconds);
                 }
 
                 txtTimer.setText("Fin");
