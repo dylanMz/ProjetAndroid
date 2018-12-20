@@ -324,6 +324,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         animation.setFillAfter(true);
         imageperso.startAnimation(animation);
         */
+        txtTimer.setTextColor(Color.WHITE);
 
         //Les images apparaissent
         frmImages.setVisibility(View.VISIBLE);
@@ -351,6 +352,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 timeLeftText += seconds;
                 TempsTimer = millisUntilFinished;
                 txtTimer.setText(timeLeftText);
+                if(seconds <= 10){
+                    txtTimer.setTextColor(Color.RED);
+                }
             }
 
             //Lorsque le timer est à 0
@@ -492,6 +496,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     timeLeftText += seconds;
 
                     txtTimer.setText(timeLeftText);
+                    if(seconds <= 10){
+                        txtTimer.setTextColor(Color.RED);
+                    }
 
                 }
 
