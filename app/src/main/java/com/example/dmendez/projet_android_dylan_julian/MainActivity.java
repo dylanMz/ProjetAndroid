@@ -84,7 +84,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Initilisation des controles
+        //Initilisation des controles android studio
         txtAccueilMsg = (TextView) this.findViewById(R.id.textView_msgAccueil);
         btnNiveau1 = (Button) this.findViewById(R.id.button_niveau1);
         btnNiveau2 = (Button) this.findViewById(R.id.button_niveau2);
@@ -351,6 +351,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Object ImgaTrouver = imgAtrouver.getTag();
         System.out.println("okoko" + nameImg + " " + ImgaTrouver);
 
+        //Si l'utilisateur trouve le bon personnage
         if(nameImg.equals(ImgaTrouver)){
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -384,7 +385,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             countDownTimerTick.start();
 
 
-
             //Detecte si la partie est fini ou non!
             if(NUMimageatrouver == liste_personnage.ensPersonnage.size()){
                 countDownTimer.onFinish();
@@ -408,7 +408,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
 
 
-        }else{
+        }
+        //Sinon, quand l'utilisateur se trompe :
+        else{
 
             //Instancie le timer
             countDownTimerErreur = new CountDownTimer(1 * 1000, 1000) {
