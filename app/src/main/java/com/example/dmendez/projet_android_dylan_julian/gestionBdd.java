@@ -18,9 +18,10 @@ public class gestionBdd extends SQLiteOpenHelper {
     private static final String nom = "nomPersonnage";
     private static final String chemin = "chemin";
     private static final String id = "idPersonnage";
+    private static  final String nomimage = "nomImage";
 
     public static final String reqCreationTablePerso = "CREATE TABLE " + NOM_BDD + "(" + id +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            nom  + " TEXT) ;";
+            nom  + " TEXT, " + nomimage + " TEXT) ;";
     // constructeur
     public gestionBdd(Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
         super(context, name, factory, version);
@@ -54,6 +55,7 @@ public class gestionBdd extends SQLiteOpenHelper {
 
         values.put("idPersonnage",unPersonnage.getIdPersonnage());
         values.put("nomPersonnage",unPersonnage.getNomPersonnage());
+        values.put("nomImage",unPersonnage.getNomImage());
 
         long insertion = db.insert(NOM_BDD, null, values);
         return insertion;
@@ -71,6 +73,7 @@ public class gestionBdd extends SQLiteOpenHelper {
                 Personnage un_personnage = new Personnage();
                 un_personnage.setIdPersonnage(unCurseur.getInt(unCurseur.getColumnIndex(id)));
                 un_personnage.setNomPersonnage(unCurseur.getString(unCurseur.getColumnIndex(nom)));
+                un_personnage.setNomImage(unCurseur.getString(unCurseur.getColumnIndex(nomimage)));
 
                 ensPersonnage.add(un_personnage);
             }while (unCurseur.moveToNext());

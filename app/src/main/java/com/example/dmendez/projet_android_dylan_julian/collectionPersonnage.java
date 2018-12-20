@@ -24,6 +24,21 @@ public class collectionPersonnage {
         return findedPersonnage.getNomPersonnage();
     }
 
+    public String getNomImage(int numImage){
+        numImage++;
+
+        Personnage findedPersonnage = new Personnage();
+
+        for(int i = 0; i< ensPersonnage.size(); i++){
+
+            if(ensPersonnage.get(i).getIdPersonnage() == numImage ){
+                findedPersonnage = ensPersonnage.get(i);
+            }
+
+        }
+        return findedPersonnage.getNomImage();
+    }
+
 
     public void insertion_personnage(Context un_context) {
         base_qcm = new gestionBdd(un_context);
@@ -31,13 +46,25 @@ public class collectionPersonnage {
         ensPersonnage = base_qcm.getLesPersonnages();
 
         if (ensPersonnage.isEmpty()) {
-            base_qcm.ajoutPersonnage(new Personnage(1, "asterix"));
-            base_qcm.ajoutPersonnage(new Personnage(2, "titeuf"));
-            base_qcm.ajoutPersonnage(new Personnage(3, "schtroumpf"));
-            base_qcm.ajoutPersonnage(new Personnage(4, "manu"));
-            base_qcm.ajoutPersonnage(new Personnage(5, "bill"));
-            base_qcm.ajoutPersonnage(new Personnage(6, "boule"));
-            base_qcm.ajoutPersonnage(new Personnage(7, "luckyluke"));
+            base_qcm.ajoutPersonnage(new Personnage(1, "Asterix", "asterix"));
+            base_qcm.ajoutPersonnage(new Personnage(2, "Titeuf", "titeuf"));
+            base_qcm.ajoutPersonnage(new Personnage(3, "Schtroumpf", "schtroumpf"));
+            base_qcm.ajoutPersonnage(new Personnage(4, "Manu", "manu"));
+            base_qcm.ajoutPersonnage(new Personnage(5, "Bill", "bill"));
+            base_qcm.ajoutPersonnage(new Personnage(6, "Boule", "boule"));
+            base_qcm.ajoutPersonnage(new Personnage(7, "Lucky-Luke", "luckyluke"));
+            base_qcm.ajoutPersonnage(new Personnage(8, "Milou", "milou"));
+            base_qcm.ajoutPersonnage(new Personnage(9, "Tintin", "tintin"));
+            base_qcm.ajoutPersonnage(new Personnage(10, "Spirou", "spirou"));
+            base_qcm.ajoutPersonnage(new Personnage(11, "Fantasio", "fantasio"));
+            base_qcm.ajoutPersonnage(new Personnage(12, "Gaston", "gaston"));
+            base_qcm.ajoutPersonnage(new Personnage(13, "Obélix", "obelix"));
+            base_qcm.ajoutPersonnage(new Personnage(14, "Idéfix", "idefix"));
+            base_qcm.ajoutPersonnage(new Personnage(15, "Abraracourcix", "abraracourcix"));
+            base_qcm.ajoutPersonnage(new Personnage(16, "Capitaine-Haddock", "capitainehaddock"));
+            base_qcm.ajoutPersonnage(new Personnage(17, "Joe Dalton", "joedalton"));
+            base_qcm.ajoutPersonnage(new Personnage(18, "Kid Paddle", "kidpaddle"));
+            base_qcm.ajoutPersonnage(new Personnage(19, "Calimero", "calimero"));
             //base_qcm.ajoutPersonnage(new Personnage(8, "gaston"));
 
 
