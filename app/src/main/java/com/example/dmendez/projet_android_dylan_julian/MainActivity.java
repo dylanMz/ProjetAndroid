@@ -39,6 +39,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ProgressBar progressBarJeu1;
 
     private ConstraintLayout frmImages;
+    private float cordx;
+    private float cordy;
 
     private String NomPerso;
     private String lePrenom;
@@ -268,6 +270,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             imagePersoList[i].setImageResource(identifier);
             imagePersoList[i].setTag(identifier);
             imagePersoList[i].setEnabled(true);
+            imagePersoList[i].setVisibility(View.VISIBLE);
 
         }
     }
@@ -407,11 +410,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
             long randomposition = (long) (Math.random() * metrics.widthPixels * (Math.random() > 0.5 ? 1 : -1));
             long randomposition2 = (long) (Math.random() * metrics.heightPixels * (Math.random() > 0.5 ? 1 : -1));
 
-            //Animation animation = new TranslateAnimation(0, randomposition, 0,randomposition2);
+            //enregistrement de la position avant changement
+            cordx = view.getX();
+            cordy = view.getY();
+            //animation de l'image
             view.animate().x(imgAtrouver2.getX()).y(imgAtrouver2.getY()).setDuration(1000).start();
-           // animation.setDuration(1000);
-           // animation.setFillAfter(true);
-           // view.startAnimation(animation);
 
             //Affiche le tick vert pour montrer que l'utilisateur a choisi le bon personnage.
             imgTick.setVisibility(View.VISIBLE);
@@ -455,14 +458,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     EndGames("Fin de partie tu as terminé en " + minutes + ":" + seconds + " minutes, Soit un score total de : "+unScore);
                 }
             }else{
+                //met l'image invisible et désactivé aprés l'animation
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         ImageaTrouver();
+
                         view.setVisibility(View.INVISIBLE);
                         view.setEnabled(false);
+                        view.animate().x(cordx).y(cordy).setDuration(0).start();
+
+
+
+
                     }
                 }, 1000);
+
 
             }
 
@@ -606,7 +617,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau2.animate().translationX(0).withLayer();
         btnNiveau3.animate().translationX(0).withLayer();
 
-        Animation animation = new TranslateAnimation(0, 0, 0,0);
+       /* Animation animation = new TranslateAnimation(0, 0, 0,0);
         animation.setDuration(0);
         animation.setFillAfter(true);
 
@@ -614,7 +625,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26};
         for(int i = 0; i<imagePersoList.length;i++){
             imagePersoList[i].startAnimation(animation);
-        }
+        }*/
 
         //Stop le timer
         countDownTimer.cancel();
