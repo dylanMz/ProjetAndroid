@@ -17,6 +17,8 @@ public class ScoreActivity extends AppCompatActivity {
     private ListView listeMoyen;
     private ListView listeDifficile;
 
+    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
