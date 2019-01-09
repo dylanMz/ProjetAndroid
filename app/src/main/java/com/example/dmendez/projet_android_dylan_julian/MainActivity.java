@@ -46,6 +46,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private String NomPerso;
     private String lePrenom;
     private String timeLeftText;
+    private String leNiveau;
 
     private Button btnNiveau1;
     private Button btnNiveau2;
@@ -112,9 +113,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private CountDownTimer countDownTimerTick;
     private CountDownTimer countDownTimerUpdate;
     private MediaPlayer SongTimer;
+    private Score wScore;
 
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
+    private collectionScore liste_score = new collectionScore();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,6 +195,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             {
                 //Affecte la valeur 120 a une seconde.
                 uneSeconde = 150;
+                leNiveau = "Facile";
 
                 btnNiveau1.animate().translationX(400).withLayer();
 
@@ -206,6 +210,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             {
                 //Affecte la valeur 60 a une seconde.
                 uneSeconde = 120;
+                leNiveau = "Moyen";
+
 
                 btnNiveau2.animate().translationX(400).withLayer();
 
@@ -220,6 +226,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             {
                 //Affecte la valeur 30 a une seconde.
                 uneSeconde = 45;
+                leNiveau = "Difficle";
+
 
                 btnNiveau3.animate().translationX(400).withLayer();
 
@@ -244,6 +252,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             {
                 Intent intent1 = new Intent(MainActivity.this, ScoreActivity.class);
                 startActivity(intent1);
+
 
             }
         });
@@ -392,7 +401,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 int PersoTrouve = NUMimageatrouver - 1;
 
                 //Calcule le score du joueur
-                int unScore;
+                //int unScore;
                 SongTimer.stop();
                 unScore = PersoTrouve*127;
                 EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
@@ -565,7 +574,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     int PersoTrouve = NUMimageatrouver - 1;
 
                     //Calcule le score du joueur
-                    int unScore;
                     SongTimer.stop();
                     unScore = PersoTrouve*127;
                     EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
@@ -637,17 +645,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau2.animate().translationX(0).withLayer();
         btnNiveau3.animate().translationX(0).withLayer();
 
-
-
-       /* Animation animation = new TranslateAnimation(0, 0, 0,0);
-        animation.setDuration(0);
-        animation.setFillAfter(true);
-
-        //Permet de re positionner les images à leurs position d'origine
-        final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26};
-        for(int i = 0; i<imagePersoList.length;i++){
-            imagePersoList[i].startAnimation(animation);
-        }*/
+        liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
 
         //Stop le timer
         countDownTimer.cancel();
