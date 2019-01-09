@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -90,6 +91,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ImageView imageperso24;
     private ImageView imageperso25;
     private ImageView imageperso26;
+    private ImageView imageperso27;
+    private ImageView imageperso28;
 
 
     private int identifier;
@@ -107,6 +110,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private CountDownTimer countDownTimerErreur;
     private CountDownTimer countDownTimerTick;
     private CountDownTimer countDownTimerUpdate;
+    private MediaPlayer SongTimer;
 
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
@@ -155,6 +159,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imageperso24 = (ImageView) this.findViewById(R.id.imageView_perso24);
         imageperso25 = (ImageView) this.findViewById(R.id.imageView_perso25);
         imageperso26 = (ImageView) this.findViewById(R.id.imageView_perso26);
+        imageperso27 = (ImageView) this.findViewById(R.id.imageView_perso27);
+        imageperso28 = (ImageView) this.findViewById(R.id.imageView_perso29);
         txtTrouveLe = (TextView) this.findViewById(R.id.textView_msg);
         txtScore = (TextView) this.findViewById(R.id.textView_score);
         frmImages = (ConstraintLayout) this.findViewById(R.id.constraintLayout_images);
@@ -162,7 +168,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imgTick = (ImageView) this.findViewById(R.id.imageView_tick);
         btnScore = (Button) this.findViewById(R.id.button_score);
 
-        final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26};
+        this.SongTimer = MediaPlayer.create(getApplicationContext(), R.raw.timer_10);
+
+        final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26,imageperso27,imageperso28};
         for(int i = 0; i<imagePersoList.length;i++){
             imagePersoList[i].setOnClickListener(this);
         }
@@ -264,7 +272,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 else RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
             }
 
-            final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26};
+            final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26,imageperso27,imageperso28};
                 NomPerso = liste_personnage.getNomImage(RandNum);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
             imagePersoList[i].setImageResource(identifier);
@@ -367,8 +375,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 timeLeftText += seconds;
                 TempsTimer = millisUntilFinished;
                 txtTimer.setText(timeLeftText);
-                if(seconds <= 10){
+                if(seconds <= 10 & minutes == 0){
                     txtTimer.setTextColor(Color.RED);
+                    SongTimer.start();
                 }
             }
 
@@ -405,6 +414,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         //Si l'utilisateur trouve le bon personnage
         if(nameImg.equals(ImgaTrouver)){
+            view.setEnabled(false);
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
             long randomposition = (long) (Math.random() * metrics.widthPixels * (Math.random() > 0.5 ? 1 : -1));
@@ -465,7 +475,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         ImageaTrouver();
 
                         view.setVisibility(View.INVISIBLE);
-                        view.setEnabled(false);
+
                         view.animate().x(cordx).y(cordy).setDuration(0).start();
 
 
@@ -534,8 +544,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     timeLeftText += seconds;
 
                     txtTimer.setText(timeLeftText);
-                    if(seconds <= 10){
+                    if(seconds <= 10 & minutes == 0){
                         txtTimer.setTextColor(Color.RED);
+                        SongTimer.start();
                     }
 
                 }

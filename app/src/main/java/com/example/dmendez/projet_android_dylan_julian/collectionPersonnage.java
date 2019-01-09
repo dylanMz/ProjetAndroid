@@ -73,6 +73,8 @@ public class collectionPersonnage {
             base_qcm.ajoutPersonnage(new Personnage(25, "Marge Simpson", "margesimpson"));
             base_qcm.ajoutPersonnage(new Personnage(26, "Bart Simpson", "bartsimpson"));
             base_qcm.ajoutPersonnage(new Personnage(27, "Flanders", "flanders"));
+            base_qcm.ajoutPersonnage(new Personnage(28, "Marsupilami", "marsupilami"));
+            base_qcm.ajoutPersonnage(new Personnage(29, "Grosminet", "grosminet"));
             //base_qcm.ajoutPersonnage(new Personnage(8, "gaston"));
 
 
