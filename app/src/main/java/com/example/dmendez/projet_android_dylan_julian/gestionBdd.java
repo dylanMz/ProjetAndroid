@@ -42,7 +42,7 @@ public class gestionBdd extends SQLiteOpenHelper {
     }
 
 
-    //surcharge de la méthode onCreate
+    //surcharge de la méthode onCreate 
     @Override
     public void onCreate(SQLiteDatabase objbdd){
         Log.i("test base","insertion " + String.valueOf(reqCreationTablePerso));
