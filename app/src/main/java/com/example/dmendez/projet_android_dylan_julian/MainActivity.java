@@ -111,7 +111,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private CountDownTimer countDownTimerErreur;
     private CountDownTimer countDownTimerTick;
     private CountDownTimer countDownTimerUpdate;
-    private MediaPlayer SongTimer;
+    private MediaPlayer bonneRep;
+    private MediaPlayer mauvaiseRep;
 
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
@@ -169,7 +170,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imgTick = (ImageView) this.findViewById(R.id.imageView_tick);
         btnScore = (Button) this.findViewById(R.id.button_score);
 
-        this.SongTimer = MediaPlayer.create(getApplicationContext(), R.raw.timer_10);
+        this.bonneRep = MediaPlayer.create(getApplicationContext(), R.raw.bonne_rep);
+        this.mauvaiseRep = MediaPlayer.create(getApplicationContext(), R.raw.mauvaise_rep);
 
         final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26,imageperso27,imageperso28};
         for(int i = 0; i<imagePersoList.length;i++){
@@ -255,7 +257,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private void initImage()
     {
 
-        SongTimer.reset();
         txtMessageFin.setBackgroundColor(0);
         maxTab = randomize(liste_personnage.ensPersonnage.size(), liste_personnage.ensPersonnage.size() + 1);
         int nbMax = liste_personnage.ensPersonnage.size();
@@ -380,9 +381,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 txtTimer.setText(timeLeftText);
                 if(seconds <= 10 & minutes == 0){
                     txtTimer.setTextColor(Color.RED);
-                    SongTimer.start();
-
-                    SongTimer.setVolume(1,1);
                 }
             }
 
@@ -393,7 +391,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 //Calcule le score du joueur
                 int unScore;
-                SongTimer.stop();
                 unScore = PersoTrouve*127;
                 EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
 
@@ -420,6 +417,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         //Si l'utilisateur trouve le bon personnage
         if(nameImg.equals(ImgaTrouver)){
+            bonneRep.start();
             view.setEnabled(false);
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -513,7 +511,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         //Sinon, quand l'utilisateur se trompe :
         else{
-
+            mauvaiseRep.start();
             //Stop le timer
             countDownTimer.cancel();
 
@@ -553,8 +551,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     txtTimer.setText(timeLeftText);
                     if(seconds <= 10 & minutes == 0){
                         txtTimer.setTextColor(Color.RED);
-                        SongTimer.start();
-                        SongTimer.setVolume(1, 1);
                     }
 
                 }
@@ -566,7 +562,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                     //Calcule le score du joueur
                     int unScore;
-                    SongTimer.stop();
                     unScore = PersoTrouve*127;
                     EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
 
