@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Group;
 import android.transition.Fade;
@@ -54,6 +55,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private ImageView imgTick;
     private ImageView imgAtrouver;
+    private ImageView imgAtrouver2;
     private ImageView imgChrono;
     private ImageView imageperso;
     private ImageView imageperso1;
@@ -115,6 +117,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau3 = (Button) this.findViewById(R.id.button_niveau3);
         txtTimer = (TextView) this.findViewById(R.id.textView_timer);
         imgAtrouver = (ImageView) this.findViewById(R.id.imageView_persoChercher);
+        imgAtrouver2 = (ImageView) this.findViewById(R.id.imageView_persoChercher2);
         txtTest = (TextView) this.findViewById(R.id.textView_test);
         btnAbandonner = (Button) this.findViewById(R.id.button_abandonner);
         txtMessageFin = (TextView) this.findViewById(R.id.textView_messageFin);
@@ -259,6 +262,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
             imagePersoList[i].setImageResource(identifier);
             imagePersoList[i].setTag(identifier);
+            imagePersoList[i].setEnabled(true);
 
         }
     }
@@ -380,7 +384,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         Object nameImg = view.getTag();
         Object ImgaTrouver = imgAtrouver.getTag();
         System.out.println("okoko" + nameImg + " " + ImgaTrouver);
@@ -392,10 +396,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
             long randomposition = (long) (Math.random() * metrics.widthPixels * (Math.random() > 0.5 ? 1 : -1));
             long randomposition2 = (long) (Math.random() * metrics.heightPixels * (Math.random() > 0.5 ? 1 : -1));
 
-            Animation animation = new TranslateAnimation(0, randomposition, 0,randomposition2);
-            animation.setDuration(1000);
-            animation.setFillAfter(true);
-            view.startAnimation(animation);
+            //Animation animation = new TranslateAnimation(0, randomposition, 0,randomposition2);
+            view.animate().x(imgAtrouver2.getX()).y(imgAtrouver2.getY()).setDuration(1000).start();
+           // animation.setDuration(1000);
+           // animation.setFillAfter(true);
+           // view.startAnimation(animation);
 
             //Affiche le tick vert pour montrer que l'utilisateur a choisi le bon personnage.
             imgTick.setVisibility(View.VISIBLE);
@@ -436,7 +441,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     EndGames("Fin de partie tu as terminé en " + minutes + ":" + seconds + " minutes");
                 }
             }else{
-                ImageaTrouver();
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageaTrouver();
+                        view.setVisibility(View.INVISIBLE);
+                        view.setEnabled(false);
+                    }
+                }, 1000);
+
             }
 
             //Récupère le nombre de personnage
