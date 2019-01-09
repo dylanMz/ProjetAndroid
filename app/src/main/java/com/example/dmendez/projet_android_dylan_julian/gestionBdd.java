@@ -20,18 +20,17 @@ public class gestionBdd extends SQLiteOpenHelper {
     private static final String id = "idPersonnage";
     private static  final String nomimage = "nomImage";
 
-    private static final String NOM_BDD2 ="scoreJoueur";
-    private static final String id2 = "idScore";
-    private static final String score = "score";
-    private static final String nomJoueur = "nomJoueur";
-    private static final String niveau = "niveau";
-
+    private static final String NOM_BDD2 ="scoreBD";
+    private static final String id2 = "scoreId";
+    private static final String score = "scoreJoueur";
+    private static final String nomJoueur = "scoreNom";
+    private static final String niveau = "scoreNiveau";
 
     public static final String reqCreationTablePerso = "CREATE TABLE " + NOM_BDD + "(" + id +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             nom  + " TEXT, " + nomimage + " TEXT) ;";
 
     public static final String reqReqCreationTableScore = "CREATE TABLE " + NOM_BDD2 + "(" + id2 +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            score  + " INTEGER, " + nomJoueur + " TEXT, " + niveau +"TEXT) ;";
+            score  + " INTEGER, " + nomJoueur + " TEXT, " + niveau + " TEXT) ;";
 
     // constructeur
     public gestionBdd(Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
@@ -42,7 +41,7 @@ public class gestionBdd extends SQLiteOpenHelper {
     }
 
 
-    //surcharge de la méthode onCreate 
+    //surcharge de la méthode onCreate
     @Override
     public void onCreate(SQLiteDatabase objbdd){
         Log.i("test base","insertion " + String.valueOf(reqCreationTablePerso));
@@ -88,10 +87,10 @@ public class gestionBdd extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put("idScore",unScore.getIdScore());
-        values.put("nomJoueur",unScore.getNomJoueur());
-        values.put("score",unScore.getScoreJoueur());
-        values.put("niveau",unScore.getScoreNiveau());
+        values.put("scoreId",unScore.getIdScore());
+        values.put("scoreJoueur",unScore.getScoreJoueur());
+        values.put("scoreNom",unScore.getNomJoueur());
+        values.put("scoreNiveau",unScore.getScoreNiveau());
 
 
         long insertion = db.insert(NOM_BDD2, null, values);

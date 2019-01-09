@@ -111,7 +111,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimerErreur;
     private CountDownTimer countDownTimerTick;
-    private CountDownTimer countDownTimerUpdate;
     private MediaPlayer bonneRep;
     private MediaPlayer mauvaiseRep;
     private Score wScore;
