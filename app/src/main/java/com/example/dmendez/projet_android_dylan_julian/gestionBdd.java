@@ -22,6 +22,7 @@ public class gestionBdd extends SQLiteOpenHelper {
 
     public static final String reqCreationTablePerso = "CREATE TABLE " + NOM_BDD + "(" + id +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             nom  + " TEXT, " + nomimage + " TEXT) ;";
+
     // constructeur
     public gestionBdd(Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
         super(context, name, factory, version);

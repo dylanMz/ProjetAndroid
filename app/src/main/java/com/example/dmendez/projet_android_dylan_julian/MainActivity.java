@@ -15,6 +15,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Group;
 import android.transition.Fade;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.BounceInterpolator;
@@ -29,6 +30,8 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.Random;
 import java.util.*;
 
@@ -45,6 +48,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button btnNiveau2;
     private Button btnNiveau3;
     private Button btnAbandonner;
+    private Button btnScore;
 
     private TextView txtAccueilMsg;
     private TextView txtTest;
@@ -154,13 +158,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         frmImages = (ConstraintLayout) this.findViewById(R.id.constraintLayout_images);
         progressBarJeu1 = (ProgressBar) this.findViewById(R.id.progressBar_score);
         imgTick = (ImageView) this.findViewById(R.id.imageView_tick);
+        btnScore = (Button) this.findViewById(R.id.button_score);
 
         final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26};
         for(int i = 0; i<imagePersoList.length;i++){
             imagePersoList[i].setOnClickListener(this);
         }
-
-
 
 
         //Affiche le prénom du joueur
@@ -172,21 +175,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         liste_personnage.insertion_personnage(getApplicationContext());
         imgAtrouver.setImageResource(R.drawable.pointinterogation);
 
-
-        txtTrouveLe.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-
-            }
-        });
-
         btnNiveau1.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 //Affecte la valeur 120 a une seconde.
-                uneSeconde = 120;
+                uneSeconde = 150;
 
                 btnNiveau1.animate().translationX(400).withLayer();
 
@@ -200,7 +194,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onClick(View v)
             {
                 //Affecte la valeur 60 a une seconde.
-                uneSeconde = 60;
+                uneSeconde = 120;
 
                 btnNiveau2.animate().translationX(400).withLayer();
 
@@ -214,7 +208,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onClick(View v)
             {
                 //Affecte la valeur 30 a une seconde.
-                uneSeconde = 30;
+                uneSeconde = 45;
 
                 btnNiveau3.animate().translationX(400).withLayer();
 
@@ -232,6 +226,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             }
         });
+
+        btnScore.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Intent intent1 = new Intent(MainActivity.this, ScoreActivity.class);
+                startActivity(intent1);
+
+            }
+        });
+
 
     }
 
@@ -339,6 +344,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //Le bouton abandonner apparait
         btnAbandonner.setVisibility(View.VISIBLE);
 
+        //Le bouton des scores disparait
+        btnScore.setVisibility(View.INVISIBLE);
+
         //Le message de fin est invisible
         txtMessageFin.setVisibility(View.INVISIBLE);
 
@@ -363,10 +371,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             //Lorsque le timer est à 0
             public void onFinish() {
+                //Quand le temps est arrivé à 0
                 int PersoTrouve = NUMimageatrouver - 1;
-                //Si le temps est arrivé à 0
-                    EndGames("Fin de partie tu as pas terminé tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages !");
 
+                //Calcule le score du joueur
+                int unScore;
+                unScore = PersoTrouve*127;
+                EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
 
                 txtTimer.setText("Fin");
 
@@ -426,6 +437,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             //Detecte si la partie est fini ou non!
             if(NUMimageatrouver == liste_personnage.ensPersonnage.size()){
+                int unScore;
                 countDownTimer.onFinish();
                 seconds = seconds -1;
                 //Indique que le temps est imparti, et cache le bouton abandonner
@@ -436,9 +448,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 minutes = (int) tempsfin / 60;
                 seconds = (int) tempsfin % 60;
                 if (minutes == 0){
-                    EndGames("Fin de partie tu as terminé en " + seconds + " secondes");
+                    unScore = liste_personnage.ensPersonnage.size()*127 + 35 * seconds;
+                    EndGames("Fin de partie tu as terminé en " + seconds + " secondes, Soit un score total de : "+unScore);
                 }else{
-                    EndGames("Fin de partie tu as terminé en " + minutes + ":" + seconds + " minutes");
+                    unScore = liste_personnage.ensPersonnage.size()*127 + 35 * seconds + 2100 * minutes;
+                    EndGames("Fin de partie tu as terminé en " + minutes + ":" + seconds + " minutes, Soit un score total de : "+unScore);
                 }
             }else{
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
@@ -517,11 +531,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 @Override
                 public void onFinish() {
-
+                    //Quand le temps est arrivé à 0
                     int PersoTrouve = NUMimageatrouver - 1;
-                    //Si le temps est arrivé à 0
-                    System.out.println(seconds + "dddd " + minutes);
-                        EndGames("Fin de partie tu as pas terminé tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages !");
+
+                    //Calcule le score du joueur
+                    int unScore;
+                    unScore = PersoTrouve*127;
+                    EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
 
                     txtTimer.setText("Fin");
 
@@ -574,6 +590,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnAbandonner.setVisibility(View.INVISIBLE);
         txtTimer.setText("");
 
+        //Le bouton pour afficher les scores apparait
+        btnScore.setVisibility(View.VISIBLE);
+
         //Cache les composants
         imgAtrouver.setVisibility(View.INVISIBLE);
         txtTest.setVisibility(View.INVISIBLE);
@@ -606,4 +625,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //remet à 0 l'image à trouver
         NUMimageatrouver = 0;
     }
+
+
+
+
+
 }
