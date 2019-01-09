@@ -97,6 +97,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private int identifier;
     private int uneSeconde;
+    private int unScore;
     private int nbRandom;
     private int maxTab[];
     private int NUMimageatrouver = 0;
@@ -253,6 +254,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //Méthode affichant les images aléatoirement
     private void initImage()
     {
+
+        SongTimer.reset();
         txtMessageFin.setBackgroundColor(0);
         maxTab = randomize(liste_personnage.ensPersonnage.size(), liste_personnage.ensPersonnage.size() + 1);
         int nbMax = liste_personnage.ensPersonnage.size();
@@ -378,6 +381,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if(seconds <= 10 & minutes == 0){
                     txtTimer.setTextColor(Color.RED);
                     SongTimer.start();
+
+                    SongTimer.setVolume(1,1);
                 }
             }
 
@@ -388,6 +393,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 //Calcule le score du joueur
                 int unScore;
+                SongTimer.stop();
                 unScore = PersoTrouve*127;
                 EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
 
@@ -450,7 +456,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             //Detecte si la partie est fini ou non!
             if(NUMimageatrouver == liste_personnage.ensPersonnage.size()){
-                int unScore;
+
+                view.animate().x(cordx).y(cordy).setDuration(0).start();
+
                 countDownTimer.onFinish();
                 seconds = seconds -1;
                 //Indique que le temps est imparti, et cache le bouton abandonner
@@ -463,6 +471,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if (minutes == 0){
                     unScore = liste_personnage.ensPersonnage.size()*127 + 35 * seconds;
                     EndGames("Fin de partie tu as terminé en " + seconds + " secondes, Soit un score total de : "+unScore);
+
+
                 }else{
                     unScore = liste_personnage.ensPersonnage.size()*127 + 35 * seconds + 2100 * minutes;
                     EndGames("Fin de partie tu as terminé en " + minutes + ":" + seconds + " minutes, Soit un score total de : "+unScore);
@@ -477,9 +487,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         view.setVisibility(View.INVISIBLE);
 
                         view.animate().x(cordx).y(cordy).setDuration(0).start();
-
-
-
 
                     }
                 }, 1000);
@@ -547,6 +554,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     if(seconds <= 10 & minutes == 0){
                         txtTimer.setTextColor(Color.RED);
                         SongTimer.start();
+                        SongTimer.setVolume(1, 1);
                     }
 
                 }
@@ -558,6 +566,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                     //Calcule le score du joueur
                     int unScore;
+                    SongTimer.stop();
                     unScore = PersoTrouve*127;
                     EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
 
@@ -627,6 +636,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau1.animate().translationX(0).withLayer();
         btnNiveau2.animate().translationX(0).withLayer();
         btnNiveau3.animate().translationX(0).withLayer();
+
+
 
        /* Animation animation = new TranslateAnimation(0, 0, 0,0);
         animation.setDuration(0);

@@ -28,6 +28,8 @@ public class AccueilActivity extends AppCompatActivity implements View.OnClickLi
         imageJeu2 = (ImageView) this.findViewById(R.id.imageView_Jeu2);
         editTextPrenom = (EditText) this.findViewById(R.id.editText_prenom);
 
+        liste_personnage.insertion_personnage(getApplicationContext());
+
         imageJeu1.setOnClickListener(this);
         imageJeu2.setOnClickListener(this);
 
