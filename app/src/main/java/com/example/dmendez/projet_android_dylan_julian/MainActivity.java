@@ -365,6 +365,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     public void launchNiveau(int wSeconde)
     {
+        unScore = 0;
         /*
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -419,6 +420,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //Calcule le score du joueur
                 unScore = PersoTrouve*127;
                 EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
+                liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
 
                 txtTimer.setText("Fin");
 
@@ -501,10 +503,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
                 if (minutesR == 0){
                     EndGames("Fin de partie tu as terminé en " + secondsR + " secondes, Soit un score total de : "+unScore);
+                    liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
 
 
                 }else{
                     EndGames("Fin de partie tu as terminé en " + minutesR + ":" + secondsR + " minutes, Soit un score total de : "+unScore);
+                    liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
                 }
             }else{
                 //met l'image invisible et désactivé aprés l'animation
@@ -594,6 +598,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     //Calcule le score du joueur
                     unScore = PersoTrouve*127;
                     EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
+                    liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
 
                     txtTimer.setText("Fin");
 
@@ -661,7 +666,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau2.animate().translationX(0).withLayer();
         btnNiveau3.animate().translationX(0).withLayer();
 
-        liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
+
 
         //Stop le timer
         countDownTimer.cancel();
