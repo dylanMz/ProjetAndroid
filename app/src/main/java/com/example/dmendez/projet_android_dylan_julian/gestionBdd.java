@@ -74,6 +74,7 @@ public class gestionBdd extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    //Permet d'ajouter un objet personnage
     public long ajoutPersonnage(Personnage unPersonnage){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -87,6 +88,7 @@ public class gestionBdd extends SQLiteOpenHelper {
         return insertion;
     }
 
+    //Permet d'ajouter un score
     public long ajoutScore(Score unScore){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -103,7 +105,7 @@ public class gestionBdd extends SQLiteOpenHelper {
 
     }
 
-
+    //Retourne l'ensemble des personnages
     public ArrayList<Personnage> getLesPersonnages(){
         ArrayList<Personnage> ensPersonnage = new ArrayList<Personnage>();
         String reqSelect = " SELECT * FROM " + NOM_BDD;
@@ -125,6 +127,7 @@ public class gestionBdd extends SQLiteOpenHelper {
         return ensPersonnage;
     }
 
+    //Retourne l'ensemble des scores
     public ArrayList<Score> getLesScores(){
         ArrayList<Score> ensScore = new ArrayList<Score>();
         String reqSelect = " SELECT * FROM " + NOM_BDD2;
@@ -148,6 +151,7 @@ public class gestionBdd extends SQLiteOpenHelper {
         return ensScore;
     }
 
+    //Retourne l'ensemble des scores réalisés en mode facile
     public ArrayList<Score> getLesScoresFacile(){
         ArrayList<Score> ensScoreFacile = new ArrayList<Score>();
         String reqSelect = "SELECT " +score + "," +nomJoueur +" FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Facile' ORDER BY " +score;
@@ -168,6 +172,7 @@ public class gestionBdd extends SQLiteOpenHelper {
         return ensScoreFacile;
     }
 
+    //Retourne l'ensemble des scores réalisé en mode moyen
     public ArrayList<Score> getLesScoresMoyen(){
         ArrayList<Score> ensScoreMoyen = new ArrayList<Score>();
         String reqSelect = "SELECT " +score + "," +nomJoueur +" FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE " + Moyen +" ORDER BY " +score;
@@ -188,6 +193,7 @@ public class gestionBdd extends SQLiteOpenHelper {
         return ensScoreMoyen;
     }
 
+    //Retourne l'ensemble des scores réalisé en mode difficile
     public ArrayList<Score> getLesScoresDifficile(){
         ArrayList<Score> ensScoreDifficile = new ArrayList<Score>();
         String reqSelect = "SELECT " +score + "," +nomJoueur +" FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE " + Difficile +" ORDER BY " +score;

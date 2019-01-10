@@ -53,6 +53,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button btnNiveau3;
     private Button btnAbandonner;
     private Button btnScore;
+    private Button btnAccueil;
 
     private TextView txtAccueilMsg;
     private TextView txtTest;
@@ -171,6 +172,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         progressBarJeu1 = (ProgressBar) this.findViewById(R.id.progressBar_score);
         imgTick = (ImageView) this.findViewById(R.id.imageView_tick);
         btnScore = (Button) this.findViewById(R.id.button_score);
+        btnAccueil = (Button) this.findViewById(R.id.button_home);
 
         this.bonneRep = MediaPlayer.create(getApplicationContext(), R.raw.bonne_rep);
         this.mauvaiseRep = MediaPlayer.create(getApplicationContext(), R.raw.mauvaise_rep);
@@ -190,12 +192,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
         liste_personnage.insertion_personnage(getApplicationContext());
         imgAtrouver.setImageResource(R.drawable.pointinterogation);
 
+        //Permet de retourner à l'accueil
+        btnAccueil.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Intent intent1 = new Intent(MainActivity.this, AccueilActivity.class);
+                startActivity(intent1);
+            }
+        });
+
+        //Lancement du niveau facile
         btnNiveau1.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
                 //Affecte la valeur 120 a une seconde.
-                uneSeconde = 150;
+                uneSeconde = 120;
                 leNiveau = "Facile";
 
                 btnNiveau1.animate().translationX(400).withLayer();
@@ -205,12 +218,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         });
 
+        //Lancement du niveau moyen
         btnNiveau2.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-                //Affecte la valeur 60 a une seconde.
-                uneSeconde = 120;
+                //Affecte la valeur 80 a une seconde.
+                uneSeconde = 80;
                 leNiveau = "Moyen";
 
 
@@ -221,11 +235,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         });
 
+        //Lancement du niveau difficile
         btnNiveau3.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-                //Affecte la valeur 30 a une seconde.
+                //Affecte la valeur 45 a une seconde.
                 uneSeconde = 45;
                 leNiveau = "Difficile";
 
@@ -237,7 +252,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         });
 
-
+        //Permet d'abandonner une partie.
         btnAbandonner.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -247,6 +262,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         });
 
+        //Permet d'aller voir le tableau des scores
         btnScore.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -576,6 +592,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
             };
 
+            //Lance le timer
             countDownTimer.start();
 
             //Instancie le timer
@@ -585,8 +602,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 public void onTick(long millisUntilFinished) {
 
                     txtScore.setVisibility(View.VISIBLE);
-
-                    //testpourpush
 
                 }
 
