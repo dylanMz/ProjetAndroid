@@ -24,6 +24,7 @@ public class AccueilActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
 
+        //Initilisation des controles android studio
         imageJeu1 = (ImageView) this.findViewById(R.id.imageView_Jeu1);
         imageJeu2 = (ImageView) this.findViewById(R.id.imageView_Jeu2);
         editTextPrenom = (EditText) this.findViewById(R.id.editText_prenom);
@@ -44,11 +45,14 @@ public class AccueilActivity extends AppCompatActivity implements View.OnClickLi
         lePrenom = editTextPrenom.getText().toString();
         unIntent.putExtra("Joueur", lePrenom);
 
+        //Si l'utilisateur n'insère pas son prénom, le jeu ne se lance pas et un message apparait pour lui indiquer
         if(lePrenom.isEmpty()){
             Toast toast =  Toast.makeText(this, "Il manque le prénom !", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.LEFT, 1100, 500);
+            toast.setGravity(Gravity.TOP|Gravity.LEFT, 1100, 440);
             toast.show();
         }
+
+        //Le jeu se lance lorque l'utilisateur a inséré son prénom
         else {
             this.startActivity(unIntent);
         }
