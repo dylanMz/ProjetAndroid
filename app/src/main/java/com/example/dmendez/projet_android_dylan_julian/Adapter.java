@@ -19,9 +19,9 @@ public class Adapter extends BaseAdapter {
     private ArrayList<String> Score = new ArrayList<String>();
     private ArrayList<String> Niveau = new ArrayList<String>();
 
-    public Adapter(Context c,ArrayList<String> id,ArrayList<String> name,ArrayList<String> score){
+    public Adapter(Context c,ArrayList<String> name,ArrayList<String> score){
         mcontext = c;
-        this.Id = id;
+        //this.Id = id;
         this.Name  =name;
         this.Score = score;
 
@@ -29,7 +29,7 @@ public class Adapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return Id.size();
+        return Name.size();
     }
 
     @Override
@@ -51,20 +51,20 @@ public class Adapter extends BaseAdapter {
             layoutInflater = (LayoutInflater) mcontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.layout, null);
             holder = new viewHolder();
-            holder.id = (TextView) view.findViewById(R.id.tvid);
+            //holder.id = (TextView) view.findViewById(R.id.tvid);
             holder.name = (TextView) view.findViewById(R.id.tvname);
             holder.score = (TextView) view.findViewById(R.id.tvscore);
             view.setTag(holder);
         } else {
             holder = (viewHolder) view.getTag();
         }
-        holder.id.setText(Id.get(i));
+        //holder.id.setText(Id.get(i));
         holder.name.setText(Name.get(i));
         holder.score.setText(Score.get(i));
         return view;
     }
     public class viewHolder {
-        TextView id;
+        //TextView id;
         TextView name;
         TextView score;
     }
