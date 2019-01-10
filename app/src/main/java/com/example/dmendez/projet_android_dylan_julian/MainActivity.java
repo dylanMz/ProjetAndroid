@@ -106,6 +106,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int nbPerso;
     private int minutes;
     private int seconds;
+    private int minutesR;
+    private int secondsR;
     private long TempsTimer;
     private int minuteRestante;
 
@@ -451,7 +453,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             cordx = view.getX();
             cordy = view.getY();
             //animation de l'image
-            view.animate().x(imgAtrouver2.getX()).y(imgAtrouver2.getY()).setDuration(1000).start();
+            view.animate().x(imgAtrouver2.getX()).y(imgAtrouver2.getY()).setDuration(500).start();
 
             //Affiche le tick vert pour montrer que l'utilisateur a choisi le bon personnage.
             imgTick.setVisibility(View.VISIBLE);
@@ -487,16 +489,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 long tempsfin = uneSeconde - totaltemps;
                 System.out.println(totaltemps + " " + tempsfin);
-                minutes = (int) tempsfin / 60;
-                seconds = (int) tempsfin % 60;
-                if (minutes == 0){
+                minutesR = (int) tempsfin / 60;
+                secondsR = (int) tempsfin % 60;
+
+                //donne le nombre de point en fontion du temps restant
+                if(minutes == 0){
                     unScore = liste_personnage.ensPersonnage.size()*127 + 35 * seconds;
-                    EndGames("Fin de partie tu as terminé en " + seconds + " secondes, Soit un score total de : "+unScore);
+                }else{
+                    unScore = liste_personnage.ensPersonnage.size()*127 + 35 * seconds + 2100 * minutes;
+                }
+                if (minutesR == 0){
+                    EndGames("Fin de partie tu as terminé en " + secondsR + " secondes, Soit un score total de : "+unScore);
 
 
                 }else{
-                    unScore = liste_personnage.ensPersonnage.size()*127 + 35 * seconds + 2100 * minutes;
-                    EndGames("Fin de partie tu as terminé en " + minutes + ":" + seconds + " minutes, Soit un score total de : "+unScore);
+                    EndGames("Fin de partie tu as terminé en " + minutesR + ":" + secondsR + " minutes, Soit un score total de : "+unScore);
                 }
             }else{
                 //met l'image invisible et désactivé aprés l'animation
@@ -510,7 +517,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         view.animate().x(cordx).y(cordy).setDuration(0).start();
 
                     }
-                }, 1000);
+                }, 500);
 
 
             }

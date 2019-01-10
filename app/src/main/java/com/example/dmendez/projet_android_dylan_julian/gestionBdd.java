@@ -26,6 +26,11 @@ public class gestionBdd extends SQLiteOpenHelper {
     private static final String nomJoueur = "scoreNom";
     private static final String niveau = "scoreNiveau";
 
+    private ArrayList<String> Id = new ArrayList<String>();
+    private ArrayList<String> Name = new ArrayList<String>();
+    private ArrayList<String> Score = new ArrayList<String>();
+    private ArrayList<String> Niveau = new ArrayList<String>();
+
     private String Facile = "Facile";
     private String Moyen = "Moyen";
     private String Difficile = "Difficile";
@@ -94,7 +99,6 @@ public class gestionBdd extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put("scoreId",unScore.getIdScore());
         values.put("scoreJoueur",unScore.getScoreJoueur());
         values.put("scoreNom",unScore.getNomJoueur());
         values.put("scoreNiveau",unScore.getScoreNiveau());
@@ -152,25 +156,25 @@ public class gestionBdd extends SQLiteOpenHelper {
     }
 
     //Retourne l'ensemble des scores réalisés en mode facile
-    public ArrayList<Score> getLesScoresFacile(){
-        ArrayList<Score> ensScoreFacile = new ArrayList<Score>();
-        String reqSelect = "SELECT " +score + "," +nomJoueur +" FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Facile' ORDER BY " +score;
+   /* public void getLesScoresFacile(){
+        String reqSelect = "SELECT * FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Facile' ORDER BY " +score;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor unCurseur = db.rawQuery(reqSelect, null);
         if(unCurseur.moveToFirst()){
             do{
                 Score un_score = new Score();
-                un_score.setScoreJoueur(unCurseur.getInt(unCurseur.getColumnIndex(score)));
-                un_score.setScoreNom(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
+                Id.add(unCurseur.getString(unCurseur.getColumnIndex(id2)));
+                Name.add(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
+                Score.add(unCurseur.getString(unCurseur.getColumnIndex(score)));
+                Niveau.add(unCurseur.getString(unCurseur.getColumnIndex(niveau)));
 
-                ensScoreFacile.add(un_score);
             }while (unCurseur.moveToNext());
-            Collections.shuffle(ensScoreFacile);
         }
+        Adapter ad = new Adapter()
 
         return ensScoreFacile;
-    }
+    }*/
 
     //Retourne l'ensemble des scores réalisé en mode moyen
     public ArrayList<Score> getLesScoresMoyen(){

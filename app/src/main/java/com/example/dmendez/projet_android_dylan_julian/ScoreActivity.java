@@ -1,6 +1,8 @@
 package com.example.dmendez.projet_android_dylan_julian;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +10,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ScoreActivity extends AppCompatActivity {
@@ -18,6 +22,25 @@ public class ScoreActivity extends AppCompatActivity {
     private ListView listeFacile;
     private ListView listeMoyen;
     private ListView listeDifficile;
+    private Adapter unadapter;
+    private gestionBdd db =new gestionBdd(this);
+    private ArrayList<Score> ensScore = new ArrayList<>();
+    private Score unScore;
+
+    private static final String NOM_BDD2 ="scoreBD";
+    private static final String id2 = "scoreId";
+    private static final String score = "scoreJoueur";
+    private static final String nomJoueur = "scoreNom";
+    private static final String niveau = "scoreNiveau";
+
+    private gestionBdd bdd;
+    private ArrayList<String> IdScore = new ArrayList<String>();
+    private ArrayList<String> Name = new ArrayList<String>();
+    private ArrayList<String> Score = new ArrayList<String>();
+
+
+
+
 
 
 
@@ -34,8 +57,18 @@ public class ScoreActivity extends AppCompatActivity {
         listeMoyen = (ListView) this.findViewById(R.id.listview_score_moyen);
         listeDifficile = (ListView) this.findViewById(R.id.listview_score_difficile);
 
-        gestionBdd uneGestion = new gestionBdd(getApplicationContext());
-        listeFacile.setAdapter(new ArrayAdapter<Score>(this,android.R.layout.simple_list_item_1, uneGestion.getLesScoresFacile()));
+        bdd = new gestionBdd(this);
+
+        getLesScoresFacile();
+
+
+
+
+
+
+
+        //unadapter = new Adapter(getApplicationContext(), unScore.getNomJoueur() , );
+
 
 
         btnAccueil.setOnClickListener(new View.OnClickListener()
@@ -63,6 +96,63 @@ public class ScoreActivity extends AppCompatActivity {
 
 
 
+    }
+
+    //Retourne l'ensemble des scores réalisés en mode facile
+    public void getLesScoresFacile(){
+        String reqSelect = "SELECT scoreId,scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Facile' ORDER BY " +score + " DESC";
+
+        SQLiteDatabase db = bdd.getReadableDatabase();
+        Cursor unCurseur = db.rawQuery(reqSelect, null);
+        if(unCurseur.moveToFirst()){
+            do{
+                IdScore.add(unCurseur.getString(unCurseur.getColumnIndex(id2)));
+                Name.add(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
+                Score.add(unCurseur.getString(unCurseur.getColumnIndex(score)));
+
+            }while (unCurseur.moveToNext());
+        }
+        Adapter ad = new Adapter(ScoreActivity.this, IdScore, Name, Score);
+        listeFacile.setAdapter(ad);
+        unCurseur.close();
+        getLesScoresMoyen();
+    }
+
+    public void getLesScoresMoyen(){
+        String reqSelect = "SELECT scoreId,scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Moyen' ORDER BY " +score + " DESC";
+
+        SQLiteDatabase db = bdd.getReadableDatabase();
+        Cursor unCurseur = db.rawQuery(reqSelect, null);
+        if(unCurseur.moveToFirst()){
+            do{
+                IdScore.add(unCurseur.getString(unCurseur.getColumnIndex(id2)));
+                Name.add(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
+                Score.add(unCurseur.getString(unCurseur.getColumnIndex(score)));
+
+            }while (unCurseur.moveToNext());
+        }
+        Adapter ad = new Adapter(ScoreActivity.this, IdScore, Name, Score);
+        listeMoyen.setAdapter(ad);
+        unCurseur.close();
+        getLesScoresDifficile();
+    }
+
+    public void getLesScoresDifficile(){
+        String reqSelect = "SELECT scoreId,scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Difficile' ORDER BY " +score + " ASC";
+
+        SQLiteDatabase db = bdd.getReadableDatabase();
+        Cursor unCurseur = db.rawQuery(reqSelect, null);
+        if(unCurseur.moveToFirst()){
+            do{
+                IdScore.add(unCurseur.getString(unCurseur.getColumnIndex(id2)));
+                Name.add(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
+                Score.add(unCurseur.getString(unCurseur.getColumnIndex(score)));
+
+            }while (unCurseur.moveToNext());
+        }
+        Adapter ad = new Adapter(ScoreActivity.this, IdScore, Name, Score);
+        listeDifficile.setAdapter(ad);
+        unCurseur.close();
     }
 
 }
