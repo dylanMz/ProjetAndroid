@@ -227,7 +227,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             {
                 //Affecte la valeur 30 a une seconde.
                 uneSeconde = 45;
-                leNiveau = "Difficle";
+                leNiveau = "Difficile";
 
 
                 btnNiveau3.animate().translationX(400).withLayer();

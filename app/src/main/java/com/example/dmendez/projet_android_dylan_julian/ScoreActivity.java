@@ -1,9 +1,11 @@
 package com.example.dmendez.projet_android_dylan_julian;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -17,7 +19,7 @@ public class ScoreActivity extends AppCompatActivity {
     private ListView listeMoyen;
     private ListView listeDifficile;
 
-    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,9 @@ public class ScoreActivity extends AppCompatActivity {
         listeFacile = (ListView) this.findViewById(R.id.listview_score_facile);
         listeMoyen = (ListView) this.findViewById(R.id.listview_score_moyen);
         listeDifficile = (ListView) this.findViewById(R.id.listview_score_difficile);
+
+        gestionBdd uneGestion = new gestionBdd(getApplicationContext());
+        listeFacile.setAdapter(new ArrayAdapter<Score>(this,android.R.layout.simple_list_item_1, uneGestion.getLesScoresFacile()));
 
 
         btnAccueil.setOnClickListener(new View.OnClickListener()

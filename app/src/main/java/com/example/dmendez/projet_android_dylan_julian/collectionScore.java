@@ -14,13 +14,8 @@ public class collectionScore {
 
         ensScore = base_qcm.getLesScores();
 
-        if (ensScore.isEmpty()) {
+        base_qcm.ajoutScore(new Score(wScore, wNom,wNiveau));
 
-            base_qcm.ajoutScore(new Score(wScore, wNom,wNiveau));
-
-            ensScore = base_qcm.getLesScores();
-
-        }
 
     }
 

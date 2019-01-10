@@ -26,6 +26,11 @@ public class gestionBdd extends SQLiteOpenHelper {
     private static final String nomJoueur = "scoreNom";
     private static final String niveau = "scoreNiveau";
 
+    private String Facile = "Facile";
+    private String Moyen = "Moyen";
+    private String Difficile = "Difficile";
+
+
     public static final String reqCreationTablePerso = "CREATE TABLE " + NOM_BDD + "(" + id +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             nom  + " TEXT, " + nomimage + " TEXT) ;";
 
@@ -141,6 +146,66 @@ public class gestionBdd extends SQLiteOpenHelper {
         }
 
         return ensScore;
+    }
+
+    public ArrayList<Score> getLesScoresFacile(){
+        ArrayList<Score> ensScoreFacile = new ArrayList<Score>();
+        String reqSelect = "SELECT " +score + "," +nomJoueur +" FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Facile' ORDER BY " +score;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor unCurseur = db.rawQuery(reqSelect, null);
+        if(unCurseur.moveToFirst()){
+            do{
+                Score un_score = new Score();
+                un_score.setScoreJoueur(unCurseur.getInt(unCurseur.getColumnIndex(score)));
+                un_score.setScoreNom(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
+
+                ensScoreFacile.add(un_score);
+            }while (unCurseur.moveToNext());
+            Collections.shuffle(ensScoreFacile);
+        }
+
+        return ensScoreFacile;
+    }
+
+    public ArrayList<Score> getLesScoresMoyen(){
+        ArrayList<Score> ensScoreMoyen = new ArrayList<Score>();
+        String reqSelect = "SELECT " +score + "," +nomJoueur +" FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE " + Moyen +" ORDER BY " +score;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor unCurseur = db.rawQuery(reqSelect, null);
+        if(unCurseur.moveToFirst()){
+            do{
+                Score un_score = new Score();
+                un_score.setScoreJoueur(unCurseur.getInt(unCurseur.getColumnIndex(score)));
+                un_score.setScoreNom(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
+
+                ensScoreMoyen.add(un_score);
+            }while (unCurseur.moveToNext());
+            Collections.shuffle(ensScoreMoyen);
+        }
+
+        return ensScoreMoyen;
+    }
+
+    public ArrayList<Score> getLesScoresDifficile(){
+        ArrayList<Score> ensScoreDifficile = new ArrayList<Score>();
+        String reqSelect = "SELECT " +score + "," +nomJoueur +" FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE " + Difficile +" ORDER BY " +score;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor unCurseur = db.rawQuery(reqSelect, null);
+        if(unCurseur.moveToFirst()){
+            do{
+                Score un_score = new Score();
+                un_score.setScoreJoueur(unCurseur.getInt(unCurseur.getColumnIndex(score)));
+                un_score.setScoreNom(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
+
+                ensScoreDifficile.add(un_score);
+            }while (unCurseur.moveToNext());
+            Collections.shuffle(ensScoreDifficile);
+        }
+
+        return ensScoreDifficile;
     }
 
 }
