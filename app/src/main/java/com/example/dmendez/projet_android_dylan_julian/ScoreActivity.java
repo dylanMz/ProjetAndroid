@@ -26,6 +26,7 @@ public class ScoreActivity extends AppCompatActivity {
     private gestionBdd db =new gestionBdd(this);
     private ArrayList<Score> ensScore = new ArrayList<>();
     private Score unScore;
+    private String lePrenom;
 
     private static final String NOM_BDD2 ="scoreBD";
     private static final String id2 = "scoreId";
@@ -34,9 +35,17 @@ public class ScoreActivity extends AppCompatActivity {
     private static final String niveau = "scoreNiveau";
 
     private gestionBdd bdd;
-    private ArrayList<String> IdScore = new ArrayList<String>();
-    private ArrayList<String> Name = new ArrayList<String>();
-    private ArrayList<String> Score = new ArrayList<String>();
+    private ArrayList<String> IdScoreF = new ArrayList<String>();
+    private ArrayList<String> NameF = new ArrayList<String>();
+    private ArrayList<String> ScoreF = new ArrayList<String>();
+
+    private ArrayList<String> IdScoreM = new ArrayList<String>();
+    private ArrayList<String> NameM = new ArrayList<String>();
+    private ArrayList<String> ScoreM = new ArrayList<String>();
+
+    private ArrayList<String> IdScoreD = new ArrayList<String>();
+    private ArrayList<String> NameD = new ArrayList<String>();
+    private ArrayList<String> ScoreD = new ArrayList<String>();
 
 
 
@@ -59,7 +68,12 @@ public class ScoreActivity extends AppCompatActivity {
 
         bdd = new gestionBdd(this);
 
+        lePrenom = this.getIntent().getExtras().getString("Joueur");
+
+
         getLesScoresFacile();
+        getLesScoresMoyen();
+        getLesScoresDifficile();
 
 
 
@@ -86,6 +100,7 @@ public class ScoreActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent Intent1 = new Intent(ScoreActivity.this, MainActivity.class);
+                Intent1.putExtra("Joueur", lePrenom);
                 startActivity(Intent1);
 
             }
@@ -104,18 +119,20 @@ public class ScoreActivity extends AppCompatActivity {
 
         SQLiteDatabase db = bdd.getReadableDatabase();
         Cursor unCurseur = db.rawQuery(reqSelect, null);
+        IdScoreF.clear();
+        NameF.clear();
+        ScoreF.clear();
         if(unCurseur.moveToFirst()){
             do{
-                IdScore.add(unCurseur.getString(unCurseur.getColumnIndex(id2)));
-                Name.add(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
-                Score.add(unCurseur.getString(unCurseur.getColumnIndex(score)));
+                IdScoreF.add(unCurseur.getString(unCurseur.getColumnIndex(id2)));
+                NameF.add(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
+                ScoreF.add(unCurseur.getString(unCurseur.getColumnIndex(score)));
 
             }while (unCurseur.moveToNext());
         }
-        Adapter ad = new Adapter(ScoreActivity.this, IdScore, Name, Score);
+        Adapter ad = new Adapter(ScoreActivity.this, IdScoreF, NameF, ScoreF);
         listeFacile.setAdapter(ad);
         unCurseur.close();
-        getLesScoresMoyen();
     }
 
     public void getLesScoresMoyen(){
@@ -123,34 +140,40 @@ public class ScoreActivity extends AppCompatActivity {
 
         SQLiteDatabase db = bdd.getReadableDatabase();
         Cursor unCurseur = db.rawQuery(reqSelect, null);
+        IdScoreM.clear();
+        NameM.clear();
+        ScoreM.clear();
         if(unCurseur.moveToFirst()){
             do{
-                IdScore.add(unCurseur.getString(unCurseur.getColumnIndex(id2)));
-                Name.add(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
-                Score.add(unCurseur.getString(unCurseur.getColumnIndex(score)));
+                IdScoreM.add(unCurseur.getString(unCurseur.getColumnIndex(id2)));
+                NameM.add(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
+                ScoreM.add(unCurseur.getString(unCurseur.getColumnIndex(score)));
 
             }while (unCurseur.moveToNext());
         }
-        Adapter ad = new Adapter(ScoreActivity.this, IdScore, Name, Score);
+        Adapter ad = new Adapter(ScoreActivity.this, IdScoreM, NameM, ScoreM);
         listeMoyen.setAdapter(ad);
         unCurseur.close();
-        getLesScoresDifficile();
+
     }
 
     public void getLesScoresDifficile(){
-        String reqSelect = "SELECT scoreId,scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Difficile' ORDER BY " +score + " ASC";
+        String reqSelect = "SELECT scoreId,scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Difficile' ORDER BY " +score + " DESC";
 
         SQLiteDatabase db = bdd.getReadableDatabase();
         Cursor unCurseur = db.rawQuery(reqSelect, null);
+        IdScoreD.clear();
+        NameD.clear();
+        ScoreD.clear();
         if(unCurseur.moveToFirst()){
             do{
-                IdScore.add(unCurseur.getString(unCurseur.getColumnIndex(id2)));
-                Name.add(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
-                Score.add(unCurseur.getString(unCurseur.getColumnIndex(score)));
+                IdScoreD.add(unCurseur.getString(unCurseur.getColumnIndex(id2)));
+                NameD.add(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
+                ScoreD.add(unCurseur.getString(unCurseur.getColumnIndex(score)));
 
             }while (unCurseur.moveToNext());
         }
-        Adapter ad = new Adapter(ScoreActivity.this, IdScore, Name, Score);
+        Adapter ad = new Adapter(ScoreActivity.this, IdScoreD, NameD, ScoreD);
         listeDifficile.setAdapter(ad);
         unCurseur.close();
     }

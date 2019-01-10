@@ -23,8 +23,8 @@
         android:id="@+id/textView_lblMoyen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="376dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginStart="372dp"
+        android:layout_marginBottom="8dp"
         android:text="Moyen"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
@@ -35,16 +35,17 @@
         android:id="@+id/listview_score_facile"
         android:layout_width="294dp"
         android:layout_height="523dp"
+        android:layout_marginStart="144dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.552"
-        tools:layout_editor_absoluteX="141dp" />
+        app:layout_constraintVertical_bias="0.543" />
 
     <ListView
         android:id="@+id/listview_score_moyen"
-        android:layout_width="211dp"
+        android:layout_width="226dp"
         android:layout_height="521dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -60,14 +61,14 @@
     <ListView
         android:id="@+id/listview_score_difficile"
         android:layout_width="219dp"
-        android:layout_height="537dp"
+        android:layout_height="503dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="136dp"
+        android:layout_marginEnd="144dp"
         android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.521" />
+        app:layout_constraintVertical_bias="0.506" />
 
     <TextView
         android:id="@+id/textView_lblScore"

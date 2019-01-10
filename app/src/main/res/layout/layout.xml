@@ -2,30 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
+        android:id="@+id/tvid"
         android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/tvid" />
+        android:textColor="@android:color/background_light"
+        android:textSize="19sp" />
+
     <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/tvname"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp" />
-    <TextView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/tvscore"
+        android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp" />
+        android:text="New Text"
+        android:textColor="@android:color/background_light"
+        android:textSize="19sp" />
+
     <TextView
+        android:id="@+id/tvscore"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:text="New Text"
+        android:textColor="@android:color/background_light"
+        android:textSize="19sp" />
+
+    <TextView
+        android:id="@+id/tvniveau"
         android:layout_width="25dp"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/tvniveau"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp" />
+        android:layout_marginRight="15dp"
+        android:text="New Text"
+        android:textSize="14sp" />
 </LinearLayout>

@@ -270,6 +270,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onClick(View v)
             {
                 Intent intent1 = new Intent(MainActivity.this, ScoreActivity.class);
+                intent1.putExtra("Joueur", lePrenom);
                 startActivity(intent1);
 
 
