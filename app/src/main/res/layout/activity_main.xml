@@ -11,7 +11,7 @@
     <fragment
         android:id="@+id/menu_fragment"
         android:name="com.example.dmendez.projet_android_dylan_julian.MenuActivity"
-        android:layout_width="268dp"
+        android:layout_width="251dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,13 +22,13 @@
     <fragment
         android:id="@+id/trouve_le_fragment"
         android:name="com.example.dmendez.projet_android_dylan_julian.TrouveLeActivity"
-        android:layout_width="983dp"
+        android:layout_width="155dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/menu_fragment"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.513"
+        app:layout_constraintVertical_bias="1.0"
         tools:layout="@layout/activity_trouve_le" />
 </android.support.constraint.ConstraintLayout>

@@ -181,6 +181,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26,imageperso27,imageperso28};
         for(int i = 0; i<imagePersoList.length;i++){
+            imagePersoList[i].setEnabled(false);
             imagePersoList[i].setOnClickListener(this);
         }
 
@@ -243,7 +244,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onClick(View v)
             {
                 //Affecte la valeur 45 a une seconde.
-                uneSeconde = 45;
+                uneSeconde = 100;
                 leNiveau = "Difficile";
 
 
