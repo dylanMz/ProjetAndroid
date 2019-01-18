@@ -32,7 +32,6 @@ public class AccueilActivity extends AppCompatActivity implements View.OnClickLi
         liste_personnage.insertion_personnage(getApplicationContext());
 
         imageJeu1.setOnClickListener(this);
-        imageJeu2.setOnClickListener(this);
 
 
     }
