@@ -45,8 +45,8 @@ public class AccueilActivity extends AppCompatActivity implements View.OnClickLi
         unIntent.putExtra("Joueur", lePrenom);
 
         //Si l'utilisateur n'insère pas son prénom, le jeu ne se lance pas et un message apparait pour lui indiquer
-        if(lePrenom.isEmpty()){
-            Toast toast =  Toast.makeText(this, "Il manque le prénom !", Toast.LENGTH_SHORT);
+        if(lePrenom.isEmpty() || lePrenom.length() > 20){
+            Toast toast =  Toast.makeText(this, "Prénom manquant ou trop long", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP|Gravity.LEFT, 1100, 440);
             toast.show();
         }

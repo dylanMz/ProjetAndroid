@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -27,6 +28,9 @@ public class ScoreActivity extends AppCompatActivity {
     private ArrayList<Score> ensScore = new ArrayList<>();
     private Score unScore;
     private String lePrenom;
+    //private ImageView bordure1;
+    //private ImageView bordure2;
+
 
     private static final String NOM_BDD2 ="scoreBD";
     private static final String id2 = "scoreId";
@@ -50,9 +54,6 @@ public class ScoreActivity extends AppCompatActivity {
 
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +66,8 @@ public class ScoreActivity extends AppCompatActivity {
         listeFacile = (ListView) this.findViewById(R.id.listview_score_facile);
         listeMoyen = (ListView) this.findViewById(R.id.listview_score_moyen);
         listeDifficile = (ListView) this.findViewById(R.id.listview_score_difficile);
+
+        //bordure1 = (ImageView) this.findViewById(R.id.
 
         bdd = new gestionBdd(this);
 

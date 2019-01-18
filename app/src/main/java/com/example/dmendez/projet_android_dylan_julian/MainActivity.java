@@ -244,7 +244,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onClick(View v)
             {
                 //Affecte la valeur 45 a une seconde.
-                uneSeconde = 100;
+                uneSeconde = 45;
                 leNiveau = "Difficile";
 
 
