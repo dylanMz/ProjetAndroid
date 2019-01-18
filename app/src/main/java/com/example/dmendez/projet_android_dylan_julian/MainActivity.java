@@ -110,6 +110,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int secondsR;
     private long TempsTimer;
     private int minuteRestante;
+    private int insertionjoueur = 1;
 
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimerErreur;
@@ -244,7 +245,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onClick(View v)
             {
                 //Affecte la valeur 45 a une seconde.
-                uneSeconde = 100;
+                uneSeconde = 45;
                 leNiveau = "Difficile";
 
 
@@ -303,7 +304,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if(unNombre.add(RandNum)) break;
                 else RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
             }
-
+            //modifie les propriétés des images dans la liste
             final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26,imageperso27,imageperso28};
                 NomPerso = liste_personnage.getNomImage(RandNum);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
@@ -367,6 +368,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void launchNiveau(int wSeconde)
     {
         unScore = 0;
+        insertionjoueur = 0;
         /*
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -421,7 +423,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //Calcule le score du joueur
                 unScore = PersoTrouve*127;
                 EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
-                liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
 
                 txtTimer.setText("Fin");
 
@@ -450,8 +451,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             view.setEnabled(false);
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
-            long randomposition = (long) (Math.random() * metrics.widthPixels * (Math.random() > 0.5 ? 1 : -1));
-            long randomposition2 = (long) (Math.random() * metrics.heightPixels * (Math.random() > 0.5 ? 1 : -1));
 
             //enregistrement de la position avant changement
             cordx = view.getX();
@@ -504,12 +503,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
                 if (minutesR == 0){
                     EndGames("Fin de partie tu as terminé en " + secondsR + " secondes, Soit un score total de : "+unScore);
-                    liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
 
 
                 }else{
                     EndGames("Fin de partie tu as terminé en " + minutesR + ":" + secondsR + " minutes, Soit un score total de : "+unScore);
-                    liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
                 }
             }else{
                 //met l'image invisible et désactivé aprés l'animation
@@ -599,7 +596,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     //Calcule le score du joueur
                     unScore = PersoTrouve*127;
                     EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
-                    liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
+
 
                     txtTimer.setText("Fin");
 
@@ -635,6 +632,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //Methode pour la remise à zero de la partie!
     public void EndGames(String MessageFin){
 
+        insertionjoueur ++;
         //Les boutons de niveau sont de nouveaux cliquable
         btnNiveau1.setEnabled(true);
         btnNiveau2.setEnabled(true);
@@ -667,7 +665,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau2.animate().translationX(0).withLayer();
         btnNiveau3.animate().translationX(0).withLayer();
 
-
+        if(insertionjoueur == 2){
+            liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
+        }
 
         //Stop le timer
         countDownTimer.cancel();
