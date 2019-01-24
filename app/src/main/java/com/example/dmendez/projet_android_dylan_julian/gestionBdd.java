@@ -31,9 +31,14 @@ public class gestionBdd extends SQLiteOpenHelper {
     private ArrayList<String> Score = new ArrayList<String>();
     private ArrayList<String> Niveau = new ArrayList<String>();
 
+    private ArrayList<String> IdScoreF = new ArrayList<String>();
+    private ArrayList<String> NameF = new ArrayList<String>();
+    private ArrayList<String> ScoreF = new ArrayList<String>();
+
     private String Facile = "Facile";
     private String Moyen = "Moyen";
     private String Difficile = "Difficile";
+    private ScoreActivity scoreActivity;
 
 
     public static final String reqCreationTablePerso = "CREATE TABLE " + NOM_BDD + "(" + id +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -155,67 +160,28 @@ public class gestionBdd extends SQLiteOpenHelper {
         return ensScore;
     }
 
-    //Retourne l'ensemble des scores réalisés en mode facile
-   /* public void getLesScoresFacile(){
-        String reqSelect = "SELECT * FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Facile' ORDER BY " +score;
+
+    public Adapter getLesScoresFacile(){
+
+        String reqSelect = "SELECT scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Facile' ORDER BY " +score + " DESC";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor unCurseur = db.rawQuery(reqSelect, null);
+        IdScoreF.clear();
+        NameF.clear();
+        ScoreF.clear();
+        scoreActivity = new ScoreActivity();
         if(unCurseur.moveToFirst()){
             do{
-                Score un_score = new Score();
-                Id.add(unCurseur.getString(unCurseur.getColumnIndex(id2)));
-                Name.add(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
-                Score.add(unCurseur.getString(unCurseur.getColumnIndex(score)));
-                Niveau.add(unCurseur.getString(unCurseur.getColumnIndex(niveau)));
+                //IdScoreF.add(unCurseur.getString(unCurseur.getColumnIndex(id2)));
+                NameF.add(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
+                ScoreF.add(unCurseur.getString(unCurseur.getColumnIndex(score)));
 
             }while (unCurseur.moveToNext());
         }
-        Adapter ad = new Adapter()
+        Adapter ad = new Adapter(scoreActivity, NameF, ScoreF);
 
-        return ensScoreFacile;
-    }*/
-
-    //Retourne l'ensemble des scores réalisé en mode moyen
-    public ArrayList<Score> getLesScoresMoyen(){
-        ArrayList<Score> ensScoreMoyen = new ArrayList<Score>();
-        String reqSelect = "SELECT " +score + "," +nomJoueur +" FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE " + Moyen +" ORDER BY " +score;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor unCurseur = db.rawQuery(reqSelect, null);
-        if(unCurseur.moveToFirst()){
-            do{
-                Score un_score = new Score();
-                un_score.setScoreJoueur(unCurseur.getInt(unCurseur.getColumnIndex(score)));
-                un_score.setScoreNom(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
-
-                ensScoreMoyen.add(un_score);
-            }while (unCurseur.moveToNext());
-            Collections.shuffle(ensScoreMoyen);
-        }
-
-        return ensScoreMoyen;
+        unCurseur.close();
+        return ad;
     }
-
-    //Retourne l'ensemble des scores réalisé en mode difficile
-    public ArrayList<Score> getLesScoresDifficile(){
-        ArrayList<Score> ensScoreDifficile = new ArrayList<Score>();
-        String reqSelect = "SELECT " +score + "," +nomJoueur +" FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE " + Difficile +" ORDER BY " +score;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor unCurseur = db.rawQuery(reqSelect, null);
-        if(unCurseur.moveToFirst()){
-            do{
-                Score un_score = new Score();
-                un_score.setScoreJoueur(unCurseur.getInt(unCurseur.getColumnIndex(score)));
-                un_score.setScoreNom(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
-
-                ensScoreDifficile.add(un_score);
-            }while (unCurseur.moveToNext());
-            Collections.shuffle(ensScoreDifficile);
-        }
-
-        return ensScoreDifficile;
-    }
-
 }
