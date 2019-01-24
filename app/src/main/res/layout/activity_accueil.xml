@@ -29,7 +29,7 @@
     <EditText
         android:id="@+id/editText_prenom"
         android:layout_width="wrap_content"
-        android:layout_height="43dp"
+        android:layout_height="47dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
@@ -49,11 +49,13 @@
         android:layout_marginStart="260dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="8dp"
+        android:src="@drawable/iconejeutrouveles"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintVertical_bias="0.189"
-        app:srcCompat="@drawable/iconejeutrouveles" />
+
+        />
 
     <ImageView
         android:id="@+id/imageView_Jeu2"
@@ -62,11 +64,12 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="260dp"
         android:layout_marginBottom="8dp"
+        android:src="@drawable/constru"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintVertical_bias="0.241"
-        app:srcCompat="@drawable/construc" />
+        />
 
     <TextView
         android:id="@+id/textView2"
@@ -83,5 +86,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_prenom" />
+
+    <ImageView
+        android:id="@+id/imageView_regles"
+        android:layout_width="77dp"
+        android:layout_height="92dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/reglesimage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 </android.support.constraint.ConstraintLayout>
