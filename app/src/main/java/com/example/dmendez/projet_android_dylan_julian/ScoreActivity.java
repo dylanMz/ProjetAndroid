@@ -39,17 +39,17 @@ public class ScoreActivity extends AppCompatActivity {
     private static final String niveau = "scoreNiveau";
 
     private gestionBdd bdd;
-    private ArrayList<String> IdScoreF = new ArrayList<String>();
-    private ArrayList<String> NameF = new ArrayList<String>();
-    private ArrayList<String> ScoreF = new ArrayList<String>();
+        private ArrayList<String> IdScoreF = new ArrayList<String>();
+        private ArrayList<String> NameF = new ArrayList<String>();
+        private ArrayList<String> ScoreF = new ArrayList<String>();
 
-    private ArrayList<String> IdScoreM = new ArrayList<String>();
-    private ArrayList<String> NameM = new ArrayList<String>();
-    private ArrayList<String> ScoreM = new ArrayList<String>();
+        private ArrayList<String> IdScoreM = new ArrayList<String>();
+        private ArrayList<String> NameM = new ArrayList<String>();
+        private ArrayList<String> ScoreM = new ArrayList<String>();
 
-    private ArrayList<String> IdScoreD = new ArrayList<String>();
-    private ArrayList<String> NameD = new ArrayList<String>();
-    private ArrayList<String> ScoreD = new ArrayList<String>();
+        private ArrayList<String> IdScoreD = new ArrayList<String>();
+        private ArrayList<String> NameD = new ArrayList<String>();
+        private ArrayList<String> ScoreD = new ArrayList<String>();
 
 
 

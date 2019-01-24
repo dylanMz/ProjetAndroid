@@ -100,7 +100,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int identifier;
     private int uneSeconde;
     private int unScore;
-    private int nbRandom;
     private int maxTab[];
     private int NUMimageatrouver = 0;
     private int nbPerso;
@@ -110,14 +109,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int secondsR;
     private long TempsTimer;
     private int minuteRestante;
-    private int insertionjoueur = 1;
 
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimerErreur;
     private CountDownTimer countDownTimerTick;
     private MediaPlayer bonneRep;
     private MediaPlayer mauvaiseRep;
-    private Score wScore;
 
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
@@ -214,7 +211,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //Affecte la valeur 120 a une seconde.
                 uneSeconde = 120;
                 leNiveau = "Facile";
-
                 btnNiveau1.animate().translationX(400).withLayer();
 
                 launchNiveau(uneSeconde);
@@ -231,7 +227,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 uneSeconde = 80;
                 leNiveau = "Moyen";
 
-
                 btnNiveau2.animate().translationX(400).withLayer();
 
                 launchNiveau(uneSeconde);
@@ -247,7 +242,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //Affecte la valeur 45 a une seconde.
                 uneSeconde = 45;
                 leNiveau = "Difficile";
-
 
                 btnNiveau3.animate().translationX(400).withLayer();
 
@@ -368,7 +362,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void launchNiveau(int wSeconde)
     {
         unScore = 0;
-        insertionjoueur = 0;
+
         /*
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -485,7 +479,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 view.animate().x(cordx).y(cordy).setDuration(0).start();
 
-                countDownTimer.onFinish();
+                countDownTimer.cancel();
                 seconds = seconds -1;
                 //Indique que le temps est imparti, et cache le bouton abandonner
                 long totaltemps = (minutes*60)+seconds;
@@ -632,7 +626,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //Methode pour la remise à zero de la partie!
     public void EndGames(String MessageFin){
 
-        insertionjoueur ++;
         //Les boutons de niveau sont de nouveaux cliquable
         btnNiveau1.setEnabled(true);
         btnNiveau2.setEnabled(true);
@@ -665,9 +658,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau2.animate().translationX(0).withLayer();
         btnNiveau3.animate().translationX(0).withLayer();
 
-        if(insertionjoueur == 2){
-            liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
-        }
+        liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
 
         //Stop le timer
         countDownTimer.cancel();
