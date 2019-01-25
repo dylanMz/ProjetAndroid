@@ -18,6 +18,7 @@ public class AccueilActivity extends Activity implements View.OnClickListener {
     private EditText editTextPrenom;
     private String lePrenom;
     private ImageView imageRegles;
+    private Toast unToast;
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
 
@@ -45,6 +46,7 @@ public class AccueilActivity extends Activity implements View.OnClickListener {
                 //Si l'utilisateur n'insère pas son prénom, le jeu ne se lance pas et un message apparait pour lui indiquer
                 if(lePrenom.isEmpty() || lePrenom.length() > 20){
 
+                    unToast.makeText(AccueilActivity.this, "Prénom manquant ou trop long", unToast.LENGTH_SHORT).show();
 
                 }
 
