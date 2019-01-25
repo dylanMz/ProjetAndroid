@@ -447,6 +447,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau1.setEnabled(false);
         btnNiveau2.setEnabled(false);
         btnNiveau3.setEnabled(false);
+        btnNiveau4.setEnabled(false);
 
         progressBarJeu1.setProgress(0);
 

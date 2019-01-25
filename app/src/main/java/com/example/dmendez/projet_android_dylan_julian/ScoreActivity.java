@@ -137,7 +137,7 @@ public class ScoreActivity extends AppCompatActivity {
 
     //Retourne l'ensemble des scores réalisés en mode facile
     public void getLesScoresFacile(){
-        String reqSelect = "SELECT scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Facile' ORDER BY " +score + " DESC";
+        String reqSelect = "SELECT scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Facile' ORDER BY " +score + " DESC LIMIT 9";
 
         SQLiteDatabase db = bdd.getReadableDatabase();
         Cursor unCurseur = db.rawQuery(reqSelect, null);
@@ -158,7 +158,7 @@ public class ScoreActivity extends AppCompatActivity {
     }
 
     public void getLesScoresMoyen(){
-        String reqSelect = "SELECT scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Moyen' ORDER BY " +score + " DESC";
+        String reqSelect = "SELECT scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Moyen' ORDER BY " +score + " DESC LIMIT 9";
 
         SQLiteDatabase db = bdd.getReadableDatabase();
         Cursor unCurseur = db.rawQuery(reqSelect, null);
@@ -180,7 +180,7 @@ public class ScoreActivity extends AppCompatActivity {
     }
 
     public void getLesScoresDifficile(){
-        String reqSelect = "SELECT scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Difficile' ORDER BY " +score + " DESC";
+        String reqSelect = "SELECT scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Difficile' ORDER BY " +score + " DESC LIMIT 9";
 
         SQLiteDatabase db = bdd.getReadableDatabase();
         Cursor unCurseur = db.rawQuery(reqSelect, null);
@@ -201,7 +201,7 @@ public class ScoreActivity extends AppCompatActivity {
     }
 
     public void getLesScoreExtreme(){
-        String reqSelect = "SELECT scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Extreme' ORDER BY " +score + " DESC";
+        String reqSelect = "SELECT scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Extreme' ORDER BY " +score + " DESC LIMIT 9";
 
         SQLiteDatabase db = bdd.getReadableDatabase();
         Cursor unCurseur = db.rawQuery(reqSelect, null);
