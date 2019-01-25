@@ -54,6 +54,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button btnNiveau4;
 
     private Button btnAbandonner;
+    private Button btnReprendre;
+    private Button btnArreter;
     private Button btnScore;
     private Button btnAccueil;
 
@@ -113,10 +115,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int minuteRestante;
 
     private CountDownTimer countDownTimer;
+    private CountDownTimer countDownTimer2;
     private CountDownTimer countDownTimerErreur;
     private CountDownTimer countDownTimerTick;
     private MediaPlayer bonneRep;
     private MediaPlayer mauvaiseRep;
+
+    private boolean isPaused = false;
+
+
 
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
@@ -139,6 +146,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imgAtrouver2 = (ImageView) this.findViewById(R.id.imageView_persoChercher2);
         txtTest = (TextView) this.findViewById(R.id.textView_test);
         btnAbandonner = (Button) this.findViewById(R.id.button_abandonner);
+        btnReprendre = (Button) this.findViewById(R.id.button_repndre);
+        btnArreter = (Button) this.findViewById(R.id.button_arreter);
         txtMessageFin = (TextView) this.findViewById(R.id.textView_messageFin);
         imgChrono = (ImageView) this.findViewById(R.id.imageView_chrono);
         imageperso = (ImageView) this.findViewById(R.id.imageView_perso);
@@ -275,10 +284,34 @@ public class MainActivity extends Activity implements View.OnClickListener {
         {
             public void onClick(View v)
             {
+                frmImages.setVisibility(View.INVISIBLE);
+                pause("Tu as mis la partie en pause !");
+                //EndGames("Tu as abandonné... mais c'est pas grave ! tu peux recommencer ! Clique sur un des niveaux !");
+
+            }
+        });
+
+        btnReprendre.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                frmImages.setVisibility(View.VISIBLE);
+                resum();
+                //EndGames("Tu as abandonné... mais c'est pas grave ! tu peux recommencer ! Clique sur un des niveaux !");
+
+            }
+        });
+        btnArreter.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+
                 EndGames("Tu as abandonné... mais c'est pas grave ! tu peux recommencer ! Clique sur un des niveaux !");
 
             }
         });
+
+
 
         //Permet d'aller voir le tableau des scores
         btnScore.setOnClickListener(new View.OnClickListener()
@@ -382,7 +415,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void launchNiveau(int wSeconde)
     {
         unScore = 0;
-
+        isPaused = false;
         /*
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -415,17 +448,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             //Evènement qui se passe pendant que le timer est en cours
             public void onTick(long millisUntilFinished) {
-                 minutes = (int) millisUntilFinished / 60000;
-                 seconds = (int) millisUntilFinished % 60000 / 1000;
 
-                timeLeftText = "" +minutes;
-                timeLeftText += ":";
-                if (seconds<10) timeLeftText += "0";
-                timeLeftText += seconds;
-                TempsTimer = millisUntilFinished;
-                txtTimer.setText(timeLeftText);
-                if(seconds <= 10 & minutes == 0){
-                    txtTimer.setTextColor(Color.RED);
+                if(isPaused)
+                {
+                    cancel();
+                }else {
+                    minutes = (int) millisUntilFinished / 60000;
+                    seconds = (int) millisUntilFinished % 60000 / 1000;
+
+                    timeLeftText = "" +minutes;
+                    timeLeftText += ":";
+                    if (seconds<10) timeLeftText += "0";
+                    timeLeftText += seconds;
+                    TempsTimer = millisUntilFinished;
+                    txtTimer.setText(timeLeftText);
+                    if(seconds <= 10 & minutes == 0){
+                        txtTimer.setTextColor(Color.RED);
+                    }
+
                 }
             }
 
@@ -582,22 +622,28 @@ public class MainActivity extends Activity implements View.OnClickListener {
             int minutesScondesRestante = minuteRestante + secondesEnsembleFinal;
 
             //Instancie un nouveau timer avec l'ancien temps et le malus. (Car l'utilisateur s'est trompé de personnage.)
+
+
             countDownTimer = new CountDownTimer(minutesScondesRestante*1000 , 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
+                    if(isPaused)
+                    {
+                        cancel();
+                    }else {
+                        minutes = (int) millisUntilFinished / 60000;
+                        seconds = (int) millisUntilFinished % 60000 / 1000;
 
-                    minutes = (int) millisUntilFinished / 60000;
-                    seconds = (int) millisUntilFinished % 60000 / 1000;
+                        timeLeftText = "" +minutes;
+                        timeLeftText += ":";
 
-                    timeLeftText = "" +minutes;
-                    timeLeftText += ":";
+                        if (seconds<10) timeLeftText += "0";
+                        timeLeftText += seconds;
 
-                    if (seconds<10) timeLeftText += "0";
-                    timeLeftText += seconds;
-
-                    txtTimer.setText(timeLeftText);
-                    if(seconds <= 10 & minutes == 0){
-                        txtTimer.setTextColor(Color.RED);
+                        txtTimer.setText(timeLeftText);
+                        if(seconds <= 10 & minutes == 0){
+                            txtTimer.setTextColor(Color.RED);
+                    }
                     }
 
                 }
@@ -645,7 +691,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     //Methode pour la remise à zero de la partie!
     public void EndGames(String MessageFin){
-
+        btnArreter.setVisibility(View.INVISIBLE);
+        btnReprendre.setVisibility(View.INVISIBLE);
         //Les boutons de niveau sont de nouveaux cliquable
         btnNiveau1.setEnabled(true);
         btnNiveau2.setEnabled(true);
@@ -680,7 +727,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau3.animate().translationX(0).withLayer();
         btnNiveau4.animate().translationX(0).withLayer();
 
-        liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
+        if(unScore !=0){
+            liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
+        }
+
 
         //Stop le timer
         countDownTimer.cancel();
@@ -690,6 +740,93 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         //remet à 0 l'image à trouver
         NUMimageatrouver = 0;
+    }
+
+    public void pause(String Message){
+        isPaused = true;
+
+        txtMessageFin.setVisibility(View.VISIBLE);
+        txtMessageFin.setBackgroundColor(getColor(R.color.colorPrimaryDark));
+        txtMessageFin.setText(Message);
+
+        //Le bouton abandonner disparait et le timer et remis à zero
+        btnAbandonner.setVisibility(View.INVISIBLE);
+        btnReprendre.setVisibility(View.VISIBLE);
+        btnArreter.setVisibility(View.VISIBLE);
+    }
+
+    public void resum(){
+        txtMessageFin.setVisibility(View.INVISIBLE);
+        frmImages.setVisibility(View.VISIBLE);
+
+        //Le bouton abandonner disparait et le timer et remis à zero
+        btnAbandonner.setVisibility(View.VISIBLE);
+        btnReprendre.setVisibility(View.INVISIBLE);
+        btnArreter.setVisibility(View.INVISIBLE);
+        isPaused = false;
+
+        countDownTimer.cancel();
+        String leTempsChaine = txtTimer.getText().toString();
+        String secondesRestanteDiminué = leTempsChaine.substring(0,1);
+        String secondesRestanteDiminué1 = leTempsChaine.substring(leTempsChaine.length()-1);
+        String secondesRestanteDiminué2 = leTempsChaine.substring(2,3);
+
+        //Concatènation des secondes et transformation en int
+        final String secondesEnsemble = secondesRestanteDiminué2 + secondesRestanteDiminué1;
+
+        if(Integer.parseInt(secondesRestanteDiminué) == 1){
+            minuteRestante=60;
+        }
+        else {
+            minuteRestante=0;
+        }
+
+        int secondesEnsembleFinal = Integer.parseInt(secondesEnsemble);
+        int minutesScondesRestante = minuteRestante + secondesEnsembleFinal;
+
+        //Instancie un nouveau timer avec l'ancien temps et le malus. (Car l'utilisateur s'est trompé de personnage.)
+
+
+        countDownTimer = new CountDownTimer(minutesScondesRestante*1000 , 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if(isPaused)
+                {
+                    cancel();
+                }else {
+                    minutes = (int) millisUntilFinished / 60000;
+                    seconds = (int) millisUntilFinished % 60000 / 1000;
+
+                    timeLeftText = "" +minutes;
+                    timeLeftText += ":";
+
+                    if (seconds<10) timeLeftText += "0";
+                    timeLeftText += seconds;
+
+                    txtTimer.setText(timeLeftText);
+                    if(seconds <= 10 & minutes == 0){
+                        txtTimer.setTextColor(Color.RED);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFinish() {
+                //Quand le temps est arrivé à 0
+                int PersoTrouve = NUMimageatrouver - 1;
+
+                //Calcule le score du joueur
+                unScore = PersoTrouve*127;
+                EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
+
+
+                txtTimer.setText("Fin");
+
+            }
+        };
+
+        countDownTimer.start();
     }
 
 
