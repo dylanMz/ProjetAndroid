@@ -83,7 +83,7 @@
         app:layout_constraintHorizontal_bias="0.367"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_jeuScreen"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.52" />
 
     <TextView
         android:id="@+id/textView_regleChrono"
