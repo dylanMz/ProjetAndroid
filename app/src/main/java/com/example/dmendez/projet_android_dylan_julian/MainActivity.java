@@ -51,6 +51,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button btnNiveau1;
     private Button btnNiveau2;
     private Button btnNiveau3;
+    private Button btnNiveau4;
+
     private Button btnAbandonner;
     private Button btnScore;
     private Button btnAccueil;
@@ -130,6 +132,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau1 = (Button) this.findViewById(R.id.button_niveau1);
         btnNiveau2 = (Button) this.findViewById(R.id.button_niveau2);
         btnNiveau3 = (Button) this.findViewById(R.id.button_niveau3);
+        btnNiveau4 = (Button) this.findViewById(R.id.button_niveau4);
+
         txtTimer = (TextView) this.findViewById(R.id.textView_timer);
         imgAtrouver = (ImageView) this.findViewById(R.id.imageView_persoChercher);
         imgAtrouver2 = (ImageView) this.findViewById(R.id.imageView_persoChercher2);
@@ -239,11 +243,27 @@ public class MainActivity extends Activity implements View.OnClickListener {
         {
             public void onClick(View v)
             {
-                //Affecte la valeur 45 a une seconde.
-                uneSeconde = 45;
+                //Affecte la valeur 60 a une seconde.
+                uneSeconde = 60;
                 leNiveau = "Difficile";
 
                 btnNiveau3.animate().translationX(400).withLayer();
+
+                launchNiveau(uneSeconde);
+                initImage();
+            }
+        });
+
+        //Lancement du niveau extreme
+        btnNiveau4.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                //Affecte la valeur 45 a une seconde.
+                uneSeconde = 45;
+                leNiveau = "Extreme";
+
+                btnNiveau4.animate().translationX(400).withLayer();
 
                 launchNiveau(uneSeconde);
                 initImage();
@@ -630,6 +650,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau1.setEnabled(true);
         btnNiveau2.setEnabled(true);
         btnNiveau3.setEnabled(true);
+        btnNiveau4.setEnabled(true);
 
         //Le personnage à retrouver devient un point d'intégoration et les images sont cachées
         frmImages.setVisibility(View.INVISIBLE);
@@ -657,6 +678,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau1.animate().translationX(0).withLayer();
         btnNiveau2.animate().translationX(0).withLayer();
         btnNiveau3.animate().translationX(0).withLayer();
+        btnNiveau4.animate().translationX(0).withLayer();
 
         liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
 
