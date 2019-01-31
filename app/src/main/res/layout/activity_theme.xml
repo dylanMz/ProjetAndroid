@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView_theme_1"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/holo_green_light" />
+        app:srcCompat="@drawable/themesimpsons" />
 
     <ImageView
         android:id="@+id/imageView_theme_3"

@@ -39,7 +39,7 @@ public class AccueilActivity extends Activity implements View.OnClickListener {
         {
             public void onClick(View v)
             {
-                Intent unIntent = new Intent(AccueilActivity.this, MainActivity.class);
+                Intent unIntent = new Intent(AccueilActivity.this, ThemeActivity.class);
                 lePrenom = editTextPrenom.getText().toString();
                 unIntent.putExtra("Joueur", lePrenom);
 
