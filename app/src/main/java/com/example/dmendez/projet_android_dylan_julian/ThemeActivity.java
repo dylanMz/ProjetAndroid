@@ -24,6 +24,8 @@ public class ThemeActivity extends AppCompatActivity {
         //Initialisation des controles
         imgTheme1 = (ImageView) this.findViewById(R.id.imageView_theme_1);
         imgTheme2 = (ImageView) this.findViewById(R.id.imageView_theme_2);
+        imgTheme3 = (ImageView) this.findViewById(R.id.imageView_theme_3);
+        imgTheme4 = (ImageView) this.findViewById(R.id.imageView_theme_4);
 
         //Récupère le nom du joueur
         lePrenom = this.getIntent().getExtras().getString("Joueur");
