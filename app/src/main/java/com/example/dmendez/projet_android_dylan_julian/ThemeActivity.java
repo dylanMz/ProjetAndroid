@@ -28,7 +28,44 @@ public class ThemeActivity extends AppCompatActivity {
         //Récupère le nom du joueur
         lePrenom = this.getIntent().getExtras().getString("Joueur");
 
+        //Lance le jeu avec le thème Astérix
         imgTheme1.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Intent unIntent = new Intent(ThemeActivity.this, MainActivity.class);
+                unIntent.putExtra("Joueur", lePrenom);
+                startActivity(unIntent);
+
+            }
+        });
+
+        //Lance le jeu avec le thème Simpson
+        imgTheme2.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Intent unIntent = new Intent(ThemeActivity.this, MainActivity.class);
+                unIntent.putExtra("Joueur", lePrenom);
+                startActivity(unIntent);
+
+            }
+        });
+
+        //Lance le jeu avec le thème Tintin
+        imgTheme3.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Intent unIntent = new Intent(ThemeActivity.this, MainActivity.class);
+                unIntent.putExtra("Joueur", lePrenom);
+                startActivity(unIntent);
+
+            }
+        });
+
+        //Lance le jeu avec tous les thèmes
+        imgTheme4.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
