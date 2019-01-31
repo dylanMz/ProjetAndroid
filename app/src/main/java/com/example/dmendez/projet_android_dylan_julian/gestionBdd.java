@@ -14,6 +14,7 @@ public class gestionBdd extends SQLiteOpenHelper {
 
     // défini des constantes de classe
     private static final int VERSION_BDD = 1;
+    private static final String nomTableTheme = "THEME";
     private static final String NOM_BDD = "personnageBD";
     private static final String nom = "nomPersonnage";
     private static final String chemin = "chemin";
@@ -22,6 +23,7 @@ public class gestionBdd extends SQLiteOpenHelper {
 
     private static final String NOM_BDD2 ="scoreBD";
     private static final String id2 = "scoreId";
+    private static final String idtheme = "idtheme";
     private static final String score = "scoreJoueur";
     private static final String nomJoueur = "scoreNom";
     private static final String niveau = "scoreNiveau";
@@ -40,9 +42,8 @@ public class gestionBdd extends SQLiteOpenHelper {
     private String Difficile = "Difficile";
     private ScoreActivity scoreActivity;
 
-
-    public static final String reqCreationTablePerso = "CREATE TABLE " + NOM_BDD + "(" + id +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            nom  + " TEXT, " + nomimage + " TEXT) ;";
+    public static final String reqCreationTablePerso = "CREATE TABLE " + NOM_BDD + "(" + id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            nom  + " TEXT, " + nomimage + " TEXT, " + idtheme + " INTEGER) ;";
 
     public static final String reqReqCreationTableScore = "CREATE TABLE " + NOM_BDD2 + "(" + id2 +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             score  + " INTEGER, " + nomJoueur + " TEXT, " + niveau + " TEXT) ;";
@@ -82,6 +83,7 @@ public class gestionBdd extends SQLiteOpenHelper {
         String reqSuppP2 = "DROP TABLE IF EXISTS " + NOM_BDD2;
         sqLiteDatabase.execSQL(reqSuppP2);
         onCreate(sqLiteDatabase);
+
     }
 
     //Permet d'ajouter un objet personnage
@@ -93,6 +95,7 @@ public class gestionBdd extends SQLiteOpenHelper {
         values.put("idPersonnage",unPersonnage.getIdPersonnage());
         values.put("nomPersonnage",unPersonnage.getNomPersonnage());
         values.put("nomImage",unPersonnage.getNomImage());
+        values.put("idtheme", unPersonnage.getIdTheme());
 
         long insertion = db.insert(NOM_BDD, null, values);
         return insertion;
@@ -127,6 +130,7 @@ public class gestionBdd extends SQLiteOpenHelper {
                 un_personnage.setIdPersonnage(unCurseur.getInt(unCurseur.getColumnIndex(id)));
                 un_personnage.setNomPersonnage(unCurseur.getString(unCurseur.getColumnIndex(nom)));
                 un_personnage.setNomImage(unCurseur.getString(unCurseur.getColumnIndex(nomimage)));
+                un_personnage.setIdTheme(unCurseur.getInt(unCurseur.getColumnIndex(idtheme)));
 
                 ensPersonnage.add(un_personnage);
             }while (unCurseur.moveToNext());
@@ -135,6 +139,30 @@ public class gestionBdd extends SQLiteOpenHelper {
 
         return ensPersonnage;
     }
+
+
+    public ArrayList<Personnage> getLesPersonnagesTheme(int num_theme){
+        ArrayList<Personnage> ensPersonnage = new ArrayList<Personnage>();
+        String reqSelect = " SELECT * FROM " + NOM_BDD + " Where " + idtheme + " = " + num_theme;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor unCurseur = db.rawQuery(reqSelect, null);
+        if(unCurseur.moveToFirst()){
+            do{
+                Personnage un_personnage = new Personnage();
+                un_personnage.setIdPersonnage(unCurseur.getInt(unCurseur.getColumnIndex(id)));
+                un_personnage.setNomPersonnage(unCurseur.getString(unCurseur.getColumnIndex(nom)));
+                un_personnage.setNomImage(unCurseur.getString(unCurseur.getColumnIndex(nomimage)));
+                un_personnage.setIdTheme(unCurseur.getInt(unCurseur.getColumnIndex(idtheme)));
+
+                ensPersonnage.add(un_personnage);
+            }while (unCurseur.moveToNext());
+            Collections.shuffle(ensPersonnage);
+        }
+
+        return ensPersonnage;
+    }
+
 
     //Retourne l'ensemble des scores
     public ArrayList<Score> getLesScores(){
@@ -158,30 +186,5 @@ public class gestionBdd extends SQLiteOpenHelper {
         }
 
         return ensScore;
-    }
-
-
-    public Adapter getLesScoresFacile(){
-
-        String reqSelect = "SELECT scoreJoueur, scoreNom FROM " + NOM_BDD2+ " WHERE "+niveau + " LIKE 'Facile' ORDER BY " +score + " DESC";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor unCurseur = db.rawQuery(reqSelect, null);
-        IdScoreF.clear();
-        NameF.clear();
-        ScoreF.clear();
-        scoreActivity = new ScoreActivity();
-        if(unCurseur.moveToFirst()){
-            do{
-                //IdScoreF.add(unCurseur.getString(unCurseur.getColumnIndex(id2)));
-                NameF.add(unCurseur.getString(unCurseur.getColumnIndex(nomJoueur)));
-                ScoreF.add(unCurseur.getString(unCurseur.getColumnIndex(score)));
-
-            }while (unCurseur.moveToNext());
-        }
-        Adapter ad = new Adapter(scoreActivity, NameF, ScoreF);
-
-        unCurseur.close();
-        return ad;
     }
 }

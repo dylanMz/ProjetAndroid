@@ -28,6 +28,7 @@ public class ScoreActivity extends AppCompatActivity {
     private ArrayList<Score> ensScore = new ArrayList<>();
     private Score unScore;
     private String lePrenom;
+    private int numtheme;
     private ImageView imgInfoScore;
 
 
@@ -79,6 +80,7 @@ public class ScoreActivity extends AppCompatActivity {
         bdd = new gestionBdd(this);
 
         lePrenom = this.getIntent().getExtras().getString("Joueur");
+        numtheme = this.getIntent().getExtras().getInt("theme");
 
 
         getLesScoresFacile();
@@ -104,6 +106,7 @@ public class ScoreActivity extends AppCompatActivity {
             {
                 Intent Intent1 = new Intent(ScoreActivity.this, MainActivity.class);
                 Intent1.putExtra("Joueur", lePrenom);
+                Intent1.putExtra("theme", numtheme);
                 startActivity(Intent1);
 
             }

@@ -95,6 +95,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int secondsR;
     private long TempsTimer;
     private int minuteRestante;
+    private String lNomPerso;
+    private int numetheme;
+    private String nomimage;
+    private String nomPerso;
 
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimer2;
@@ -178,9 +182,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
             imagePersoList[i].setOnClickListener(this);
         }
 
-
+        txtMessageFin.setVisibility(View.INVISIBLE);
         //Affiche le prénom du joueur
         lePrenom = this.getIntent().getExtras().getString("Joueur");
+        numetheme = this.getIntent().getExtras().getInt("theme");
         txtAccueilMsg.setText("Bonne chance " + lePrenom + ", choisi un niveau !");
 
 
@@ -267,7 +272,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onClick(View v)
             {
                 frmImages.setVisibility(View.INVISIBLE);
-                pause("Tu as mis la partie en pause !");
+                pause("                Tu as mis la partie en pause !");
                 //EndGames("Tu as abandonné... mais c'est pas grave ! tu peux recommencer ! Clique sur un des niveaux !");
 
             }
@@ -302,6 +307,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             {
                 Intent intent1 = new Intent(MainActivity.this, ScoreActivity.class);
                 intent1.putExtra("Joueur", lePrenom);
+                intent1.putExtra("theme", numetheme);
                 startActivity(intent1);
 
 
@@ -315,8 +321,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private void initImage()
     {
 
-        txtMessageFin.setBackgroundColor(0);
-        maxTab = randomize(liste_personnage.ensPersonnage.size(), liste_personnage.ensPersonnage.size() + 1);
+        if(numetheme != 3){
+            maxTab = randomize(liste_personnage.ensPersonnagetheme.size(), liste_personnage.ensPersonnagetheme.size() + 1);
+        }else{
+            maxTab = randomize(liste_personnage.ensPersonnage.size(), liste_personnage.ensPersonnage.size() + 1);
+        }
+
         int nbMax = liste_personnage.ensPersonnage.size();
 
         ImageaTrouver();
@@ -325,32 +335,58 @@ public class MainActivity extends Activity implements View.OnClickListener {
         TreeSet unNombre = new TreeSet();
         Random NumRend = new Random();
 
+        if(numetheme != 3){
+            //choix d'un theme
+            liste_personnage.recup_theme(getApplicationContext(), numetheme);
+            for (int i = 0; i<liste_personnage.ensPersonnagetheme.size(); i++){
+                int RandNum = NumRend.nextInt(liste_personnage.ensPersonnagetheme.size());
+                lNomPerso = liste_personnage.ensPersonnagetheme.get(i).nomImage;
+                final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26,imageperso27,imageperso28};
 
-
-        for(int i = 0; i<liste_personnage.ensPersonnage.size(); i++){
-            int RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
-            for(;;){
-                if(unNombre.add(RandNum)) break;
-                else RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
+                identifier= getResources().getIdentifier(lNomPerso, "drawable", getPackageName());
+                imagePersoList[i].setImageResource(identifier);
+                imagePersoList[i].setTag(identifier);
+                imagePersoList[i].setEnabled(true);
+                imagePersoList[i].setVisibility(View.VISIBLE);
+                System.out.println(lNomPerso);
             }
-            //modifie les propriétés des images dans la liste
-            final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26,imageperso27,imageperso28};
+        }else{
+            //choix du niveau tout
+
+            for(int i = 0; i<liste_personnage.ensPersonnage.size(); i++){
+                int RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
+                for(;;){
+                    if(unNombre.add(RandNum)) break;
+                    else RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
+                }
+
+                //modifie les propriétés des images dans la liste
+                final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26,imageperso27,imageperso28};
+
                 NomPerso = liste_personnage.getNomImage(RandNum);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
-            imagePersoList[i].setImageResource(identifier);
-            imagePersoList[i].setTag(identifier);
-            imagePersoList[i].setEnabled(true);
-            imagePersoList[i].setVisibility(View.VISIBLE);
+                imagePersoList[i].setImageResource(identifier);
+                imagePersoList[i].setTag(identifier);
+                imagePersoList[i].setEnabled(true);
+                imagePersoList[i].setVisibility(View.VISIBLE);
 
+            }
         }
+
     }
     //Permet de modifier l'image à trouver pendant le déroulement de la partie
     private void ImageaTrouver(){
 
         System.out.println(maxTab[NUMimageatrouver] + " dd "+ NUMimageatrouver);
         int numatrouver = maxTab[NUMimageatrouver];
-        String nomimage = liste_personnage.getNomImage(numatrouver);
-        String nomPerso = liste_personnage.getNomPerso(numatrouver);
+        if(numetheme != 3){
+            nomimage = liste_personnage.ensPersonnagetheme.get(numatrouver).getNomImage();
+            nomPerso = liste_personnage.ensPersonnagetheme.get(numatrouver).getNomPersonnage();
+        }else{
+            nomimage = liste_personnage.getNomImage(numatrouver);
+            nomPerso = liste_personnage.getNomPerso(numatrouver);
+        }
+
         txtTest.setText(String.valueOf(nomPerso));
         int identifier= getResources().getIdentifier(nomimage, "drawable", getPackageName());
 
@@ -686,7 +722,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         frmImages.setVisibility(View.INVISIBLE);
 
         txtMessageFin.setVisibility(View.VISIBLE);
-        txtMessageFin.setBackgroundColor(getColor(R.color.colorPrimaryDark));
         txtMessageFin.setText(MessageFin);
 
         //Le bouton abandonner disparait et le timer et remis à zero
@@ -729,7 +764,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         isPaused = true;
 
         txtMessageFin.setVisibility(View.VISIBLE);
-        txtMessageFin.setBackgroundColor(getColor(R.color.colorPrimaryDark));
         txtMessageFin.setText(Message);
 
         //Le bouton abandonner disparait et le timer et remis à zero
