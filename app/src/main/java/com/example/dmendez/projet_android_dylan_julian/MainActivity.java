@@ -82,6 +82,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ImageView imageperso27;
     private ImageView imageperso28;
 
+    private int totalimageatrouver = 29;
+
 
     private int identifier;
     private int uneSeconde;
@@ -99,6 +101,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int numetheme;
     private String nomimage;
     private String nomPerso;
+    private int RandNumtout;
 
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimer2;
@@ -320,27 +323,29 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //Méthode affichant les images aléatoirement
     private void initImage()
     {
-
+        TreeSet unNombre = new TreeSet();
+        Random NumRend = new Random();
+        RandNumtout = NumRend.nextInt(liste_personnage.ensPersonnage.size());
         if(numetheme != 3){
+            liste_personnage.recup_theme(getApplicationContext(), numetheme);
             maxTab = randomize(liste_personnage.ensPersonnagetheme.size(), liste_personnage.ensPersonnagetheme.size() + 1);
         }else{
-            maxTab = randomize(liste_personnage.ensPersonnage.size(), liste_personnage.ensPersonnage.size() + 1);
+            maxTab = randomize(liste_personnage.ensPersonnage.size(), liste_personnage.ensPersonnage.size()+1);
         }
 
         int nbMax = liste_personnage.ensPersonnage.size();
 
-        ImageaTrouver();
+
 
         //Nombre aléatoire sans doublon pour disposer les images aléatoirement sur l'écran
-        TreeSet unNombre = new TreeSet();
-        Random NumRend = new Random();
+
 
         if(numetheme != 3){
             //choix d'un theme
-            liste_personnage.recup_theme(getApplicationContext(), numetheme);
+
             for (int i = 0; i<liste_personnage.ensPersonnagetheme.size(); i++){
                 int RandNum = NumRend.nextInt(liste_personnage.ensPersonnagetheme.size());
-                lNomPerso = liste_personnage.ensPersonnagetheme.get(i).nomImage;
+                lNomPerso = liste_personnage.ensPersonnagetheme.get(i).getNomImage();
                 final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26,imageperso27,imageperso28};
 
                 identifier= getResources().getIdentifier(lNomPerso, "drawable", getPackageName());
@@ -352,8 +357,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }else{
             //choix du niveau tout
-
-            for(int i = 0; i<liste_personnage.ensPersonnage.size(); i++){
+            for(int i = 0; i<totalimageatrouver; i++){
                 int RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
                 for(;;){
                     if(unNombre.add(RandNum)) break;
@@ -363,15 +367,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //modifie les propriétés des images dans la liste
                 final ImageView[] imagePersoList = {imageperso,imageperso1,imageperso2,imageperso3,imageperso4,imageperso5,imageperso6,imageperso7,imageperso8,imageperso9,imageperso10,imageperso11,imageperso12,imageperso13,imageperso14,imageperso15,imageperso16,imageperso17,imageperso18,imageperso19,imageperso20,imageperso21,imageperso22,imageperso23,imageperso24,imageperso25,imageperso26,imageperso27,imageperso28};
 
-                NomPerso = liste_personnage.getNomImage(RandNum);
+                NomPerso = liste_personnage.getNomImage(maxTab[NUMimageatrouver]);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
                 imagePersoList[i].setImageResource(identifier);
                 imagePersoList[i].setTag(identifier);
                 imagePersoList[i].setEnabled(true);
                 imagePersoList[i].setVisibility(View.VISIBLE);
+                NUMimageatrouver++;
+                System.out.println(NUMimageatrouver + " probleme    " + liste_personnage.ensPersonnage.size() + maxTab[NUMimageatrouver]);
+                if (NUMimageatrouver == totalimageatrouver){
+                    NUMimageatrouver = 0;
+                    System.out.println(NUMimageatrouver + " probleme    ");
+                }
 
             }
         }
+
+        ImageaTrouver();
 
     }
     //Permet de modifier l'image à trouver pendant le déroulement de la partie
@@ -382,6 +394,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if(numetheme != 3){
             nomimage = liste_personnage.ensPersonnagetheme.get(numatrouver).getNomImage();
             nomPerso = liste_personnage.ensPersonnagetheme.get(numatrouver).getNomPersonnage();
+           // nomimage = liste_personnage.getTheme(numatrouver);
+            //nomPerso = liste_personnage.getNomPersotheme(numatrouver);
         }else{
             nomimage = liste_personnage.getNomImage(numatrouver);
             nomPerso = liste_personnage.getNomPerso(numatrouver);
@@ -494,7 +508,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 //Calcule le score du joueur
                 unScore = PersoTrouve*127;
-                EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
+                EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+totalimageatrouver + " personnages ! Soit un score total de : " +unScore);
 
                 txtTimer.setText("Fin");
 
@@ -553,53 +567,107 @@ public class MainActivity extends Activity implements View.OnClickListener {
             countDownTimerTick.start();
 
 
-            //Detecte si la partie est fini ou non!
-            if(NUMimageatrouver == liste_personnage.ensPersonnage.size()){
+            if (numetheme != 3 ){
+                //si un theme est choisi
+                //Detecte si la partie est fini ou non!
+                if(NUMimageatrouver == liste_personnage.ensPersonnagetheme.size()){
 
-                view.animate().x(cordx).y(cordy).setDuration(0).start();
+                    view.animate().x(cordx).y(cordy).setDuration(0).start();
 
-                countDownTimer.cancel();
-                seconds = seconds -1;
-                //Indique que le temps est imparti, et cache le bouton abandonner
-                long totaltemps = (minutes*60)+seconds;
+                    countDownTimer.cancel();
+                    seconds = seconds -1;
+                    //Indique que le temps est imparti, et cache le bouton abandonner
+                    long totaltemps = (minutes*60)+seconds;
 
-                long tempsfin = uneSeconde - totaltemps;
-                System.out.println(totaltemps + " " + tempsfin);
-                minutesR = (int) tempsfin / 60;
-                secondsR = (int) tempsfin % 60;
+                    long tempsfin = uneSeconde - totaltemps;
+                    System.out.println(totaltemps + " " + tempsfin);
+                    minutesR = (int) tempsfin / 60;
+                    secondsR = (int) tempsfin % 60;
 
-                //donne le nombre de point en fontion du temps restant
-                if(minutes == 0){
-                    unScore = liste_personnage.ensPersonnage.size()*127 + 35 * seconds;
+                    //donne le nombre de point en fontion du temps restant
+                    if(minutes == 0){
+                        unScore = liste_personnage.ensPersonnagetheme.size()*127 + 35 * seconds;
+                    }else{
+                        unScore = liste_personnage.ensPersonnagetheme.size()*127 + 35 * seconds + 2100 * minutes;
+                    }
+                    if (minutesR == 0){
+                        EndGames("Fin de partie tu as terminé en " + secondsR + " secondes, Soit un score total de : "+unScore);
+
+
+                    }else{
+                        EndGames("Fin de partie tu as terminé en " + minutesR + ":" + secondsR + " minutes, Soit un score total de : "+unScore);
+                    }
                 }else{
-                    unScore = liste_personnage.ensPersonnage.size()*127 + 35 * seconds + 2100 * minutes;
-                }
-                if (minutesR == 0){
-                    EndGames("Fin de partie tu as terminé en " + secondsR + " secondes, Soit un score total de : "+unScore);
+                    //met l'image invisible et désactivé aprés l'animation
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageaTrouver();
+
+                            view.setVisibility(View.INVISIBLE);
+
+                            view.animate().x(cordx).y(cordy).setDuration(0).start();
+
+                        }
+                    }, 500);
 
 
-                }else{
-                    EndGames("Fin de partie tu as terminé en " + minutesR + ":" + secondsR + " minutes, Soit un score total de : "+unScore);
                 }
             }else{
-                //met l'image invisible et désactivé aprés l'animation
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ImageaTrouver();
 
-                        view.setVisibility(View.INVISIBLE);
+                //Detecte si la partie est fini ou non!
+                if(NUMimageatrouver == 29){
 
-                        view.animate().x(cordx).y(cordy).setDuration(0).start();
+                    view.animate().x(cordx).y(cordy).setDuration(0).start();
 
+                    countDownTimer.cancel();
+                    seconds = seconds -1;
+                    //Indique que le temps est imparti, et cache le bouton abandonner
+                    long totaltemps = (minutes*60)+seconds;
+
+                    long tempsfin = uneSeconde - totaltemps;
+                    System.out.println(totaltemps + " " + tempsfin);
+                    minutesR = (int) tempsfin / 60;
+                    secondsR = (int) tempsfin % 60;
+
+                    //donne le nombre de point en fontion du temps restant
+                    if(minutes == 0){
+                        unScore = totalimageatrouver*127 + 35 * seconds;
+                    }else{
+                        unScore = totalimageatrouver*127 + 35 * seconds + 2100 * minutes;
                     }
-                }, 500);
+                    if (minutesR == 0){
+                        EndGames("Fin de partie tu as terminé en " + secondsR + " secondes, Soit un score total de : "+unScore);
 
 
-            }
+                    }else{
+                        EndGames("Fin de partie tu as terminé en " + minutesR + ":" + secondsR + " minutes, Soit un score total de : "+unScore);
+                    }
+                }else{
+                    //met l'image invisible et désactivé aprés l'animation
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageaTrouver();
+
+                            view.setVisibility(View.INVISIBLE);
+
+                            view.animate().x(cordx).y(cordy).setDuration(0).start();
+
+                        }
+                    }, 500);
+
+
+                }
+             }
 
             //Récupère le nombre de personnage
-            nbPerso = liste_personnage.ensPersonnage.size();
+            if(numetheme !=3){
+                nbPerso = liste_personnage.ensPersonnagetheme.size();
+            }else{
+                nbPerso = totalimageatrouver;
+            }
+
 
             //Le maxixum de la barre de progression devient le nombre de personnage
             progressBarJeu1.setMax(nbPerso);
@@ -674,7 +742,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                     //Calcule le score du joueur
                     unScore = PersoTrouve*127;
-                    EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
+                    EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+totalimageatrouver + " personnages ! Soit un score total de : " +unScore);
 
 
                     txtTimer.setText("Fin");
@@ -706,6 +774,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
         }
+
     }
 
     //Methode pour la remise à zero de la partie!
@@ -835,7 +904,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 //Calcule le score du joueur
                 unScore = PersoTrouve*127;
-                EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnage.size() + " personnages ! Soit un score total de : " +unScore);
+                EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+totalimageatrouver + " personnages ! Soit un score total de : " +unScore);
 
 
                 txtTimer.setText("Fin");

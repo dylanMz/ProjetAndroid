@@ -46,7 +46,6 @@ public class collectionPersonnage {
     }
 
     public String getTheme(int numimage){
-        numimage++;
         Personnage findedPersonnage = new Personnage();
 
         for(int i = 0; i< ensPersonnagetheme.size(); i++){
@@ -57,6 +56,20 @@ public class collectionPersonnage {
 
         }
         return findedPersonnage.getNomImage();
+    }
+
+    public String getNomPersotheme(int numPerso){
+
+        Personnage findedPersonnage = new Personnage();
+
+        for(int i = 0; i< ensPersonnagetheme.size(); i++){
+
+            if(ensPersonnagetheme.get(i).getIdPersonnage() == numPerso ){
+                findedPersonnage = ensPersonnagetheme.get(i);
+            }
+
+        }
+        return findedPersonnage.getNomPersonnage();
     }
 
 
@@ -95,6 +108,24 @@ public class collectionPersonnage {
             base_qcm.ajoutPersonnage(new Personnage(27, "Flanders", "flanders", 11));
             base_qcm.ajoutPersonnage(new Personnage(28, "Marsupilami", "marsupilami", 12));
             base_qcm.ajoutPersonnage(new Personnage(29, "Grosminet", "grosminet", 13));
+            base_qcm.ajoutPersonnage(new Personnage(30, "Epidemaïs", "epidemais", 1));
+            base_qcm.ajoutPersonnage(new Personnage(31, "Praline", "praline", 1));
+            base_qcm.ajoutPersonnage(new Personnage(32, "Mme Agecanonix", "mmeagecanonix", 1));
+            base_qcm.ajoutPersonnage(new Personnage(33, "Marcus Sacapus", "marcussacapus", 1));
+            base_qcm.ajoutPersonnage(new Personnage(34, "Goudurix", "goudurix", 1));
+            base_qcm.ajoutPersonnage(new Personnage(35, "Falbala", "falbala", 1));
+            base_qcm.ajoutPersonnage(new Personnage(36, "Assurancetourix", "assurancetourix", 1));
+            base_qcm.ajoutPersonnage(new Personnage(37, "Agecanonix", "agecanonix", 1));
+            base_qcm.ajoutPersonnage(new Personnage(38, "Bonemine", "bonemine", 1));
+            base_qcm.ajoutPersonnage(new Personnage(39, "Cétautomatix", "cetautomatix", 1));
+            base_qcm.ajoutPersonnage(new Personnage(40, "Cicatix", "cicatrix", 1));
+            base_qcm.ajoutPersonnage(new Personnage(41, "Gélatine", "gelatine", 1));
+            base_qcm.ajoutPersonnage(new Personnage(42, "Homéopatix", "homeopatix", 1));
+            base_qcm.ajoutPersonnage(new Personnage(43, "Ordralfabétix", "ordralfabetix", 1));
+            base_qcm.ajoutPersonnage(new Personnage(44, "Ignoramus", "ignoramus", 1));
+            base_qcm.ajoutPersonnage(new Personnage(45, "Gracchus Garovirus", "gracchusgarovirus", 1));
+            base_qcm.ajoutPersonnage(new Personnage(46, "Amonbofis", "amonbofis", 1));
+            base_qcm.ajoutPersonnage(new Personnage(47, "Baba", "baba", 1));
             //base_qcm.ajoutPersonnage(new Personnage(8, "gaston"));
 
 
