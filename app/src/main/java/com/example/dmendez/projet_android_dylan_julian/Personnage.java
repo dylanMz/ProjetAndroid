@@ -4,6 +4,7 @@ public class Personnage {
     int idPersonnage;
     String nomPersonnage;
     String nomImage;
+    int idTheme;
 
     //Constructeur
     public Personnage (int wid, String wnomPersonnage, String wnomImage)
@@ -11,6 +12,14 @@ public class Personnage {
         idPersonnage=wid;
         nomPersonnage = wnomPersonnage;
         nomImage = wnomImage;
+    }
+
+    public Personnage (int wid, String wnomPersonnage, String wnomImage, int idTheme)
+    {
+        idPersonnage=wid;
+        nomPersonnage = wnomPersonnage;
+        nomImage = wnomImage;
+        this.idTheme = idTheme;
     }
 
     public Personnage() {
@@ -42,4 +51,11 @@ public class Personnage {
         this.nomImage = nomImage;
     }
 
+    public int getIdTheme() {
+        return idTheme;
+    }
+
+    public void setIdTheme(int idTheme) {
+        this.idTheme = idTheme;
+    }
 }

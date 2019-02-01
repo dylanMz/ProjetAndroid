@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.dmendez.projet_android_dylan_julian">
+    package="com.example.dmendez.projet_android_dylan_julian"
+    android:versionName="BETA 1.5"
+    android:versionCode="105">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

@@ -37,6 +37,7 @@ public class ThemeActivity extends AppCompatActivity {
             {
                 Intent unIntent = new Intent(ThemeActivity.this, MainActivity.class);
                 unIntent.putExtra("Joueur", lePrenom);
+                unIntent.putExtra("theme", 1);
                 startActivity(unIntent);
 
             }
@@ -49,6 +50,7 @@ public class ThemeActivity extends AppCompatActivity {
             {
                 Intent unIntent = new Intent(ThemeActivity.this, MainActivity.class);
                 unIntent.putExtra("Joueur", lePrenom);
+                unIntent.putExtra("theme", 11);
                 startActivity(unIntent);
 
             }
@@ -61,6 +63,7 @@ public class ThemeActivity extends AppCompatActivity {
             {
                 Intent unIntent = new Intent(ThemeActivity.this, MainActivity.class);
                 unIntent.putExtra("Joueur", lePrenom);
+                unIntent.putExtra("theme", 2);
                 startActivity(unIntent);
 
             }
@@ -73,6 +76,7 @@ public class ThemeActivity extends AppCompatActivity {
             {
                 Intent unIntent = new Intent(ThemeActivity.this, MainActivity.class);
                 unIntent.putExtra("Joueur", lePrenom);
+                unIntent.putExtra("theme", 3);
                 startActivity(unIntent);
 
             }

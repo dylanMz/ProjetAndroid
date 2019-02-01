@@ -43,6 +43,7 @@ public class ScoreActivity extends AppCompatActivity {
     private ArrayList<Score> ensScore = new ArrayList<>();
     private Score unScore;
     private String lePrenom;
+    private int numtheme;
     private ImageView imgInfoScore;
 
     private static final String NOM_BDD2 ="scoreBD";
@@ -90,6 +91,7 @@ public class ScoreActivity extends AppCompatActivity {
 
         //Récupère le nom du joueur
         lePrenom = this.getIntent().getExtras().getString("Joueur");
+        numtheme = this.getIntent().getExtras().getInt("theme");
 
         List_score = new ArrayList<>();
         new GetScore().execute();
@@ -117,6 +119,7 @@ public class ScoreActivity extends AppCompatActivity {
             {
                 Intent Intent1 = new Intent(ScoreActivity.this, MainActivity.class);
                 Intent1.putExtra("Joueur", lePrenom);
+                Intent1.putExtra("theme", numtheme);
                 startActivity(Intent1);
 
             }
