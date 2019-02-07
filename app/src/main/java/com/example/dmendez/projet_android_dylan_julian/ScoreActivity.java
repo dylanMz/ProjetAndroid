@@ -69,7 +69,7 @@ public class ScoreActivity extends AppCompatActivity {
     private ArrayList<String> NameE = new ArrayList<String>();
     private ArrayList<String> ScoreE = new ArrayList<String>();
 
-    String uneUrl = String.format("http://10.0.2.2/TestPhp/bdd_recuperation_score.php");
+    String uneUrl = String.format("http://149.91.81.169/bdd_recuperation_score.php");
     private String TAG = MainActivity.class.getSimpleName();
     private ArrayList<HashMap<String, String>> List_score;
 
@@ -206,27 +206,27 @@ public class ScoreActivity extends AppCompatActivity {
             tailleListeFacile = List_score.size() - 1;
 
             //Tant qu'il y a des données dans la liste ajoute les scores et noms des joueurs dans les bonnes listes
-            while (tailleListeFacile >= 0)
+            while (tailleListeFacile >= 0 )
             {
-                if(List_score.get(tailleListeFacile).get("niveau").equals("Facile"))
+                if(List_score.get(tailleListeFacile).get("niveau").equals("Facile") & NameF.size() < 9)
                 {
                     NameF.add(List_score.get(tailleListeFacile).get("nom"));
                     ScoreF.add(List_score.get(tailleListeFacile).get("score"));
                 }
 
-                if(List_score.get(tailleListeFacile).get("niveau").equals("Moyen"))
+                if(List_score.get(tailleListeFacile).get("niveau").equals("Moyen") & NameM.size() < 9)
                 {
                     NameM.add(List_score.get(tailleListeFacile).get("nom"));
                     ScoreM.add(List_score.get(tailleListeFacile).get("score"));
                 }
 
-                if(List_score.get(tailleListeFacile).get("niveau").equals("Difficile"))
+                if(List_score.get(tailleListeFacile).get("niveau").equals("Difficile") & NameD.size() < 9)
                 {
                     NameD.add(List_score.get(tailleListeFacile).get("nom"));
                     ScoreD.add(List_score.get(tailleListeFacile).get("score"));
                 }
 
-                if(List_score.get(tailleListeFacile).get("niveau").equals("Extreme"))
+                if(List_score.get(tailleListeFacile).get("niveau").equals("Extreme") & NameE.size() < 9)
                 {
                     NameE.add(List_score.get(tailleListeFacile).get("nom"));
                     ScoreE.add(List_score.get(tailleListeFacile).get("score"));

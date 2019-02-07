@@ -1,9 +1,12 @@
 package com.example.dmendez.projet_android_dylan_julian;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -15,6 +18,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Random;
 import java.util.*;
 
@@ -22,6 +37,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ProgressBar progressBarJeu1;
 
     private ConstraintLayout frmImages;
+
+
+    String URLServeur ="http://149.91.81.169/InsererScore.php";
+    ProgressDialog pDialog ;
     private float cordx;
     private float cordy;
 
@@ -49,6 +68,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private TextView txtScore;
 
     private ImageView imgTick;
+    //les images ou son les personnages
     private ImageView imgAtrouver;
     private ImageView imgAtrouver2;
     private ImageView imgChrono;
@@ -505,10 +525,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onFinish() {
                 //Quand le temps est arrivé à 0
                 int PersoTrouve = NUMimageatrouver - 1;
-
-                //Calcule le score du joueur
-                unScore = PersoTrouve*127;
-                EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+totalimageatrouver + " personnages ! Soit un score total de : " +unScore);
+                //si un thème est choisi
+                if(numetheme!=3){
+                    unScore = PersoTrouve*127;
+                    EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnagetheme.size() + " personnages ! Soit un score total de : " +unScore);
+                }else {
+                    //Calcule le score du joueur
+                    unScore = PersoTrouve*127;
+                    EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+totalimageatrouver + " personnages ! Soit un score total de : " +unScore);
+                }
 
                 txtTimer.setText("Fin");
 
@@ -740,9 +765,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     //Quand le temps est arrivé à 0
                     int PersoTrouve = NUMimageatrouver - 1;
 
-                    //Calcule le score du joueur
-                    unScore = PersoTrouve*127;
-                    EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+totalimageatrouver + " personnages ! Soit un score total de : " +unScore);
+                    if(numetheme!=3){
+                        unScore = PersoTrouve*127;
+                        EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnagetheme.size() + " personnages ! Soit un score total de : " +unScore);
+                    }else {
+                        //Calcule le score du joueur
+                        unScore = PersoTrouve*127;
+                        EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+totalimageatrouver + " personnages ! Soit un score total de : " +unScore);
+                    }
+
 
 
                     txtTimer.setText("Fin");
@@ -815,7 +846,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnNiveau4.animate().translationX(0).withLayer();
 
         if(unScore !=0){
-            liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
+            //liste_score.insertion_score(getApplicationContext(),unScore,lePrenom,leNiveau);
+            new  Webservice().execute(URLServeur,lePrenom,Integer.toString(unScore),leNiveau);
         }
 
 
@@ -902,9 +934,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //Quand le temps est arrivé à 0
                 int PersoTrouve = NUMimageatrouver - 1;
 
-                //Calcule le score du joueur
-                unScore = PersoTrouve*127;
-                EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+totalimageatrouver + " personnages ! Soit un score total de : " +unScore);
+                if(numetheme!=3){
+                    unScore = PersoTrouve*127;
+                    EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnagetheme.size() + " personnages ! Soit un score total de : " +unScore);
+                }else {
+                    //Calcule le score du joueur
+                    unScore = PersoTrouve*127;
+                    EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+totalimageatrouver + " personnages ! Soit un score total de : " +unScore);
+                }
 
 
                 txtTimer.setText("Fin");
@@ -913,6 +950,105 @@ public class MainActivity extends Activity implements View.OnClickListener {
         };
 
         countDownTimer.start();
+    }
+
+    class Webservice  extends AsyncTask< String , Void, String > {
+        @Override
+        protected void onPreExecute () {
+
+            // affichage de boite de  dialogue
+            /*pDialog =new ProgressDialog(MainActivity.this) ;
+            pDialog.setMessage("Connexion au serveur .......... " );
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();*/
+            super.onPreExecute();
+            Toast.makeText(MainActivity.this,"Ajout du score", Toast.LENGTH_LONG).show();
+
+
+
+
+
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            StringBuilder resultat =new StringBuilder();
+
+
+            try {
+
+                HttpURLConnection conx ;
+
+                URL url =new URL (strings[0]) ;
+                String nom=strings[1] ;
+                String score=strings[2] ;
+                String niveau = strings[3];
+
+
+
+
+                conx=(HttpURLConnection) url.openConnection();
+
+
+                conx.setDoInput(true);
+                conx.setRequestMethod("POST");
+                conx.setRequestProperty("Accept-Charset","UTF-8");
+                conx.setConnectTimeout(1000);
+
+                Uri.Builder builder =new Uri.Builder().appendQueryParameter("nom",nom).appendQueryParameter("score",score).appendQueryParameter("niveau",niveau) ;
+
+                String requete =builder.build().getEncodedQuery();
+
+                OutputStream os = conx.getOutputStream() ;
+                BufferedWriter writer =new BufferedWriter( new OutputStreamWriter(os,"UTF-8"));
+                writer.write(requete);
+                writer.flush();
+                writer.close();
+                os.close();
+
+
+                conx.connect();
+                // recuperation de donnees sous forme string
+
+                InputStream in =new BufferedInputStream(conx.getInputStream());
+                BufferedReader reader =new BufferedReader( (new InputStreamReader(in)));
+
+                String ligne ;
+                while ((ligne=reader.readLine())!=null ) {
+                    resultat.append(ligne) ;
+                }
+
+                conx.disconnect();
+
+
+            }
+            catch (IOException e){
+                e.printStackTrace();
+
+            }
+
+
+
+            return resultat.toString() ;
+
+
+        }
+
+        @Override
+        protected  void onPostExecute (String str) {
+
+            //pDialog.dismiss(); //fermeture de boite de dialogue
+
+            Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
+
+
+
+
+        }
+
+
     }
 
 
