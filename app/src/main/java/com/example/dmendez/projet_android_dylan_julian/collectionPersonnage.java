@@ -126,6 +126,28 @@ public class collectionPersonnage {
             base_qcm.ajoutPersonnage(new Personnage(45, "Gracchus Garovirus", "gracchusgarovirus", 1));
             base_qcm.ajoutPersonnage(new Personnage(46, "Amonbofis", "amonbofis", 1));
             base_qcm.ajoutPersonnage(new Personnage(47, "Baba", "baba", 1));
+            base_qcm.ajoutPersonnage(new Personnage(48, "Lisa", "lisa", 11));
+            base_qcm.ajoutPersonnage(new Personnage(49, "Milhouse", "milhouse", 11));
+            base_qcm.ajoutPersonnage(new Personnage(50, "Moe", "moe", 11));
+            base_qcm.ajoutPersonnage(new Personnage(51, "Mr Burns", "mrburns", 11));
+            base_qcm.ajoutPersonnage(new Personnage(52, "Nelson", "nelson", 11));
+            base_qcm.ajoutPersonnage(new Personnage(53, "Waylon", "waylon", 11));
+            base_qcm.ajoutPersonnage(new Personnage(54, "Edna", "edna", 11));
+            base_qcm.ajoutPersonnage(new Personnage(55, "Barney", "barney", 11));
+            base_qcm.ajoutPersonnage(new Personnage(56, "Seymour", "seymour", 11));
+            base_qcm.ajoutPersonnage(new Personnage(57, "Abraham", "abraham", 11));
+            base_qcm.ajoutPersonnage(new Personnage(58, "Gros Tony", "grostony", 11));
+            base_qcm.ajoutPersonnage(new Personnage(59, "Patty", "patty", 11));
+            base_qcm.ajoutPersonnage(new Personnage(60, "Ralph", "ralph", 11));
+            base_qcm.ajoutPersonnage(new Personnage(61, "Clancy", "clancy", 11));
+            base_qcm.ajoutPersonnage(new Personnage(62, "Hans_Taupeman", "hanstaupeman", 11));
+            base_qcm.ajoutPersonnage(new Personnage(63, "Lenny", "lenny", 11));
+            base_qcm.ajoutPersonnage(new Personnage(64, "Willie", "willie", 11));
+            base_qcm.ajoutPersonnage(new Personnage(65, "Carl Carlson", "carlcarlson", 11));
+            base_qcm.ajoutPersonnage(new Personnage(66, "Martin Prince", "martinprince", 11));
+            base_qcm.ajoutPersonnage(new Personnage(67, "Lovejoy", "lovejoy", 11));
+            base_qcm.ajoutPersonnage(new Personnage(68, "Luann", "luann", 11));
+            base_qcm.ajoutPersonnage(new Personnage(69, "Kent Brockman", "kentbrockman", 11));
             //base_qcm.ajoutPersonnage(new Personnage(8, "gaston"));
 
 
