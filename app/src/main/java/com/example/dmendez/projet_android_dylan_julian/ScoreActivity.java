@@ -40,8 +40,8 @@ public class ScoreActivity extends AppCompatActivity {
     private ListView listeExtreme;
 
     private gestionBdd db =new gestionBdd(this);
-    private ArrayList<Score> ensScore = new ArrayList<>();
-    private Score unScore;
+    //private ArrayList<Score> ensScore = new ArrayList<>();
+    //private Score unScore;
     private String lePrenom;
     private int numtheme;
     private ImageView imgInfoScore;

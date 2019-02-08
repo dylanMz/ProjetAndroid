@@ -14,7 +14,6 @@
         android:supportsRtl="true">
         <activity
             android:name=".AccueilActivity"
-            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +32,6 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".ScoreActivity"
-            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".ThemeActivity"

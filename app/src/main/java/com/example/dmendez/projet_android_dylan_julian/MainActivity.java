@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,11 +14,18 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.constraint.ConstraintLayout;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
@@ -68,7 +76,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private TextView txtScore;
 
     private ImageView imgTick;
-    //les images ou son les personnages
+
+    //les images des personnages
     private ImageView imgAtrouver;
     private ImageView imgAtrouver2;
     private ImageView imgChrono;
@@ -123,10 +132,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private String nomPerso;
     private int RandNumtout;
 
+    //les timers
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimer2;
     private CountDownTimer countDownTimerErreur;
     private CountDownTimer countDownTimerTick;
+
     private MediaPlayer bonneRep;
     private MediaPlayer mauvaiseRep;
 
@@ -136,7 +147,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
-    private collectionScore liste_score = new collectionScore();
+    //private collectionScore liste_score = new collectionScore();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,9 +217,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
 
         txtMessageFin.setVisibility(View.INVISIBLE);
-        //Affiche le prénom du joueur
+
+        //Recupère le prénom du joueur
         lePrenom = this.getIntent().getExtras().getString("Joueur");
+
+        //Recupère le thème
         numetheme = this.getIntent().getExtras().getInt("theme");
+
+        //Affiche le prénom du joueur
         txtAccueilMsg.setText("Bonne chance " + lePrenom + ", choisi un niveau !");
 
 
@@ -234,8 +250,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //Affecte la valeur 120 a une seconde.
                 uneSeconde = 120;
                 leNiveau = "Facile";
+
+                //Animation sur le bouton
                 btnNiveau1.animate().translationX(400).withLayer();
 
+                //Lance la partie
                 launchNiveau(uneSeconde);
                 initImage();
             }
@@ -250,8 +269,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 uneSeconde = 80;
                 leNiveau = "Moyen";
 
+                //Animation sur le bouton
                 btnNiveau2.animate().translationX(400).withLayer();
 
+                //Lance la partie
                 launchNiveau(uneSeconde);
                 initImage();
             }
@@ -266,8 +287,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 uneSeconde = 60;
                 leNiveau = "Difficile";
 
+                //Animation sur le bouton
                 btnNiveau3.animate().translationX(400).withLayer();
 
+                //Lance la partie
                 launchNiveau(uneSeconde);
                 initImage();
             }
@@ -282,8 +305,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 uneSeconde = 45;
                 leNiveau = "Extreme";
 
+                //Animation sur le bouton
                 btnNiveau4.animate().translationX(400).withLayer();
 
+                //Lance la partie
                 launchNiveau(uneSeconde);
                 initImage();
             }
@@ -353,16 +378,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
             maxTab = randomize(liste_personnage.ensPersonnage.size(), liste_personnage.ensPersonnage.size()+1);
         }
 
-        int nbMax = liste_personnage.ensPersonnage.size();
-
-
-
         //Nombre aléatoire sans doublon pour disposer les images aléatoirement sur l'écran
 
 
         if(numetheme != 3){
             //choix d'un theme
-
             for (int i = 0; i<liste_personnage.ensPersonnagetheme.size(); i++){
                 int RandNum = NumRend.nextInt(liste_personnage.ensPersonnagetheme.size());
                 lNomPerso = liste_personnage.ensPersonnagetheme.get(i).getNomImage();
@@ -376,7 +396,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 System.out.println(lNomPerso);
             }
         }else{
-            //choix du niveau tout
+            //Thème "Tous"
             for(int i = 0; i<totalimageatrouver; i++){
                 int RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
                 for(;;){
@@ -468,16 +488,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     {
         unScore = 0;
         isPaused = false;
-        /*
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        long randomposition = (long) (Math.random() * metrics.widthPixels * (Math.random() > 0.5 ? 1 : -1));
-        long randomposition2 = (long) (Math.random() * metrics.heightPixels * (Math.random() > 0.5 ? 1 : -1));
-        Animation animation = new TranslateAnimation(0, randomposition, 0,randomposition2);
-        animation.setDuration(1000);
-        animation.setFillAfter(true);
-        imageperso.startAnimation(animation);
-        */
+
         txtTimer.setTextColor(Color.WHITE);
 
         //Les images apparaissent
@@ -567,13 +578,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
             //enregistrement de la position avant changement
             cordx = view.getX();
             cordy = view.getY();
+
             //animation de l'image
             view.animate().x(imgAtrouver2.getX()).y(imgAtrouver2.getY()).setDuration(500).start();
 
             //Affiche le tick vert pour montrer que l'utilisateur a choisi le bon personnage.
             imgTick.setVisibility(View.VISIBLE);
 
-            //Instancie le timer
+            //Instancie le timer correspondant au tick vert qui indique que l'utilisateur a trouvé le bon personnage
             countDownTimerTick = new CountDownTimer(1 * 1000, 1000) {
 
                 //Evènement qui se passe pendant que le timer est en cours
@@ -734,8 +746,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             int minutesScondesRestante = minuteRestante + secondesEnsembleFinal;
 
             //Instancie un nouveau timer avec l'ancien temps et le malus. (Car l'utilisateur s'est trompé de personnage.)
-
-
             countDownTimer = new CountDownTimer(minutesScondesRestante*1000 , 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -902,9 +912,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int secondesEnsembleFinal = Integer.parseInt(secondesEnsemble);
         int minutesScondesRestante = minuteRestante + secondesEnsembleFinal;
 
-        //Instancie un nouveau timer avec l'ancien temps et le malus. (Car l'utilisateur s'est trompé de personnage.)
-
-
+        //Relance le timer après la pause
         countDownTimer = new CountDownTimer(minutesScondesRestante*1000 , 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
