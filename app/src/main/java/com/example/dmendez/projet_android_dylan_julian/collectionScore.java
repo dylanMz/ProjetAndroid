@@ -1,3 +1,14 @@
+
+
+
+
+//Utilise pour gérer les scores en local.
+
+
+
+
+
+/*
 package com.example.dmendez.projet_android_dylan_julian;
 
 import android.app.ProgressDialog;
@@ -25,7 +36,7 @@ public class collectionScore {
     ProgressDialog pDialog ;
 
 
-    public void insertion_score(Context un_context, int wScore, String wNom, String wNiveau) {
+    public void insertion_score(Context un_context, int wScore, String wNom, String wNiveau) {*/
         /*base_qcm = new gestionBdd(un_context);
 
         ensScore = base_qcm.getLesScores();
@@ -34,8 +45,10 @@ public class collectionScore {
 
 
 
+        /*
     }
 
 
 
 }
+*/

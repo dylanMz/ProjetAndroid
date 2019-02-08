@@ -101,6 +101,7 @@ public class gestionBdd extends SQLiteOpenHelper {
         return insertion;
     }
 
+    /* UTILE POUR GERER LES SCORES EN LOCAL
     //Permet d'ajouter un score
     public long ajoutScore(Score unScore){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -116,7 +117,7 @@ public class gestionBdd extends SQLiteOpenHelper {
         return insertion;
 
     }
-
+*/
     //Retourne l'ensemble des personnages
     public ArrayList<Personnage> getLesPersonnages(){
         ArrayList<Personnage> ensPersonnage = new ArrayList<Personnage>();
@@ -163,7 +164,7 @@ public class gestionBdd extends SQLiteOpenHelper {
         return ensPersonnage;
     }
 
-
+/* //UTILE POUR GERER LES SCORES EN LOCAL
     //Retourne l'ensemble des scores
     public ArrayList<Score> getLesScores(){
         ArrayList<Score> ensScore = new ArrayList<Score>();
@@ -186,5 +187,5 @@ public class gestionBdd extends SQLiteOpenHelper {
         }
 
         return ensScore;
-    }
+    }*/
 }

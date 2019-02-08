@@ -1,4 +1,20 @@
-package com.example.dmendez.projet_android_dylan_julian;
+
+
+
+
+
+
+
+//Classe utile pour gérer les scores en local.
+
+
+
+
+
+
+
+
+/*package com.example.dmendez.projet_android_dylan_julian;
 
 public class Score {
 
@@ -60,3 +76,4 @@ public class Score {
     public void setScoreNiveau(String scoreNiveau){ this.scoreNiveau=scoreNiveau;}
 
 }
+*/
