@@ -1,6 +1,8 @@
 package com.example.dmendez.projet_android_dylan_julian;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -227,7 +229,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //Affiche le prénom du joueur
         txtAccueilMsg.setText("Bonne chance " + lePrenom + ", choisi un niveau !");
 
-
+/*
+        FragmentManager fragMana = getFragmentManager();
+        FragmentTransaction fragTrans = fragMana.beginTransaction();
+        MenuActivity lemenu = new MenuActivity();
+        fragTrans.add(R.id.menu_fragment, lemenu);
+        fragTrans.commit();*/
 
         liste_personnage.insertion_personnage(getApplicationContext());
         imgAtrouver.setImageResource(R.drawable.pointinterogation);
@@ -398,10 +405,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }else{
             //Thème "Tous"
             for(int i = 0; i<totalimageatrouver; i++){
-                int RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
+                int RandNum = NumRend.nextInt(totalimageatrouver);
                 for(;;){
                     if(unNombre.add(RandNum)) break;
-                    else RandNum = NumRend.nextInt(liste_personnage.ensPersonnage.size());
+                    else RandNum = NumRend.nextInt(totalimageatrouver);
                 }
 
                 //modifie les propriétés des images dans la liste
@@ -409,15 +416,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 NomPerso = liste_personnage.getNomImage(maxTab[NUMimageatrouver]);
                 identifier= getResources().getIdentifier(NomPerso, "drawable", getPackageName());
-                imagePersoList[i].setImageResource(identifier);
-                imagePersoList[i].setTag(identifier);
-                imagePersoList[i].setEnabled(true);
-                imagePersoList[i].setVisibility(View.VISIBLE);
+                imagePersoList[RandNum].setImageResource(identifier);
+                imagePersoList[RandNum].setTag(identifier);
+                imagePersoList[RandNum].setEnabled(true);
+                imagePersoList[RandNum].setVisibility(View.VISIBLE);
                 NUMimageatrouver++;
-                System.out.println(NUMimageatrouver + " probleme    " + liste_personnage.ensPersonnage.size() + maxTab[NUMimageatrouver]);
                 if (NUMimageatrouver == totalimageatrouver){
                     NUMimageatrouver = 0;
-                    System.out.println(NUMimageatrouver + " probleme    ");
                 }
 
             }
