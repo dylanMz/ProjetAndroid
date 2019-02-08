@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 
 
-public class MenuActivity extends Fragment implements View.OnClickListener{
+public class MenuActivity extends Fragment{
 
     private MainActivity mainactivity;
 
@@ -30,7 +30,7 @@ public class MenuActivity extends Fragment implements View.OnClickListener{
 
 
     }
-
+/*
     // Called when a fragment is first attached to its context.
     @Override
     public void onAttach(Context context) {
@@ -46,5 +46,5 @@ public class MenuActivity extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
 
 
-    }
+    }*/
 }
