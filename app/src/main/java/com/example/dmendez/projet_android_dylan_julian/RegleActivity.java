@@ -66,6 +66,7 @@ public class RegleActivity extends Activity implements View.OnClickListener{
 
                 if (nbRegle == 1){
                     regle2();
+
                 }
 
                 if(nbRegle == 2 ){
@@ -74,8 +75,9 @@ public class RegleActivity extends Activity implements View.OnClickListener{
 
                 if(nbRegle == 3){
                     regle4();
-                }
+                    imageFlecheDroite.setVisibility(View.INVISIBLE);
 
+                }
 
             }
         });
@@ -89,13 +91,21 @@ public class RegleActivity extends Activity implements View.OnClickListener{
 
                 if(nbRegle == 0){
                     regle1();
+                    imageFlecheDroite.setVisibility(View.VISIBLE);
+
+
                 }
                 if(nbRegle == 1){
                     regle2();
+                    imageFlecheDroite.setVisibility(View.VISIBLE);
+
                 }
 
                 if(nbRegle == 2){
                     regle3();
+                    imageFlecheDroite.setVisibility(View.VISIBLE);
+
+
                 }
 
 
