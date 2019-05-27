@@ -21,6 +21,7 @@ public class AccueilActivity extends Activity implements View.OnClickListener {
     private Toast unToast;
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
+    private collectionThemes liste_themes = new collectionThemes();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class AccueilActivity extends Activity implements View.OnClickListener {
         editTextPrenom = (EditText) this.findViewById(R.id.editText_prenom);
 
         liste_personnage.insertion_personnage(getApplicationContext());
+        liste_themes.insertion_theme(getApplicationContext());
 
         imageJeu1.setOnClickListener(new View.OnClickListener()
         {

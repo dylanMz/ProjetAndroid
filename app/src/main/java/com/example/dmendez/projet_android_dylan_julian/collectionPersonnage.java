@@ -24,6 +24,10 @@ public class collectionPersonnage {
         }
         return findedPersonnage.getNomPersonnage();
     }
+    public void recup_theme(Context un_context,String libelleTheme){
+        base_qcm = new gestionBdd(un_context);
+        ensPersonnagetheme = base_qcm.getLesPersonnagesTheme(libelleTheme);
+    }
 
     public String getNomImage(int numImage){
         numImage++;
@@ -40,10 +44,6 @@ public class collectionPersonnage {
         return findedPersonnage.getNomImage();
     }
 
-    public void recup_theme(Context un_context,int numtheme){
-        base_qcm = new gestionBdd(un_context);
-        ensPersonnagetheme = base_qcm.getLesPersonnagesTheme(numtheme);
-    }
 
     public String getTheme(int numimage){
         Personnage findedPersonnage = new Personnage();

@@ -15,7 +15,8 @@ public class gestionBdd extends SQLiteOpenHelper {
     // défini des constantes de classe
     private static final int VERSION_BDD = 1;
     private static final String nomTableTheme = "THEME";
-    private static final String NOM_BDD = "personnageBD";
+    private static final String NOM_BDD = "TrouveLeBdd";
+    private static final String NOM_Perso = "personnageBD";
     private static final String nom = "nomPersonnage";
     private static final String chemin = "chemin";
     private static final String id = "idPersonnage";
@@ -43,8 +44,8 @@ public class gestionBdd extends SQLiteOpenHelper {
     private String Difficile = "Difficile";
     private ScoreActivity scoreActivity;
 
-    public static final String reqCreationTablePerso = "CREATE TABLE " + NOM_BDD + "(" + id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            nom  + " TEXT, " + nomimage + " TEXT, " + idtheme + " INTEGER) ;";
+    public static final String reqCreationTablePerso = "CREATE TABLE " + NOM_Perso + "(" + id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            nom  + " TEXT, " + nomimage + " TEXT, " + idtheme + " INTEGER, " + " FOREIGN KEY("+idtheme+") REFERENCES "+nomTableTheme+"("+idtheme+"));";
 
     public static final String reqReqCreationTableScore = "CREATE TABLE " + NOM_BDD2 + "(" + id2 +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             score  + " INTEGER, " + nomJoueur + " TEXT, " + niveau + " TEXT) ;";
@@ -64,8 +65,13 @@ public class gestionBdd extends SQLiteOpenHelper {
     //surcharge de la méthode onCreate
     @Override
     public void onCreate(SQLiteDatabase objbdd){
+        Log.i("test base","insertion " + String.valueOf(reqCreationTableTheme));
+        String reqSuppP3 = "DROP TABLE IF EXISTS " + nomTableTheme;
+        objbdd.execSQL(reqSuppP3);
+        objbdd.execSQL(reqCreationTableTheme);
+
         Log.i("test base","insertion " + String.valueOf(reqCreationTablePerso));
-        String reqSuppP = "DROP TABLE IF EXISTS " + NOM_BDD;
+        String reqSuppP = "DROP TABLE IF EXISTS " + NOM_Perso;
         objbdd.execSQL(reqSuppP);
         objbdd.execSQL(reqCreationTablePerso);
 
@@ -74,18 +80,17 @@ public class gestionBdd extends SQLiteOpenHelper {
         objbdd.execSQL(reqSuppP2);
         objbdd.execSQL(reqReqCreationTableScore);
 
-        Log.i("test base","insertion " + String.valueOf(reqCreationTableTheme));
-        String reqSuppP3 = "DROP TABLE IF EXISTS " + nomTableTheme;
-        objbdd.execSQL(reqSuppP3);
-        objbdd.execSQL(reqCreationTableTheme);
-
 
         System.out.println("ok creation fini !!!!");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        String reqSuppP = "DROP TABLE IF EXISTS " + NOM_BDD;
+        String reqSuppP3 = "DROP TABLE IF EXISTS " + nomTableTheme;
+        sqLiteDatabase.execSQL(reqSuppP3);
+        onCreate(sqLiteDatabase);
+
+        String reqSuppP = "DROP TABLE IF EXISTS " + NOM_Perso;
         sqLiteDatabase.execSQL(reqSuppP);
         onCreate(sqLiteDatabase);
 
@@ -93,9 +98,6 @@ public class gestionBdd extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(reqSuppP2);
         onCreate(sqLiteDatabase);
 
-        String reqSuppP3 = "DROP TABLE IF EXISTS " + nomTableTheme;
-        sqLiteDatabase.execSQL(reqSuppP3);
-        onCreate(sqLiteDatabase);
 
     }
 
@@ -110,7 +112,19 @@ public class gestionBdd extends SQLiteOpenHelper {
         values.put("nomImage",unPersonnage.getNomImage());
         values.put("idtheme", unPersonnage.getIdTheme());
 
-        long insertion = db.insert(NOM_BDD, null, values);
+        long insertion = db.insert(NOM_Perso, null, values);
+        return insertion;
+    }
+
+    public long ajoutTheme(Theme unTheme){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put("idTheme",unTheme.getIdtheme());
+        values.put("libelleTheme",unTheme.getLibelle());
+
+        long insertion = db.insert(nomTableTheme, null, values);
         return insertion;
     }
 
@@ -134,7 +148,7 @@ public class gestionBdd extends SQLiteOpenHelper {
     //Retourne l'ensemble des personnages
     public ArrayList<Personnage> getLesPersonnages(){
         ArrayList<Personnage> ensPersonnage = new ArrayList<Personnage>();
-        String reqSelect = " SELECT * FROM " + NOM_BDD;
+        String reqSelect = " SELECT * FROM " + NOM_Perso;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor unCurseur = db.rawQuery(reqSelect, null);
@@ -155,9 +169,9 @@ public class gestionBdd extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<Personnage> getLesPersonnagesTheme(int num_theme){
+    public ArrayList<Personnage> getLesPersonnagesTheme(String libelle_Theme){
         ArrayList<Personnage> ensPersonnage = new ArrayList<Personnage>();
-        String reqSelect = " SELECT * FROM " + NOM_BDD + " Where " + idtheme + " = " + num_theme;
+        String reqSelect = " SELECT "+NOM_Perso+"."+id+","+NOM_Perso+"."+nom+","+NOM_Perso+"."+nomimage+","+NOM_Perso+"."+idtheme+" FROM " + NOM_Perso + ","+nomTableTheme+ " Where " + NOM_Perso + "." + idtheme + " = " + nomTableTheme + "." + idtheme + " And " + libelletheme + " Like '" + libelle_Theme + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor unCurseur = db.rawQuery(reqSelect, null);
@@ -175,6 +189,26 @@ public class gestionBdd extends SQLiteOpenHelper {
         }
 
         return ensPersonnage;
+    }
+
+    public ArrayList<Theme> getLesThemes(){
+        ArrayList<Theme> enstheme = new ArrayList<Theme>();
+        String reqSelect = " SELECT * FROM " + nomTableTheme;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor unCurseur = db.rawQuery(reqSelect, null);
+        if(unCurseur.moveToFirst()){
+            do{
+                Theme un_theme = new Theme();
+                un_theme.setIdtheme(unCurseur.getInt(unCurseur.getColumnIndex(idtheme)));
+                un_theme.setLibelle(unCurseur.getString(unCurseur.getColumnIndex(libelletheme)));
+
+                enstheme.add(un_theme);
+            }while (unCurseur.moveToNext());
+            Collections.shuffle(enstheme);
+        }
+
+        return enstheme;
     }
 
 /* //UTILE POUR GERER LES SCORES EN LOCAL

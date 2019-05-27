@@ -129,7 +129,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private long TempsTimer;
     private int minuteRestante;
     private String lNomPerso;
-    private int numetheme;
+    private String nomTheme;
     private String nomimage;
     private String nomPerso;
     private int RandNumtout;
@@ -149,6 +149,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
     private collectionPersonnage liste_personnage = new collectionPersonnage();
+    private collectionThemes liste_themes = new collectionThemes();
     //private collectionScore liste_score = new collectionScore();
 
     @Override
@@ -224,7 +225,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         lePrenom = this.getIntent().getExtras().getString("Joueur");
 
         //Recupère le thème
-        numetheme = this.getIntent().getExtras().getInt("theme");
+        nomTheme = this.getIntent().getExtras().getString("theme");
 
         //Affiche le prénom du joueur
         txtAccueilMsg.setText("Bonne chance " + lePrenom + ", choisi un niveau !");
@@ -236,6 +237,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         fragTrans.add(R.id.menu_fragment, lemenu);
         fragTrans.commit();*/
 
+        liste_themes.insertion_theme(getApplicationContext());
         liste_personnage.insertion_personnage(getApplicationContext());
         imgAtrouver.setImageResource(R.drawable.pointinterogation);
 
@@ -362,7 +364,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             {
                 Intent intent1 = new Intent(MainActivity.this, ScoreActivity.class);
                 intent1.putExtra("Joueur", lePrenom);
-                intent1.putExtra("theme", numetheme);
+                intent1.putExtra("theme", nomTheme);
                 startActivity(intent1);
 
 
@@ -378,8 +380,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         TreeSet unNombre = new TreeSet();
         Random NumRend = new Random();
         RandNumtout = NumRend.nextInt(liste_personnage.ensPersonnage.size());
-        if(numetheme != 3){
-            liste_personnage.recup_theme(getApplicationContext(), numetheme);
+        if(!nomTheme.equals("Tous")){
+            liste_personnage.recup_theme(getApplicationContext(), nomTheme);
             maxTab = randomize(liste_personnage.ensPersonnagetheme.size(), liste_personnage.ensPersonnagetheme.size() + 1);
         }else{
             maxTab = randomize(liste_personnage.ensPersonnage.size(), liste_personnage.ensPersonnage.size()+1);
@@ -388,7 +390,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //Nombre aléatoire sans doublon pour disposer les images aléatoirement sur l'écran
 
 
-        if(numetheme != 3){
+        if(!nomTheme.equals("Tous")){
             //choix d'un theme
             for (int i = 0; i<liste_personnage.ensPersonnagetheme.size(); i++){
                 int RandNum = NumRend.nextInt(liste_personnage.ensPersonnagetheme.size());
@@ -437,7 +439,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         System.out.println(maxTab[NUMimageatrouver] + " dd "+ NUMimageatrouver);
         int numatrouver = maxTab[NUMimageatrouver];
-        if(numetheme != 3){
+        if(!nomTheme.equals("Tous")){
             nomimage = liste_personnage.ensPersonnagetheme.get(numatrouver).getNomImage();
             nomPerso = liste_personnage.ensPersonnagetheme.get(numatrouver).getNomPersonnage();
            // nomimage = liste_personnage.getTheme(numatrouver);
@@ -543,7 +545,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //Quand le temps est arrivé à 0
                 int PersoTrouve = NUMimageatrouver - 1;
                 //si un thème est choisi
-                if(numetheme!=3){
+                if(!nomTheme.equals("Tous")){
                     unScore = PersoTrouve*127;
                     EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnagetheme.size() + " personnages ! Soit un score total de : " +unScore);
                 }else {
@@ -610,7 +612,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             countDownTimerTick.start();
 
 
-            if (numetheme != 3 ){
+            if (!nomTheme.equals("Tous")){
                 //si un theme est choisi
                 //Detecte si la partie est fini ou non!
                 if(NUMimageatrouver == liste_personnage.ensPersonnagetheme.size()){
@@ -705,7 +707,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
              }
 
             //Récupère le nombre de personnage
-            if(numetheme !=3){
+            if(!nomTheme.equals("Tous")){
                 nbPerso = liste_personnage.ensPersonnagetheme.size();
             }else{
                 nbPerso = totalimageatrouver;
@@ -781,7 +783,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     //Quand le temps est arrivé à 0
                     int PersoTrouve = NUMimageatrouver - 1;
 
-                    if(numetheme!=3){
+                    if(!nomTheme.equals("Tous")){
                         unScore = PersoTrouve*127;
                         EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnagetheme.size() + " personnages ! Soit un score total de : " +unScore);
                     }else {
@@ -948,7 +950,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //Quand le temps est arrivé à 0
                 int PersoTrouve = NUMimageatrouver - 1;
 
-                if(numetheme!=3){
+                if(!nomTheme.equals("Tous")){
                     unScore = PersoTrouve*127;
                     EndGames("Fin de partie tu as pas terminé, tu as trouvé "+ PersoTrouve+"/"+liste_personnage.ensPersonnagetheme.size() + " personnages ! Soit un score total de : " +unScore);
                 }else {
