@@ -74,6 +74,11 @@ public class gestionBdd extends SQLiteOpenHelper {
         objbdd.execSQL(reqSuppP2);
         objbdd.execSQL(reqReqCreationTableScore);
 
+        Log.i("test base","insertion " + String.valueOf(reqCreationTableTheme));
+        String reqSuppP3 = "DROP TABLE IF EXISTS " + nomTableTheme;
+        objbdd.execSQL(reqSuppP3);
+        objbdd.execSQL(reqCreationTableTheme);
+
 
         System.out.println("ok creation fini !!!!");
     }
@@ -86,6 +91,10 @@ public class gestionBdd extends SQLiteOpenHelper {
 
         String reqSuppP2 = "DROP TABLE IF EXISTS " + NOM_BDD2;
         sqLiteDatabase.execSQL(reqSuppP2);
+        onCreate(sqLiteDatabase);
+
+        String reqSuppP3 = "DROP TABLE IF EXISTS " + nomTableTheme;
+        sqLiteDatabase.execSQL(reqSuppP3);
         onCreate(sqLiteDatabase);
 
     }
