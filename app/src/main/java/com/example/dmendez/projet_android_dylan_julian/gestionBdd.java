@@ -27,6 +27,7 @@ public class gestionBdd extends SQLiteOpenHelper {
     private static final String score = "scoreJoueur";
     private static final String nomJoueur = "scoreNom";
     private static final String niveau = "scoreNiveau";
+    private static final String libelletheme = "libelleTheme";
 
     private ArrayList<String> Id = new ArrayList<String>();
     private ArrayList<String> Name = new ArrayList<String>();
@@ -47,6 +48,9 @@ public class gestionBdd extends SQLiteOpenHelper {
 
     public static final String reqReqCreationTableScore = "CREATE TABLE " + NOM_BDD2 + "(" + id2 +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             score  + " INTEGER, " + nomJoueur + " TEXT, " + niveau + " TEXT) ;";
+
+    public static final String reqCreationTableTheme = "CREATE TABLE " + nomTableTheme + "(" + idtheme + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            libelletheme + " TEXT) ;";
 
     // constructeur
     public gestionBdd(Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
