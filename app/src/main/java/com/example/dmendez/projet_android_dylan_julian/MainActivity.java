@@ -49,7 +49,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ConstraintLayout frmImages;
 
 
-    String URLServeur ="http://149.91.81.169/InsererScore.php";
+    String URLServeur ="http://juliandemois.alwaysdata.net/bdd_inserer_score.php";
     ProgressDialog pDialog ;
     private float cordx;
     private float cordy;
@@ -431,6 +431,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         ImageaTrouver();
 
     }
+
     //Permet de modifier l'image à trouver pendant le déroulement de la partie
     private void ImageaTrouver(){
 

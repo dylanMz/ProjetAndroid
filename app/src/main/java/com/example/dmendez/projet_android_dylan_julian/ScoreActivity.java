@@ -69,7 +69,7 @@ public class ScoreActivity extends AppCompatActivity {
     private ArrayList<String> NameE = new ArrayList<String>();
     private ArrayList<String> ScoreE = new ArrayList<String>();
 
-    String uneUrl = String.format("http://149.91.81.169/bdd_recuperation_score.php");
+    String uneUrl = String.format("http://juliandemois.alwaysdata.net/bdd_recuperation_score.php");
     private String TAG = MainActivity.class.getSimpleName();
     private ArrayList<HashMap<String, String>> List_score;
 
